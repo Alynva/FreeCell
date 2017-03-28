@@ -1,0 +1,29 @@
+# Compilador
+CC = g++
+
+# Flags de versao
+C_VERSION = -std=c++11
+
+# Arquivo principal
+OBJ_FILE = main.cpp
+
+# Arquivos auxiliares
+AUX_FILES = textura.cpp carta.cpp
+
+# Flags do compilador
+CC_FLAGS = -w
+
+# Linkers do compilador
+CC_LINKERS = -lSDL2_image -lSDL2
+
+# Arquivo de saída
+OUT_FILE = ../presidente.out
+
+all:
+	$(CC) $(C_VERSION) $(OBJ_FILE) $(AUX_FILES) $(CC_FLAGS) $(CC_LINKERS) -o $(OUT_FILE)
+
+clean:
+	rm $(OUT_FILE)
+
+run:
+	$(OUT_FILE)
