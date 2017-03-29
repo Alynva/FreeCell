@@ -1,7 +1,7 @@
 #include "carta.h"
 #include "textura.h"
 #include <iostream>
-#include <C:\SDL2-2.0.5\x86_64-w64-mingw32\include\SDL2\SDL.h>
+#include <C:\Users\Alynva\Desktop\SDL2-2.0.5\x86_64-w64-mingw32\include\SDL2\SDL.h>
 #include <string>
 
 using namespace std;
