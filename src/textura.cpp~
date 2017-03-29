@@ -38,6 +38,10 @@ Textura::Textura(string path, SDL_Renderer* renderer, int x, int y, int w, int h
 	this->recFormat.h = h;
 }
 
+Textura::~Textura(){
+	SDL_DestroyTexture(this->pTexture);
+}
+
 void Textura::render(){
 	SDL_RenderCopy(this->pRenderer, this->pTexture, NULL, &this->recFormat);
 }

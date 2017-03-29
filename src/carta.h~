@@ -11,11 +11,10 @@ class Carta {
 	public:
 	Carta(int, SDL_Renderer*);
 	
-	void renderCard();
+	void render();
 	
 	int getValue();
 	char getSuit();
-	Textura getTexture();
 };
 
 #endif
