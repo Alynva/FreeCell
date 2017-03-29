@@ -1,6 +1,6 @@
-#include "carta.h"
 #include <iostream>
-#include "textura.h"
+#include "../../Header/include/carta.h"
+#include "../../Header/include/textura.h"
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480

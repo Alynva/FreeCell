@@ -1,6 +1,5 @@
-#include "textura.h"
+#include "../../Header/include/textura.h"
 #include <iostream>
-#include <string>
 
 using namespace std;
 
@@ -36,10 +35,6 @@ Textura::Textura(string path, SDL_Renderer* renderer, int x, int y, int w, int h
 	this->recFormat.y = y;
 	this->recFormat.w = w;
 	this->recFormat.h = h;
-}
-
-Textura::~Textura(){
-	SDL_DestroyTexture(this->pTexture);
 }
 
 void Textura::render(){

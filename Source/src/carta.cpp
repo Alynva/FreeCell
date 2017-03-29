@@ -1,7 +1,6 @@
-#include "carta.h"
-#include "textura.h"
+#include "../../Header/include/carta.h"
+#include "../../Header/include/textura.h"
 #include <iostream>
-#include <C:\Users\Alynva\Desktop\SDL2-2.0.5\x86_64-w64-mingw32\include\SDL2\SDL.h>
 #include <string>
 
 using namespace std;
@@ -28,3 +27,4 @@ int Carta::getValue(){
 char Carta::getSuit(){
 	return this->suit;
 }
+
