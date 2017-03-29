@@ -1,7 +1,9 @@
+#include "baralho.h"
 #include "carta.h"
 #include <iostream>
-#include <C:\SDL2-2.0.5\x86_64-w64-mingw32\include\SDL2\SDL.h>
-#include <C:\SDL2-2.0.5\x86_64-w64-mingw32\include\SDL2\SDL_image.h>
+#include "pilha.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include "textura.h"
 
 #define SCREEN_WIDTH 640
@@ -46,7 +48,8 @@ int main(){
 		}
 	}
 	
-	Carta c = Carta(23, gRenderer);
+	Baralho b = Baralho(52, gRenderer);
+	Carta c = b.getCard();
 	
 	/*if(t == NULL){
 		cout << "Failed to load texture." << endl;

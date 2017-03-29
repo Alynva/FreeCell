@@ -8,7 +8,7 @@ C_VERSION = -std=c++11
 OBJ_FILE = main.cpp
 
 # Arquivos auxiliares
-AUX_FILES = textura.cpp carta.cpp
+AUX_FILES = textura.cpp carta.cpp baralho.cpp
 
 # Flags do compilador
 CC_FLAGS = -w

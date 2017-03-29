@@ -11,6 +11,7 @@ class Carta {
 	public:
 	Carta(int, SDL_Renderer*);
 	
+	void setPosition(int, int);
 	void renderCard();
 	
 	int getValue();
