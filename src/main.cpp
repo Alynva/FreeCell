@@ -1,7 +1,7 @@
 #include "carta.h"
 #include <iostream>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+#include <C:\SDL2-2.0.5\x86_64-w64-mingw32\include\SDL2\SDL.h>
+#include <C:\SDL2-2.0.5\x86_64-w64-mingw32\include\SDL2\SDL_image.h>
 #include "textura.h"
 
 #define SCREEN_WIDTH 640
