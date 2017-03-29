@@ -15,6 +15,7 @@ class Textura {
 	public:
 	Textura();
 	Textura(std::string, SDL_Renderer*, int, int, int, int);
+	~Textura();
 	
 	void render();
 };
