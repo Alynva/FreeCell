@@ -17,7 +17,7 @@ CC_FLAGS = -w
 CC_LINKERS = -lSDL2_image -lSDL2
 
 # Arquivo de saída
-OUT_FILE = ../presidente.out
+OUT_FILE = ./presidente.out
 
 all:
 	$(CC) $(C_VERSION) $(OBJ_FILE) $(AUX_FILES) $(CC_FLAGS) $(CC_LINKERS) -o $(OUT_FILE)
