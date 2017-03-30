@@ -1,4 +1,5 @@
 #include <iostream>
+#include "../include/baralho.h"
 #include "../include/carta.h"
 #include "../include/textura.h"
 
@@ -14,9 +15,6 @@ int main(){
 	// Renderizador principal
 	SDL_Renderer* gRenderer = NULL;
 
-	// Classe texture
-	// Textura t = NULL;
-
 	// Eventos
 	SDL_Event event;
 
@@ -24,7 +22,7 @@ int main(){
 	bool quit = false;
 
 	// Cria a janela
-	gWindow = SDL_CreateWindow("Presidente", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+	gWindow = SDL_CreateWindow("Freecell", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 	if(gWindow == NULL){
 		cout << "Window could not be created. SDL Error: " << SDL_GetError() << endl;
 	} else {
@@ -44,7 +42,8 @@ int main(){
 		}
 	}
 
-	Carta c = Carta(23, gRenderer);
+	Baralho b = Baralho(52, gRenderer);
+	Carta c = b.getCard();
 
 	/*if(t == NULL){
 		cout << "Failed to load texture." << endl;

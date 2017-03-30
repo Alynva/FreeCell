@@ -1,8 +1,7 @@
-#include "baralho.h"
+#include "../include/baralho.h"
 #include <algorithm>
 #include <ctime>
 #include <cstdlib>
-
 #include <iostream>
 
 using namespace std;

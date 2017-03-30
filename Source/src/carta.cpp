@@ -2,6 +2,9 @@
 #include "../include/textura.h"
 #include "../include/to_string.h"
 
+#define CARD_WIDTH 125
+#define CARD_HEIGHT 164
+
 using namespace std;
 
 Carta::Carta(int num, SDL_Renderer* renderer){
@@ -12,7 +15,11 @@ Carta::Carta(int num, SDL_Renderer* renderer){
 	dir.append(to_string(this->value));
 	dir.push_back(this->suit);
 	dir.append(".png");
-	this->gTexture = Textura("../textures/cards/10B.png", renderer, 0, 0, 250, 326);
+	this->gTexture = Textura(dir, renderer, 0, 0, CARD_WIDTH, CARD_HEIGHT);
+}
+
+void Carta::setPosition(int x, int y){
+	this->gTexture.setPosition(x, y);
 }
 
 void Carta::renderCard() {

@@ -37,6 +37,16 @@ Textura::Textura(string path, SDL_Renderer* renderer, int x, int y, int w, int h
 	this->recFormat.h = h;
 }
 
+void Textura::setSize(int w, int h){
+	this->recFormat.w = w;
+	this->recFormat.h = h;
+}
+
+void Textura::setPosition(int x, int y){
+	this->recFormat.x = x;
+	this->recFormat.y = y;
+}
+
 void Textura::render(){
 	SDL_RenderCopy(this->pRenderer, this->pTexture, NULL, &this->recFormat);
 }
