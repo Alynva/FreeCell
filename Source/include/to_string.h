@@ -1,11 +1,14 @@
-#include <iostream> // std::cout
+#ifndef TO_STRING_H
+#define TO_STRING_H
+
+#include <iostream>// std::string
 #include <string> // std::string
 #include <sstream> // std::ostringstream
 
 using namespace std;
 
 template <typename T>
-string to_string ( T Number ) {
+string to_string(T Number) {
     string Result;
     ostringstream convert;
     convert << Number;
@@ -13,11 +16,4 @@ string to_string ( T Number ) {
     return Result;
 }
 
-int main(){
-    cout << "Number to convert: " << endl;
-    int i;
-    cin >> i;
-    string s = to_string(i);
-    cout << s << endl;
-    return 0;
-}
+#endif

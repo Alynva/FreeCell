@@ -1,7 +1,6 @@
 #include "../include/carta.h"
 #include "../include/textura.h"
-#include <iostream>
-#include <string>
+#include "../include/to_string.h"
 
 using namespace std;
 
