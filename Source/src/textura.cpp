@@ -1,4 +1,4 @@
-#include "../../Header/include/textura.h"
+#include "../include/textura.h"
 #include <iostream>
 
 using namespace std;
@@ -6,7 +6,7 @@ using namespace std;
 SDL_Texture* Textura::loadTexture(){
 	// Textura final
 	SDL_Texture* newTexture = NULL;
-	
+
 	// Carrega imagem a partir de um caminho
 	SDL_Surface* loadedSurface = IMG_Load(this->pPath.c_str());
 	if(loadedSurface == NULL){
@@ -17,11 +17,11 @@ SDL_Texture* Textura::loadTexture(){
 		if( newTexture == NULL) {
 			cout << "Unable to create texture from " << this->pPath.c_str() << ". SDL Error: " << SDL_GetError() << endl;
 		}
-		
+
 		// Deleta a superficie
 		SDL_FreeSurface(loadedSurface);
 	}
-	
+
 	return newTexture;
 }
 

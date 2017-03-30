@@ -1,5 +1,5 @@
-#include "../../Header/include/carta.h"
-#include "../../Header/include/textura.h"
+#include "../include/carta.h"
+#include "../include/textura.h"
 #include <iostream>
 #include <string>
 
@@ -27,4 +27,3 @@ int Carta::getValue(){
 char Carta::getSuit(){
 	return this->suit;
 }
-

@@ -1,6 +1,6 @@
 #include <iostream>
-#include "../../Header/include/carta.h"
-#include "../../Header/include/textura.h"
+#include "../include/carta.h"
+#include "../include/textura.h"
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
@@ -10,16 +10,16 @@ using namespace std;
 int main(){
 	// Janela principal
 	SDL_Window* gWindow = NULL;
-	
+
 	// Renderizador principal
 	SDL_Renderer* gRenderer = NULL;
-	
+
 	// Classe texture
 	// Textura t = NULL;
-	
+
 	// Eventos
 	SDL_Event event;
-	
+
 	// Responsavel pelo loop principal
 	bool quit = false;
 
@@ -43,13 +43,13 @@ int main(){
 			}
 		}
 	}
-	
+
 	Carta c = Carta(23, gRenderer);
-	
+
 	/*if(t == NULL){
 		cout << "Failed to load texture." << endl;
 	}*/
-	
+
 	// Loop  principal
 	while(!quit){
 		// Responsavel pelos eventos em espera
@@ -58,23 +58,23 @@ int main(){
 			if( event.type == SDL_QUIT)
 				quit = true;
 		}
-		
+
 		// Limpa a tela
 		SDL_RenderClear(gRenderer);
-		
+
 		// Renderiza a carta
 		c.renderCard();
-		
+
 		// Atualiza a tela
 		SDL_RenderPresent(gRenderer);
 	}
-	
+
 	// Destroi a janela
 	SDL_DestroyRenderer(gRenderer);
 	SDL_DestroyWindow(gWindow);
 	gRenderer = NULL;
 	gWindow = NULL;
-	
+
 	// Sai dos subsistemas
 	IMG_Quit();
 	SDL_Quit();
