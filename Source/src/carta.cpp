@@ -1,5 +1,4 @@
 #include "../include/carta.h"
-#include "../include/textura.h"
 #include "../include/to_string.h"
 
 #define CARD_WIDTH 125

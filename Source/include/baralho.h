@@ -16,7 +16,7 @@ class Baralho {
 	void generate(int);
 	void randomize();
 
-	Carta getCard();
+	// Carta getCard();
 };
 
 #endif
