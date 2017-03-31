@@ -7,15 +7,16 @@ class Carta {
 	int value;
 	char suit;
 	Textura gTexture;
-	
+
 	public:
 	Carta(int, SDL_Renderer*);
-	
+
 	void renderCard();
-	
+
 	int getValue();
 	char getSuit();
 	Textura getTexture();
+	void setPosition(int, int);
 };
 
 #endif
