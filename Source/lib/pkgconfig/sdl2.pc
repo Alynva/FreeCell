@@ -1,6 +1,6 @@
 # sdl pkg-config source file
 
-prefix=/usr/local/cross-tools/x86_64-w64-mingw32
+prefix=/usr/local/cross-tools/i686-w64-mingw32
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
