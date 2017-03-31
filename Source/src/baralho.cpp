@@ -26,12 +26,12 @@ void Baralho::randomize(){
 	random_shuffle(this->deck.begin(), this->deck.end());
 }
 
-/*
-    Mudar o tipo método para bool e passar a carta por parâmetro de referência
+
+//    Mudar o tipo método para bool e passar a carta por parâmetro de referência
 Carta Baralho::getCard(){
 	if(this->deck.size() > 0) {
 		Carta elem = this->deck[this->deck.size()-1];
 		this->deck.pop_back();
 		return elem;
 	}
-} */
+}
