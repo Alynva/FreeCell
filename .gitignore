@@ -80,3 +80,4 @@ $RECYCLE.BIN/
 *.layout
 *.dev
 *.cbp
+*.depend
