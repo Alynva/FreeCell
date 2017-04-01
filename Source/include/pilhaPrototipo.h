@@ -21,6 +21,8 @@
 
 using namespace std;
 
+#define DIF_ALTURA 30 // diferença de altura entre duas cartas
+
 template<typename T, int S>
 class Pilha {
 	T stack[S];
@@ -130,7 +132,7 @@ void Pilha<T,S>::organize() {
 	while (!this->isEmpty()) {
 		this->pop(t_temp);
 		t_temp.setPosition({this->coord.x, this->coord.y + y});
-		y += 30;
+		y += DIF_ALTURA;
 		p_temp.push(t_temp);
 	}
 	while (!p_temp.isEmpty()) {
