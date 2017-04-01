@@ -24,3 +24,7 @@ bool Baralho::getCard(Carta& card){
 		return true;
 	return false;
 }
+
+void Baralho::render() {
+	this->deck.render();
+}

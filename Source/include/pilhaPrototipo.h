@@ -35,12 +35,12 @@ class Pilha {
 	bool isEmpty();
 	bool isFull();
 	void randomize();
+	void render();
 };
 
 template<typename T, int S>
 Pilha<T,S>::Pilha(){
 	top = NULL;
-	
 }
 
 template<typename T, int S>
@@ -98,6 +98,22 @@ void Pilha<T,S>::randomize(){
 		T aux = stack[out];
 		stack[out] = stack[in];
 		stack[in] = aux;
+	}
+}
+
+template<typename T, int S>
+void Pilha<T,S>::render() {
+	Pilha<T,S> p_temp;
+	T t_temp;
+	
+	while (!this->isEmpty()) {
+		this->pop(t_temp);
+		t_temp.render();
+		p_temp.push(t_temp);
+	}
+	while (!p_temp.isEmpty()) {
+		p_temp.pop(t_temp);
+		this->push(t_temp);
 	}
 }
 

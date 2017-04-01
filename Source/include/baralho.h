@@ -28,6 +28,8 @@ class Baralho {
 	void randomize();
 
 	bool getCard(Carta&);
+	
+	void render();
 };
 
 #endif
