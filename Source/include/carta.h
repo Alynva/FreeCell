@@ -22,6 +22,7 @@ class Carta {
 	Textura gTexture;
 
 	public:
+	Carta(); // meio inútil, mas é necessário para poder declarar a carta sem especificar parâmetros.
 	Carta(int, SDL_Renderer*);
 
 	void renderCard();

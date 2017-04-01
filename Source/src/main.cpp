@@ -1,7 +1,6 @@
 #include <iostream>
 #include "../include/baralho.h"
 #include "../include/carta.h"
-#include "../include/textura.h"
 #include "../include/eventmanager.h"
 
 #define SCREEN_WIDTH 640
@@ -43,12 +42,9 @@ int main(int argv, char** args){
 		}
 	}
 
-	Baralho b = Baralho(52, gRenderer);
-	Carta c = b.getCard();
-
-	/*if(t == NULL){
-		cout << "Failed to load texture." << endl;
-	}*/
+	Baralho b = Baralho(gRenderer);
+	Carta c;
+	b.getCard(c);
 
 	// Loop  principal
 	while(!quit){

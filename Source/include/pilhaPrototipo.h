@@ -3,8 +3,9 @@
 	
 	Declaração: Como a pilha é estática, é necessário especificar o tamanho do dado, junto com seu tipo;
 	Métodos:
-		push: adiciona um elemento ao topo da pilha, se ela não estiver cheia.
-		pop: remove e retorna um elemento do topo da pilha, se ela não estiver vazia.
+		push: adiciona um elemento ao topo da pilha, se ela não estiver cheia, e retorna verdadeiro se houve sucesso.
+		pop: remove e retorna um booleano, checando se a pilha não estava vazia, e passa um elemento do topo da pilha para uma variável por referência.
+		clear: limpa a lista, simplesmente tornando o ponteiro top nulo.
 		isEmpty: checa se a pilha tem dados.
 		isFull: checa se a pilha está cheia.
 		randomize: embaralha os dados, utilizando no mínimo 50 iterações e no máximo 10*tamanho iterações.
@@ -28,8 +29,9 @@ class Pilha {
 	public:
 	Pilha();
 	
-	void push(T);
-	T pop();
+	bool push(T);
+	bool pop(T&);
+	void clear();
 	bool isEmpty();
 	bool isFull();
 	void randomize();
@@ -42,7 +44,7 @@ Pilha<T,S>::Pilha(){
 }
 
 template<typename T, int S>
-void Pilha<T,S>::push(T element){
+bool Pilha<T,S>::push(T element){
 	if(!this->isFull()){
 		if(top != NULL){
 			top++;
@@ -50,21 +52,28 @@ void Pilha<T,S>::push(T element){
 			top = &stack[0];
 		}
 		*top = element;
+		return true;
 	}
+	return false;
 }
 
 template<typename T, int S>
-T Pilha<T,S>::pop(){
-	T aux;
+bool Pilha<T,S>::pop(T& out){
 	if(!this->isEmpty()){
-		aux = *top;
+		out = *top;
 		if(top != &stack[0]){
 			top--;
 		} else {
 			top = NULL;
 		}
+		return true;
 	}
-	return aux;
+	return false;
+}
+
+template<typename T, int S>
+void Pilha<T,S>::clear(){
+	top = NULL;
 }
 
 template<typename T, int S>

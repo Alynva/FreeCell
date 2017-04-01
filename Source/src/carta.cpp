@@ -6,6 +6,8 @@
 
 using namespace std;
 
+Carta::Carta(){}
+
 Carta::Carta(int num, SDL_Renderer* renderer){
 	string dir = "../textures/cards/";
 	int i = (num-1)/13;

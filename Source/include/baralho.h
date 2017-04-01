@@ -1,33 +1,33 @@
 /*
 	Classe relacionada ao baralho.
 	
-	Declaração: Os parâmetros de construção são um inteiro especificando a quantidade de cartas e um renderizador do SDL para a criação das cartas.
+	Declaração: O único parâmetro de construção é um renderizador do SDL para a criação das cartas.
 	Métodos:
-		generate: recebe um inteiro para a quantidade de cartas e gera um novo baralho.
+		generate: gera um novo baralho e logo em seguida, o embaralha.
 		randomize: "embaralha" o baralho, randomizando a lista.
 	Detalhes:
-		Seria bom trocar o vetor deck, por uma variável da pilha protótipo, que já tem uma função randomize.
+		Como a pilha protótipo é estática, é necessário especificar um tamanho máximo para a pilha. Como estamos utilizando um baralho comum, o tamanho máximo será 52.
 */
 
 #ifndef BARALHO_H
 #define BARALHO_H
 
 #include "carta.h"
-#include <vector>
+#include "pilhaPrototipo.h"
 
-using namespace std;
+#define MAX_CARD 52
 
 class Baralho {
-	vector<Carta> deck;
+	Pilha<Carta, MAX_CARD> deck;
 	SDL_Renderer* gRenderer;
 
 	public:
-	Baralho(int, SDL_Renderer*);
+	Baralho(SDL_Renderer*);
 
-	void generate(int);
+	void generate();
 	void randomize();
 
-	Carta getCard();
+	bool getCard(Carta&);
 };
 
 #endif
