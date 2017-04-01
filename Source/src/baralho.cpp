@@ -28,3 +28,7 @@ bool Baralho::getCard(Carta& card){
 void Baralho::render() {
 	this->deck.render();
 }
+
+void Baralho::organize() {
+	this->deck.organize();
+}

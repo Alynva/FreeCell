@@ -30,6 +30,7 @@ class Baralho {
 	bool getCard(Carta&);
 	
 	void render();
+	void organize();
 };
 
 #endif

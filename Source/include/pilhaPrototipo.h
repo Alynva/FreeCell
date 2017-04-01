@@ -25,6 +25,7 @@ template<typename T, int S>
 class Pilha {
 	T stack[S];
 	T* top;
+	SDL_Point coord;
 	
 	public:
 	Pilha();
@@ -36,11 +37,13 @@ class Pilha {
 	bool isFull();
 	void randomize();
 	void render();
+	void organize();
 };
 
 template<typename T, int S>
 Pilha<T,S>::Pilha(){
 	top = NULL;
+	coord = {0, 0};
 }
 
 template<typename T, int S>
@@ -51,6 +54,7 @@ bool Pilha<T,S>::push(T element){
 		} else {
 			top = &stack[0];
 		}
+//		element.setPosition(this->coord);
 		*top = element;
 		return true;
 	}
@@ -109,6 +113,24 @@ void Pilha<T,S>::render() {
 	while (!this->isEmpty()) {
 		this->pop(t_temp);
 		t_temp.render();
+		p_temp.push(t_temp);
+	}
+	while (!p_temp.isEmpty()) {
+		p_temp.pop(t_temp);
+		this->push(t_temp);
+	}
+}
+
+template<typename T, int S>
+void Pilha<T,S>::organize() {
+	Pilha<T,S> p_temp;
+	T t_temp;
+	
+	int y = 0;
+	while (!this->isEmpty()) {
+		this->pop(t_temp);
+		t_temp.setPosition({this->coord.x, this->coord.y + y});
+		y += 30;
 		p_temp.push(t_temp);
 	}
 	while (!p_temp.isEmpty()) {
