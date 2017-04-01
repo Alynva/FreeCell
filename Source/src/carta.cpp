@@ -20,7 +20,6 @@ Carta::Carta(int num, SDL_Renderer* renderer){
 }
 
 void Carta::setPosition(SDL_Point coord){
-	SDL_Log("%d", coord.y);
 	this->gTexture.setPosition(coord);
 }
 
