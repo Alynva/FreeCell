@@ -19,8 +19,9 @@ Carta::Carta(int num, SDL_Renderer* renderer){
 	this->gTexture = Textura(dir, renderer, 0, 0, CARD_WIDTH, CARD_HEIGHT);
 }
 
-void Carta::setPosition(int x, int y){
-	this->gTexture.setPosition(x, y);
+void Carta::setPosition(SDL_Point coord){
+	SDL_Log("%d", coord.y);
+	this->gTexture.setPosition(coord);
 }
 
 void Carta::render() {

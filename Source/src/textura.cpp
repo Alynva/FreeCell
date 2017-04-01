@@ -42,9 +42,9 @@ void Textura::setSize(int w, int h){
 	this->recFormat.h = h;
 }
 
-void Textura::setPosition(int x, int y){
-	this->recFormat.x = x;
-	this->recFormat.y = y;
+void Textura::setPosition(SDL_Point coord){
+	this->recFormat.x = coord.x;
+	this->recFormat.y = coord.y;
 }
 
 void Textura::render(){

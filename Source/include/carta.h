@@ -30,7 +30,7 @@ class Carta {
 	int getValue();
 	char getSuit();
 	Textura getTexture();
-	void setPosition(int, int);
+	void setPosition(SDL_Point);
 };
 
 #endif
