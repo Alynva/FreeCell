@@ -23,7 +23,7 @@ void Carta::setPosition(int x, int y){
 	this->gTexture.setPosition(x, y);
 }
 
-void Carta::renderCard() {
+void Carta::render() {
 	this->gTexture.render();
 }
 

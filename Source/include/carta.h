@@ -25,7 +25,7 @@ class Carta {
 	Carta(); // meio inútil, mas é necessário para poder declarar a carta sem especificar parâmetros.
 	Carta(int, SDL_Renderer*);
 
-	void renderCard();
+	void render();
 
 	int getValue();
 	char getSuit();
