@@ -1,29 +1,28 @@
 # Project: FreeCell
-# Makefile created by Dev-C++ 5.1.1.0
+# Makefile created by Dev-C++ 5.11
 
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o baralho.o carta.o textura.o $(RES)
-LINKOBJ  = main.o baralho.o carta.o textura.o $(RES)
-LIBS     = -L"C:/Users/Alisson Nunes/Downloads/Dev-Cpp/MinGW32/lib" -static-libstdc++ -static-libgcc -L"C:/Users/Alisson Nunes/GitHub/FreeCell/Source/lib" -lmingw32 -lSDL2main -lSDL2_image -lSDL2  
-INCS     = -I"C:/Users/Alisson Nunes/Downloads/Dev-Cpp/MinGW32/include"  -I"C:/Users/Alisson Nunes/GitHub/FreeCell/Source/include" 
-CXXINCS  = -I"C:/Users/Alisson Nunes/Downloads/Dev-Cpp/MinGW32/include"  -I"C:/Users/Alisson Nunes/GitHub/FreeCell/Source/include" 
+OBJ      = main.o baralho.o carta.o textura.o eventmanager.o
+LINKOBJ  = main.o baralho.o carta.o textura.o eventmanager.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib" -L"C:/Users/Alynva/Documents/GitHub/FreeCell/Source/lib" -static-libgcc -lmingw32 -lSDL2main -lSDL2_image -lSDL2
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"C:/Users/Alynva/Documents/GitHub/FreeCell/Source/include"
 BIN      = FreeCell.exe
-CXXFLAGS = $(CXXINCS)  
-CFLAGS   = $(INCS)  
-RM       = rm -f
+CXXFLAGS = $(CXXINCS) 
+CFLAGS   = $(INCS) 
+RM       = rm.exe -f
 
 .PHONY: all all-before all-after clean clean-custom
 
-all: all-before FreeCell.exe all-after
-
+all: all-before $(BIN) all-after
 
 clean: clean-custom
 	${RM} $(OBJ) $(BIN)
 
 $(BIN): $(OBJ)
-	$(CPP) $(LINKOBJ) -o "FreeCell.exe" $(LIBS)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
 
 main.o: main.cpp
 	$(CPP) -c main.cpp -o main.o $(CXXFLAGS)
@@ -36,3 +35,6 @@ carta.o: carta.cpp
 
 textura.o: textura.cpp
 	$(CPP) -c textura.cpp -o textura.o $(CXXFLAGS)
+
+eventmanager.o: eventmanager.cpp
+	$(CPP) -c eventmanager.cpp -o eventmanager.o $(CXXFLAGS)
