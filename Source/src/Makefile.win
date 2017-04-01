@@ -6,12 +6,12 @@ CC       = gcc.exe
 WINDRES  = windres.exe
 OBJ      = main.o baralho.o carta.o textura.o eventmanager.o $(RES)
 LINKOBJ  = main.o baralho.o carta.o textura.o eventmanager.o $(RES)
-LIBS     = -L"C:/Users/Alynva/Downloads/Dev-Cpp/MinGW32/lib" -L"C:/Users/Alynva/Documents/GitHub/FreeCell/Source/lib" -static-libstdc++ -static-libgcc -lmingw32 -lSDL2main -lSDL2_image -lSDL2  
+LIBS     = -L"C:/Users/Alynva/Downloads/Dev-Cpp/MinGW32/lib" -L"C:/Users/Alynva/Documents/GitHub/FreeCell/Source/lib" -static-libstdc++ -static-libgcc -lmingw32 -lSDL2main -lSDL2_image -lSDL2  -std=c++0x 
 INCS     = -I"C:/Users/Alynva/Downloads/Dev-Cpp/MinGW32/include" 
 CXXINCS  = -I"C:/Users/Alynva/Downloads/Dev-Cpp/MinGW32/include"  -I"C:/Users/Alynva/Documents/GitHub/FreeCell/Source/include" 
 BIN      = FreeCell.exe
-CXXFLAGS = $(CXXINCS)  
-CFLAGS   = $(INCS)  
+CXXFLAGS = $(CXXINCS)   -std=c++0x
+CFLAGS   = $(INCS)   -std=c++0x
 RM       = rm -f
 
 .PHONY: all all-before all-after clean clean-custom
