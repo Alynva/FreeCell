@@ -2,6 +2,7 @@
 #include "../include/baralho.h"
 #include "../include/carta.h"
 #include "../include/textura.h"
+#include "../include/eventmanager.h"
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 480
@@ -15,11 +16,11 @@ int main(int argv, char** args){
 	// Renderizador principal
 	SDL_Renderer* gRenderer = NULL;
 
-	// Eventos
-	SDL_Event event;
-
 	// Responsavel pelo loop principal
 	bool quit = false;
+	
+	// Eventos
+	EventManager event = EventManager(&quit);
 
 	// Cria a janela
 	gWindow = SDL_CreateWindow("Freecell", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
@@ -52,11 +53,7 @@ int main(int argv, char** args){
 	// Loop  principal
 	while(!quit){
 		// Responsavel pelos eventos em espera
-		while(SDL_PollEvent(&event) != 0){
-			// Evento de saída
-			if( event.type == SDL_QUIT)
-				quit = true;
-		}
+		event.update();
 
 		// Limpa a tela
 		SDL_RenderClear(gRenderer);

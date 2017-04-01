@@ -8,6 +8,8 @@
 		isEmpty: checa se a pilha tem dados.
 		isFull: checa se a pilha está cheia.
 		randomize: embaralha os dados, utilizando no mínimo 50 iterações e no máximo 10*tamanho iterações.
+	Detalhes:
+		Quando a pilha está vazia, o ponteiro top é nulo.
 */
 
 #ifndef PILHA_H
