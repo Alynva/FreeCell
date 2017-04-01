@@ -1,15 +1,15 @@
 #include "../include/carta.h"
 #include "../include/to_string.h"
 
-#define CARD_WIDTH 125
-#define CARD_HEIGHT 164
+#define CARD_WIDTH 69
+#define CARD_HEIGHT 100
 
 using namespace std;
 
 Carta::Carta(){}
 
 Carta::Carta(int num, SDL_Renderer* renderer){
-	string dir = "../textures/cards/";
+	string dir = "../textures/cards/v2/";
 	int i = (num-1)/13;
 	this->value = num-13*i;
 	this->suit = 65+i;
