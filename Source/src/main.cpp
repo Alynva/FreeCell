@@ -43,9 +43,9 @@ int main(int argv, char** args){
 	}
 
 	Baralho b = Baralho(gRenderer);
+	b.organize();
 	Carta c;
 	b.getCard(c);
-	b.organize();
 
 	// Loop  principal
 	while(!quit){

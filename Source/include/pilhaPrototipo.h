@@ -114,11 +114,11 @@ void Pilha<T,S>::render() {
 	
 	while (!this->isEmpty()) {
 		this->pop(t_temp);
-		t_temp.render();
 		p_temp.push(t_temp);
 	}
 	while (!p_temp.isEmpty()) {
 		p_temp.pop(t_temp);
+		t_temp.render();
 		this->push(t_temp);
 	}
 }
@@ -131,12 +131,12 @@ void Pilha<T,S>::organize() {
 	int y = 0;
 	while (!this->isEmpty()) {
 		this->pop(t_temp);
-		t_temp.setPosition({this->coord.x, this->coord.y + y});
-		y += DIF_ALTURA;
 		p_temp.push(t_temp);
 	}
 	while (!p_temp.isEmpty()) {
 		p_temp.pop(t_temp);
+		t_temp.setPosition({this->coord.x, this->coord.y + y});
+		y += DIF_ALTURA;
 		this->push(t_temp);
 	}
 }
