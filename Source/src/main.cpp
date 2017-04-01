@@ -43,6 +43,7 @@ int main(int argv, char** args){
 	}
 
 	Baralho b = Baralho(gRenderer);
+	b.organize();
 	Carta c;
 	b.getCard(c);
 
@@ -54,8 +55,11 @@ int main(int argv, char** args){
 		// Limpa a tela
 		SDL_RenderClear(gRenderer);
 
+		// Renderiza o baralho
+		b.render();
+		
 		// Renderiza a carta
-		c.renderCard();
+//		c.renderCard();
 
 		// Atualiza a tela
 		SDL_RenderPresent(gRenderer);
