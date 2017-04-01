@@ -4,7 +4,7 @@
 #include "../include/eventmanager.h"
 
 #define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+#define SCREEN_HEIGHT 400
 
 using namespace std;
 
@@ -14,6 +14,9 @@ int main(int argv, char** args){
 
 	// Renderizador principal
 	SDL_Renderer* gRenderer = NULL;
+	
+	// Plano de fundo
+	SDL_Texture* gBackground;
 
 	// Responsavel pelo loop principal
 	bool quit = false;
@@ -39,6 +42,10 @@ int main(int argv, char** args){
 			if(!(IMG_Init(imgFlags) & imgFlags)){
 				cout << "SDL could not initialize image. SDL Error: " << IMG_GetError() << endl;
 			}
+			
+			// Inicializa o background
+			gBackground = SDL_CreateTextureFromSurface(gRenderer, IMG_Load("../textures/backgrounds/1.png"));
+			
 		}
 	}
 
@@ -54,6 +61,9 @@ int main(int argv, char** args){
 
 		// Limpa a tela
 		SDL_RenderClear(gRenderer);
+		
+		// Renderiza o background
+		SDL_RenderCopy(gRenderer, gBackground, NULL, NULL);
 
 		// Renderiza o baralho
 		b.render();
