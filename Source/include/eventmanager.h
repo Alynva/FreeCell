@@ -18,13 +18,15 @@
 class EventManager {
 	SDL_Event handler;
 	bool* quit;
+	bool mousePressed;
 	
 	public:
 	EventManager(bool*);
 	
 	void update();
-	void mouseDown(SDL_MouseButtonEvent&);
-	void mouseUp(SDL_MouseButtonEvent&);
+	void mouseDown();
+	void mouseUp();
+	void mouseMove();
 };
 	
 #endif

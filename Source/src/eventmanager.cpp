@@ -1,8 +1,8 @@
 #include "../include/eventmanager.h"
 #include <iostream>
 
-EventManager::EventManager(bool* mQuit){
-	this->quit = mQuit;
+EventManager::EventManager(bool* mQuit):quit(mQuit), mousePressed(false) {
+	
 }
 
 void EventManager::update(){
@@ -12,24 +12,30 @@ void EventManager::update(){
 				*quit = true;
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-				mouseDown(handler.button);
+//				if (handler.button.button == SDL_BUTTON_LEFT)
+					mouseDown();
 				break;
 			case SDL_MOUSEBUTTONUP:
-				mouseUp(handler.button);
+//				if (handler.button.button == SDL_BUTTON_LEFT)
+					mouseUp();
+				break;
+			case SDL_MOUSEMOTION:
+				mouseMove();
 				break;
 		}
 	}
 }
 
-void EventManager::mouseDown(SDL_MouseButtonEvent& mouseEvent){
-	if(mouseEvent.button = SDL_BUTTON_LEFT){
-		std::cout << "Teste apertado." << std::endl;
-	}
+void EventManager::mouseDown(){
+	this->mousePressed = true;
+	SDL_Log("Mouse apertado.\n");
 }
 
-void EventManager::mouseUp(SDL_MouseButtonEvent& mouseEvent){
-	if(mouseEvent.button = SDL_BUTTON_LEFT){
-		std::cout << "Teste solto." << std::endl;
-	}
+void EventManager::mouseUp(){
+	this->mousePressed = false;
+	SDL_Log("Mouse solto.\n");
 }
 
+void EventManager::mouseMove() {
+	this->mousePressed ? SDL_Log("Mouse arrastado.\n") : SDL_Log("Mouse movido.\n");
+}
