@@ -1,6 +1,5 @@
 #include <iostream>
 #include "../include/baralho.h"
-#include "../include/carta.h"
 #include "../include/eventmanager.h"
 
 #define SCREEN_WIDTH 640
@@ -52,10 +51,20 @@ int main(int argv, char** args){
 		}
 	}
 
-	Baralho b = Baralho(gRenderer);
+	Baralho b(gRenderer);
 	b.organize();
 	Carta c;
 	b.getCard(c);
+	
+	Pilha<Carta, 13> p[4];
+	p[0].setPosition({40, 10});
+	p[0].setTexture(gRenderer);
+	p[1].setPosition({130, 10});
+	p[1].setTexture(gRenderer);
+	p[2].setPosition({220, 10});
+	p[2].setTexture(gRenderer);
+	p[3].setPosition({310, 10});
+	p[3].setTexture(gRenderer);
 
 	// Loop  principal
 	while(!quit){
@@ -77,6 +86,10 @@ int main(int argv, char** args){
 		
 		// Renderiza a carta
 //		c.renderCard();
+
+		// Renderiza as pilhas
+		for (int i = 0; i < 4; i++)
+			p[i].render();
 
 		// Atualiza a tela
 		SDL_RenderPresent(gRenderer);

@@ -33,7 +33,8 @@ class Pilha {
 	public:
 	Pilha();
 	
-	void setTexture(SDL_Renderer*);
+	bool setTexture(SDL_Renderer*);
+	bool setPosition(SDL_Point);
 	
 	bool push(T);
 	bool pop(T&);
@@ -49,12 +50,21 @@ class Pilha {
 template<typename T, int S>
 Pilha<T,S>::Pilha() {
 	top = NULL;
-	coord = {50, 0};
+	coord = {0, 0};
 }
 
 template<typename T, int S>
-void Pilha<T,S>::setTexture(SDL_Renderer* renderer) {
+bool Pilha<T,S>::setTexture(SDL_Renderer* renderer) {
 	this->backTexture = Textura("../textures/pilha.png", renderer, this->coord.x, this->coord.y, 69, 100);
+	
+	return true; // Por hora, não faz nenhuma verificação se foi possível carregar a textura
+}
+
+template<typename T, int S>
+bool Pilha<T,S>::setPosition(SDL_Point pos) {
+	this->coord = pos;
+	
+	return true; // Por hora, não faz nenhuma verificação de ser negativo ou ultrapassar a tela
 }
 
 template<typename T, int S>
