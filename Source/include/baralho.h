@@ -31,6 +31,7 @@ class Baralho {
 	
 	void render();
 	void organize();
+	bool isInside(SDL_Point);
 };
 
 #endif

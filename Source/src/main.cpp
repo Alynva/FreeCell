@@ -29,6 +29,9 @@ int main(int argv, char** args){
 	if(gWindow == NULL){
 		cout << "Window could not be created. SDL Error: " << SDL_GetError() << endl;
 	} else {
+		// Remove a borda da janela
+		SDL_SetWindowBordered(gWindow, SDL_FALSE);
+		
 		// Cria o renderizador
 		gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
 		if(gRenderer == NULL) {
@@ -67,6 +70,10 @@ int main(int argv, char** args){
 
 		// Renderiza o baralho
 		b.render();
+		
+		// Teste para verificar se um ponto está dentro do baralho
+		//if (b.isInside({10, 10}))
+		//	SDL_Log("Esta dentro\n");
 		
 		// Renderiza a carta
 //		c.renderCard();

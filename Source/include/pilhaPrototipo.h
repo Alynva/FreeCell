@@ -21,7 +21,7 @@
 
 using namespace std;
 
-#define DIF_ALTURA 30 // diferença de altura entre duas cartas
+#define DIF_ALTURA 20 // diferença de altura entre duas cartas
 
 template<typename T, int S>
 class Pilha {
@@ -40,12 +40,13 @@ class Pilha {
 	void randomize();
 	void render();
 	void organize();
+	bool isInside(SDL_Point);
 };
 
 template<typename T, int S>
 Pilha<T,S>::Pilha(){
 	top = NULL;
-	coord = {0, 0};
+	coord = {50, 0};
 }
 
 template<typename T, int S>
@@ -139,6 +140,28 @@ void Pilha<T,S>::organize() {
 		y += DIF_ALTURA;
 		this->push(t_temp);
 	}
+}
+
+template<typename T, int S>
+bool Pilha<T,S>::isInside(SDL_Point point) {
+	bool inside = false;
+	Pilha<T,S> p_temp;
+	T t_temp;
+	
+	int y = 0;
+	while (!this->isEmpty()) {
+		this->pop(t_temp);
+		p_temp.push(t_temp);
+	}
+	while (!p_temp.isEmpty()) {
+		p_temp.pop(t_temp);
+		if (!inside)
+			inside = t_temp.isInside(point);
+		y += DIF_ALTURA;
+		this->push(t_temp);
+	}
+	
+	return inside;
 }
 
 #endif

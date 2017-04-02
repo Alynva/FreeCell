@@ -27,7 +27,9 @@ class Textura {
 	Textura();
 	Textura(std::string, SDL_Renderer*, int, int, int, int);
 
+	SDL_Point getSize() const;
 	void setSize(int, int);
+	SDL_Point getPosition() const;
 	void setPosition(SDL_Point);
 	void render();
 };

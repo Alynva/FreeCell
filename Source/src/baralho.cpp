@@ -32,3 +32,7 @@ void Baralho::render() {
 void Baralho::organize() {
 	this->deck.organize();
 }
+
+bool Baralho::isInside(SDL_Point point) {
+	this->deck.isInside(point);
+}

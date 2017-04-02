@@ -37,11 +37,17 @@ Textura::Textura(string path, SDL_Renderer* renderer, int x, int y, int w, int h
 	this->recFormat.h = h;
 }
 
+SDL_Point Textura::getSize() const {
+	return {this->recFormat.w, this->recFormat.h};
+}
 void Textura::setSize(int w, int h){
 	this->recFormat.w = w;
 	this->recFormat.h = h;
 }
 
+SDL_Point Textura::getPosition() const {
+	return {this->recFormat.x, this->recFormat.y};
+}
 void Textura::setPosition(SDL_Point coord){
 	this->recFormat.x = coord.x;
 	this->recFormat.y = coord.y;

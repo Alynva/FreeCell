@@ -20,6 +20,8 @@ class Carta {
 	int value;
 	char suit;
 	Textura gTexture;
+	bool isBlur;
+	Textura blurTexture;
 
 	public:
 	Carta(); // meio inútil, mas é necessário para poder declarar a carta sem especificar parâmetros.
@@ -31,6 +33,7 @@ class Carta {
 	char getSuit();
 	Textura getTexture();
 	void setPosition(SDL_Point);
+	bool isInside(SDL_Point);
 };
 
 #endif
