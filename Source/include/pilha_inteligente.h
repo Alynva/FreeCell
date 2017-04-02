@@ -4,7 +4,7 @@
 #include "pilha.h"
 #include "carta.h"
 
-class PilhaIntermediaria : public Pilha{
+class PilhaIntermediaria : public Stack{
 public:
   bool push(const Carta&);
   int peekValue(){return this->stackPtr[top].getValue();};
@@ -23,7 +23,7 @@ bool PilhaIntermediaria::push(const Carta& pushValue){
   return false;
 }
 
-class PilhaDefinitiva : public Pilha{
+class PilhaDefinitiva : public Stack{
 public:
   bool push(const Carta&);
   int peekValue(){return this->stackPtr[top].getValue();};
