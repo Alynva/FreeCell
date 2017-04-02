@@ -28,9 +28,12 @@ class Pilha {
 	T stack[S];
 	T* top;
 	SDL_Point coord;
+	Textura backTexture;
 	
 	public:
 	Pilha();
+	
+	void setTexture(SDL_Renderer*);
 	
 	bool push(T);
 	bool pop(T&);
@@ -44,9 +47,14 @@ class Pilha {
 };
 
 template<typename T, int S>
-Pilha<T,S>::Pilha(){
+Pilha<T,S>::Pilha() {
 	top = NULL;
 	coord = {50, 0};
+}
+
+template<typename T, int S>
+void Pilha<T,S>::setTexture(SDL_Renderer* renderer) {
+	this->backTexture = Textura("../textures/pilha.png", renderer, this->coord.x, this->coord.y, 69, 100);
 }
 
 template<typename T, int S>
@@ -110,6 +118,8 @@ void Pilha<T,S>::randomize(){
 
 template<typename T, int S>
 void Pilha<T,S>::render() {
+	this->backTexture.render();
+	
 	Pilha<T,S> p_temp;
 	T t_temp;
 	

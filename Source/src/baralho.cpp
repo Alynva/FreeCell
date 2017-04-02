@@ -1,6 +1,7 @@
 #include "../include/baralho.h"
 
 Baralho::Baralho(SDL_Renderer* renderer){
+	this->deck.setTexture(renderer);
 	this->gRenderer = renderer;
 	for(int i = 1; i <= MAX_CARD; i++){
 		this->deck.push(Carta(i, this->gRenderer));
