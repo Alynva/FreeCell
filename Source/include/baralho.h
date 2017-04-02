@@ -29,6 +29,10 @@ class Baralho {
 
 	bool getCard(Carta&);
 	
+	// Métodos criados apenas para teste. A classe que realmente é renderizada,
+	// organizada e calculada se está dentro ou fora é a Pilha, que por hora eu
+	// adicionei na classe mãe mas depois poderá ser apenas das PilhaIntermedi-
+	// aria e PilhaDefinitiva.
 	void render();
 	void organize();
 	bool isInside(SDL_Point);
