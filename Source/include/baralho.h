@@ -13,7 +13,7 @@
 #define BARALHO_H
 
 #include "carta.h"
-#include "pilhaPrototipo.h"
+#include "pilha.h"
 
 #define MAX_CARD 52
 
