@@ -1,47 +1,187 @@
+/*
+	Tipo Abstrato Pilha Estatica
+	
+	Declaracao: Como a pilha e estatica, e necessario especificar o tamanho do dado, junto com seu tipo;
+	Metodos:
+		push: adiciona um elemento ao topo da pilha, se ela nao estiver cheia, e retorna verdadeiro se houve sucesso.
+		pop: remove e retorna um booleano, checando se a pilha nao estava vazia, e passa um elemento do topo da pilha para uma variavel por referencia.
+		clear: limpa a lista, simplesmente tornando o ponteiro top nulo.
+		isEmpty: checa se a pilha tem dados.
+		isFull: checa se a pilha esta cheia.
+		randomize: embaralha os dados, utilizando no minimo 50 iteracoes e no maximo 10*tamanho iteracoes.
+	Detalhes:
+		Quando a pilha esta vazia, o ponteiro top e nulo.
+*/
+
 #ifndef PILHA_H
 #define PILHA_H
 
-template <class T>
-class Stack{
-public:
-    Stack(int s);
-    ~Stack(){delete []stackPtr;};
+#include <ctime> // time()
+#include <cstdlib> // srand(), rand()
 
-    bool push(const T&);
-    bool pop(T&);
+using namespace std;
 
-    T peek(){return this->stackPtr[top];};
-    bool isEmpty() const{return this->top == -1;};
-    bool isFull() const{return this->top == size - 1;};
+#define DIF_ALTURA 20 // diferença de altura entre duas cartas
 
-private:
-    int size;
-    int top;
-    T *stackPtr;
+template<typename T, int S>
+class Pilha {
+	T stack[S];
+	T* top;
+	SDL_Point coord;
+	Textura backTexture;
+	
+	public:
+	Pilha();
+	
+	bool setTexture(SDL_Renderer*);
+	bool setPosition(SDL_Point);
+	
+	bool push(T);
+	bool pop(T&);
+	void clear();
+	bool isEmpty();
+	bool isFull();
+	void randomize();
+	void render();
+	void organize();
+	bool isInside(SDL_Point);
 };
 
-template <class T>
-Stack<T>::Stack(int s){
-    this->size = (s > 0 ? s : 10);
-    this->top = -1;
-    this->stackPtr = new T[this->size];
+template<typename T, int S>
+Pilha<T,S>::Pilha() {
+	top = NULL;
+	coord = {0, 0};
 }
 
-template <class T>
-bool Stack<T>::push(const T& pushValue){
-    if (!this->isFull()){
-        this->stackPtr[++top] = pushValue;
-        return true;
-    }
-    return false;
+template<typename T, int S>
+bool Pilha<T,S>::setTexture(SDL_Renderer* renderer) {
+	this->backTexture = Textura("../textures/pilha.png", renderer, this->coord.x, this->coord.y, 69, 100);
+	
+	return true; // Por hora, não faz nenhuma verificação se foi possível carregar a textura
 }
 
-template <class T>
-bool Stack<T>::pop(T& popValue){
-    if (!this->isEmpty()){
-        popValue = this->stackPtr[top--];
-        return true;
-    }
-    return false;
+template<typename T, int S>
+bool Pilha<T,S>::setPosition(SDL_Point pos) {
+	this->coord = pos;
+	
+	return true; // Por hora, não faz nenhuma verificação de ser negativo ou ultrapassar a tela
 }
+
+template<typename T, int S>
+bool Pilha<T,S>::push(T element){
+	if(!this->isFull()){
+		if(top != NULL){
+			top++;
+		} else {
+			top = &stack[0];
+		}
+//		element.setPosition(this->coord);
+		*top = element;
+		return true;
+	}
+	return false;
+}
+
+template<typename T, int S>
+bool Pilha<T,S>::pop(T& out){
+	if(!this->isEmpty()){
+		out = *top;
+		if(top != &stack[0]){
+			top--;
+		} else {
+			top = NULL;
+		}
+		return true;
+	}
+	return false;
+}
+
+template<typename T, int S>
+void Pilha<T,S>::clear(){
+	top = NULL;
+}
+
+template<typename T, int S>
+bool Pilha<T,S>::isEmpty(){
+	return (top == NULL);
+}
+
+template<typename T, int S>
+bool Pilha<T,S>::isFull(){
+	return (top == &stack[S-1]);
+}
+
+template<typename T, int S>
+void Pilha<T,S>::randomize(){
+	srand(time(0));
+	for(int i=0; i < (rand() % (S*10) + 50); i++){
+		int in, out;
+		do{
+			in = rand() % S;
+			out = rand() % S;
+		}while(in == out);
+		T aux = stack[out];
+		stack[out] = stack[in];
+		stack[in] = aux;
+	}
+}
+
+template<typename T, int S>
+void Pilha<T,S>::render() {
+	this->backTexture.render();
+	
+	Pilha<T,S> p_temp;
+	T t_temp;
+	
+	while (!this->isEmpty()) {
+		this->pop(t_temp);
+		p_temp.push(t_temp);
+	}
+	while (!p_temp.isEmpty()) {
+		p_temp.pop(t_temp);
+		t_temp.render();
+		this->push(t_temp);
+	}
+}
+
+template<typename T, int S>
+void Pilha<T,S>::organize() {
+	Pilha<T,S> p_temp;
+	T t_temp;
+	
+	int y = 0;
+	while (!this->isEmpty()) {
+		this->pop(t_temp);
+		p_temp.push(t_temp);
+	}
+	while (!p_temp.isEmpty()) {
+		p_temp.pop(t_temp);
+		t_temp.setPosition({this->coord.x, this->coord.y + y});
+		y += DIF_ALTURA;
+		this->push(t_temp);
+	}
+}
+
+template<typename T, int S>
+bool Pilha<T,S>::isInside(SDL_Point point) {
+	bool inside = false;
+	Pilha<T,S> p_temp;
+	T t_temp;
+	
+	int y = 0;
+	while (!this->isEmpty()) {
+		this->pop(t_temp);
+		p_temp.push(t_temp);
+	}
+	while (!p_temp.isEmpty()) {
+		p_temp.pop(t_temp);
+		if (!inside)
+			inside = t_temp.isInside(point);
+		y += DIF_ALTURA;
+		this->push(t_temp);
+	}
+	
+	return inside;
+}
+
 #endif
