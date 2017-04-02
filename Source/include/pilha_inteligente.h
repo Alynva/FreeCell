@@ -25,9 +25,10 @@ bool PilhaIntermediaria::push(const Carta& pushValue){
 
 class PilhaDefinitiva : public Pilha{
 public:
-  push(const Carta&);
+  bool push(const Carta&);
   int peekValue(){return this->stackPtr[top].getValue();};
   char peekSuit(){return this->stackPtr[top].getSuit();};
+  void setTexture(SDL_Renderer* renderer) {this->backTexture = Textura("../textures/pilhaDefinitiva.png", renderer, this->coord.x, this->coord.y, 69, 100);}
 };
 
 bool PilhaIntermediaria::push(const Carta& pushValue){
