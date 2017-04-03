@@ -52,7 +52,6 @@ void Textura::setPosition(SDL_Point coord){
 	this->recFormat.x = coord.x;
 	this->recFormat.y = coord.y;
 }
-
 void Textura::render(){
 	SDL_RenderCopy(this->pRenderer, this->pTexture, NULL, &this->recFormat);
 }

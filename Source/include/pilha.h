@@ -1,6 +1,6 @@
 /*
 	Tipo Abstrato Pilha Estatica
-	
+
 	Declaracao: Como a pilha e estatica, e necessario especificar o tamanho do dado, junto com seu tipo;
 	Metodos:
 		push: adiciona um elemento ao topo da pilha, se ela nao estiver cheia, e retorna verdadeiro se houve sucesso.
@@ -21,23 +21,24 @@
 
 using namespace std;
 
-#define DIF_ALTURA 20 // diferença de altura entre duas cartas
+#define DIF_ALTURA 20 // diferenï¿½a de altura entre duas cartas
 
-template<typename T, int S>
+template<class T, int S>
 class Pilha {
 	T stack[S];
 	T* top;
 	SDL_Point coord;
 	Textura backTexture;
-	
+
 	public:
 	Pilha();
-	
+
 	bool setTexture(SDL_Renderer*);
 	bool setPosition(SDL_Point);
-	
-	bool push(T);
+
+	bool push(const T&);
 	bool pop(T&);
+    T  peek();
 	void clear();
 	bool isEmpty();
 	bool isFull();
@@ -56,19 +57,19 @@ Pilha<T,S>::Pilha() {
 template<typename T, int S>
 bool Pilha<T,S>::setTexture(SDL_Renderer* renderer) {
 	this->backTexture = Textura("../textures/pilha.png", renderer, this->coord.x, this->coord.y, 69, 100);
-	
-	return true; // Por hora, não faz nenhuma verificação se foi possível carregar a textura
+
+	return true; // Por hora, nï¿½o faz nenhuma verificaï¿½ï¿½o se foi possï¿½vel carregar a textura
 }
 
 template<typename T, int S>
 bool Pilha<T,S>::setPosition(SDL_Point pos) {
 	this->coord = pos;
-	
-	return true; // Por hora, não faz nenhuma verificação de ser negativo ou ultrapassar a tela
+
+	return true; // Por hora, nï¿½o faz nenhuma verificaï¿½ï¿½o de ser negativo ou ultrapassar a tela
 }
 
 template<typename T, int S>
-bool Pilha<T,S>::push(T element){
+bool Pilha<T,S>::push(const T& element){
 	if(!this->isFull()){
 		if(top != NULL){
 			top++;
@@ -94,6 +95,11 @@ bool Pilha<T,S>::pop(T& out){
 		return true;
 	}
 	return false;
+}
+
+template<typename T, int S>
+T Pilha<T,S>::peek(){
+  return *top;
 }
 
 template<typename T, int S>
@@ -129,10 +135,10 @@ void Pilha<T,S>::randomize(){
 template<typename T, int S>
 void Pilha<T,S>::render() {
 	this->backTexture.render();
-	
+
 	Pilha<T,S> p_temp;
 	T t_temp;
-	
+
 	while (!this->isEmpty()) {
 		this->pop(t_temp);
 		p_temp.push(t_temp);
@@ -148,7 +154,7 @@ template<typename T, int S>
 void Pilha<T,S>::organize() {
 	Pilha<T,S> p_temp;
 	T t_temp;
-	
+
 	int y = 0;
 	while (!this->isEmpty()) {
 		this->pop(t_temp);
@@ -167,7 +173,7 @@ bool Pilha<T,S>::isInside(SDL_Point point) {
 	bool inside = false;
 	Pilha<T,S> p_temp;
 	T t_temp;
-	
+
 	int y = 0;
 	while (!this->isEmpty()) {
 		this->pop(t_temp);
@@ -180,7 +186,7 @@ bool Pilha<T,S>::isInside(SDL_Point point) {
 		y += DIF_ALTURA;
 		this->push(t_temp);
 	}
-	
+
 	return inside;
 }
 

@@ -7,17 +7,21 @@
 class PilhaIntermediaria : public Pilha{
 public:
   bool push(const Carta&);
-  int peekValue(){return this->stackPtr[top].getValue();};
-  char peekSuit(){return this->stackPtr[top].getSuit();};
 };
 
 bool PilhaIntermediaria::push(const Carta& pushValue){
   if(!this->isFull()){
-    if(pushValue.getValue() == this->peekValue()-1){
-      //if(pushValue.getSuit != this->peekSuit()){
-        this->stackPtr[++top] = pushValue;
+    if(pushValue.getValue() == this->peek().getValue()-1){
+      if(pushValue.getSuit() != this->peek().getSuit()){
+        if(top != NULL){
+          top++;
+        } else {
+          top = &stack[0];
+        }
+    //		element.setPosition(this->coord);
+        *top = element;
         return true;
-    //}
+      }
     }
   }
   return false;
@@ -26,18 +30,22 @@ bool PilhaIntermediaria::push(const Carta& pushValue){
 class PilhaDefinitiva : public Pilha{
 public:
   bool push(const Carta&);
-  int peekValue(){return this->stackPtr[top].getValue();};
-  char peekSuit(){return this->stackPtr[top].getSuit();};
   void setTexture(SDL_Renderer* renderer) {this->backTexture = Textura("../textures/pilhaDefinitiva.png", renderer, this->coord.x, this->coord.y, 69, 100);}
 };
 
 bool PilhaIntermediaria::push(const Carta& pushValue){
   if(!this->isFull()){
-    if(pushValue.getValue() == this->peekValue()+1){
-      //if(pushValue.getSuit == this->peekSuit()){
-        this->stackPtr[++top] = pushValue;
+    if(pushValue.getValue() == this->peek().getValue()+1){
+      if(pushValue.getSuit() == this->peekSuit()){
+        if(top != NULL){
+          top++;
+        } else {
+          top = &stack[0];
+        }
+    //		element.setPosition(this->coord);
+        *top = element;
         return true;
-    //}
+      }
     }
   }
   return false;
