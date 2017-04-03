@@ -1,11 +1,14 @@
 #include <iostream>
 #include "../include/baralho.h"
+#include "../include/pilha.h"
 #include "../include/eventmanager.h"
 
 #define SCREEN_WIDTH 640
 #define SCREEN_HEIGHT 400
 
 using namespace std;
+
+bool moveCartasParaPilha(Baralho*, Pilha<Carta, 20>*, int);
 
 int main(int argv, char** args){
 	// Janela principal
@@ -56,7 +59,7 @@ int main(int argv, char** args){
 	Carta c;
 	b.getCard(c);
 	
-	Pilha<Carta, 13> p[4];
+	Pilha<Carta, 20> p[4];
 	p[0].setPosition({40, 10});
 	p[0].setTexture(gRenderer);
 	p[1].setPosition({130, 10});
@@ -65,6 +68,11 @@ int main(int argv, char** args){
 	p[2].setTexture(gRenderer);
 	p[3].setPosition({310, 10});
 	p[3].setTexture(gRenderer);
+	
+	moveCartasParaPilha(&b, &p[0], 7);
+	moveCartasParaPilha(&b, &p[1], 7);
+	moveCartasParaPilha(&b, &p[2], 7);
+	moveCartasParaPilha(&b, &p[3], 7);
 
 	// Loop  principal
 	while(!quit){
@@ -78,14 +86,14 @@ int main(int argv, char** args){
 		SDL_RenderCopy(gRenderer, gBackground, NULL, NULL);
 
 		// Renderiza o baralho
-		b.render();
+		//b.render();
 		
 		// Teste para verificar se um ponto está dentro do baralho
 		//if (b.isInside({10, 10}))
 		//	SDL_Log("Esta dentro\n");
 		
 		// Renderiza a carta
-//		c.renderCard();
+		//c.renderCard();
 
 		// Renderiza as pilhas
 		for (int i = 0; i < 4; i++)
@@ -106,4 +114,16 @@ int main(int argv, char** args){
 	SDL_Quit();
 
 	return 0;
+}
+
+bool moveCartasParaPilha(Baralho* b, Pilha<Carta, 20>* p, int qnt) {
+	Carta c;
+	for (int i = 0; i < qnt; i++) {
+		if (!b->getCard(c))
+			return false;
+		if (!p->push(c))
+			return false;
+	}
+	p->organize();
+	return true;
 }
