@@ -32,7 +32,8 @@ int main(int argv, char** args){
 		cout << "Window could not be created. SDL Error: " << SDL_GetError() << endl;
 	} else {
 		// Remove a borda da janela
-		SDL_SetWindowBordered(gWindow, SDL_FALSE);
+		
+		SDL_SetWindowFullscreen(gWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
 
 		// Cria o renderizador
 		gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
