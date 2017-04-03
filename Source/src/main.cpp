@@ -3,8 +3,8 @@
 #include "../include/pilha.h"
 #include "../include/eventmanager.h"
 
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 400
+#define SCREEN_WIDTH 1280
+#define SCREEN_HEIGHT 720
 
 using namespace std;
 
@@ -16,13 +16,13 @@ int main(int argv, char** args){
 
 	// Renderizador principal
 	SDL_Renderer* gRenderer = NULL;
-	
+
 	// Plano de fundo
 	SDL_Texture* gBackground;
 
 	// Responsavel pelo loop principal
 	bool quit = false;
-	
+
 	// Eventos
 	EventManager event = EventManager(&quit);
 
@@ -33,7 +33,7 @@ int main(int argv, char** args){
 	} else {
 		// Remove a borda da janela
 		SDL_SetWindowBordered(gWindow, SDL_FALSE);
-		
+
 		// Cria o renderizador
 		gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
 		if(gRenderer == NULL) {
@@ -47,10 +47,10 @@ int main(int argv, char** args){
 			if(!(IMG_Init(imgFlags) & imgFlags)){
 				cout << "SDL could not initialize image. SDL Error: " << IMG_GetError() << endl;
 			}
-			
+
 			// Inicializa o background
 			gBackground = SDL_CreateTextureFromSurface(gRenderer, IMG_Load("../textures/backgrounds/1.png"));
-			
+
 		}
 	}
 
@@ -58,7 +58,7 @@ int main(int argv, char** args){
 	b.organize();
 	Carta c;
 	b.getCard(c);
-	
+
 	Pilha<Carta, 20> p[4];
 	p[0].setPosition({40, 10});
 	p[0].setTexture(gRenderer);
@@ -68,7 +68,7 @@ int main(int argv, char** args){
 	p[2].setTexture(gRenderer);
 	p[3].setPosition({310, 10});
 	p[3].setTexture(gRenderer);
-	
+
 	moveCartasParaPilha(&b, &p[0], 7);
 	moveCartasParaPilha(&b, &p[1], 7);
 	moveCartasParaPilha(&b, &p[2], 7);
@@ -81,17 +81,17 @@ int main(int argv, char** args){
 
 		// Limpa a tela
 		SDL_RenderClear(gRenderer);
-		
+
 		// Renderiza o background
 		SDL_RenderCopy(gRenderer, gBackground, NULL, NULL);
 
 		// Renderiza o baralho
 		//b.render();
-		
-		// Teste para verificar se um ponto está dentro do baralho
+
+		// Teste para verificar se um ponto estï¿½ dentro do baralho
 		//if (b.isInside({10, 10}))
 		//	SDL_Log("Esta dentro\n");
-		
+
 		// Renderiza a carta
 		//c.renderCard();
 
