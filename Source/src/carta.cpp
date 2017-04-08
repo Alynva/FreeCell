@@ -1,12 +1,15 @@
 #include "../include/carta.h"
 #include "../include/to_string.h"
+#include <math.h>
 
 #define CARD_WIDTH 69
 #define CARD_HEIGHT 100
 #define BLUR_WIDTH_ORIG 118
-#define BLUR_WIDTH CARD_WIDTH * BLUR_WIDTH_ORIG / (BLUR_WIDTH_ORIG - 18)
 #define BLUR_HEIGHT_ORIG 174
+#define BLUR_WIDTH CARD_WIDTH * BLUR_WIDTH_ORIG / (BLUR_WIDTH_ORIG - 18)
 #define BLUR_HEIGHT CARD_HEIGHT * BLUR_HEIGHT_ORIG / (BLUR_HEIGHT_ORIG - 18)
+#define BLUR_OFFSET_X round((BLUR_WIDTH - CARD_WIDTH) / 2)
+#define BLUR_OFFSET_Y round((BLUR_HEIGHT - CARD_HEIGHT) / 2)
 
 using namespace std;
 
@@ -37,11 +40,13 @@ Carta::Carta(int num, SDL_Renderer* renderer){
 	
 	pathBlur.append(dir);
 	pathBlur.append("blur_blue.png");
-	this->blurTexture = Textura(pathBlur, renderer, -9, -9, BLUR_WIDTH + 9, BLUR_HEIGHT);
+	this->blurTexture = Textura(pathBlur, renderer, -BLUR_OFFSET_X, -BLUR_OFFSET_Y, BLUR_WIDTH, BLUR_HEIGHT);
 }
 
 void Carta::setPosition(SDL_Point coord){
-	this->blurTexture.setPosition({coord.x - 9, coord.y - 9});
+	int blurX = coord.x - BLUR_OFFSET_X;	// Aparentemente não é possível converter douple
+	int blurY = coord.y - BLUR_OFFSET_Y;	// para int dentro de {}
+	this->blurTexture.setPosition({blurX, blurY});
 	this->gTexture.setPosition(coord);
 }
 
