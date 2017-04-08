@@ -16,12 +16,15 @@
 #ifndef PILHA_H
 #define PILHA_H
 
+#include "SDL2/SDL.h" // SDL_QueryTexture()
 #include <ctime> // time()
 #include <cstdlib> // srand(), rand()
 
 using namespace std;
 
 #define DIF_ALTURA 20 // diferen�a de altura entre duas cartas
+#define CARD_WIDTH 100
+#define CARD_HEIGHT 156
 
 template<class T, int S>
 class Pilha {
@@ -57,8 +60,10 @@ Pilha<T,S>::Pilha() {
 template<typename T, int S>
 bool Pilha<T,S>::setTexture(SDL_Renderer* renderer) {
 	this->backTexture = Textura("../textures/pilha.png", renderer, this->coord.x, this->coord.y, 69, 100);
-
-	return true; // Por hora, n�o faz nenhuma verifica��o se foi poss�vel carregar a textura
+	if(!SDL_QueryTexture(this->backTexture&,NULL,NULL,CARD_WIDTH,CARD_HEIGHT)){
+		return true;
+	}
+	return false;
 }
 
 template<typename T, int S>
