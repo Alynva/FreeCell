@@ -9,11 +9,16 @@ private:
 
 public:
   Node(T);
-  ~Node(){delete next;};
+  ~Node();
 	void setNext(Node*);
   Node* getNext() const;
   T getElement() const;
 };
+
+template<class T>
+Node<T>::~Node(){
+	delete this->next;
+}
 
 template<class T>
 Node<T>::Node(T elementVal){
@@ -44,6 +49,7 @@ private:
 
 public:
   Stack();
+	~Stack();
   void push(const T&);
   bool pop(T&);
   bool isEmpty() const;
@@ -53,27 +59,33 @@ public:
 template<class T>
 Stack<T>::Stack(){
   this->stack_ptr = NULL;
-  size = 0;
+  this->size = 0;
+}
+
+template<class T>
+Stack<T>::~Stack(){
+	delete this->stack_ptr;
 }
 
 template<class T>
 void Stack<T>::push(const T& pushValue){
   Node* aux = new Node(pushValue);
   aux.setNext(stack_ptr);
-  this->stack_ptr.setNext(aux);
+  this->stack_ptr = *aux;
   this->tamanho++;
 }
 
-/*template<class T>
+template<class T>
 bool Stack<T>::pop(T& popValue){
   if(!this->isEmpty()){
-    Node* aux;
-    popValue = this->stack_ptr->next->element;
-    aux = this->stack_ptr;
+    Node* aux = this->stack_ptr;;
+    popValue = this->stack_ptr->element;
+		delete this->stack_ptr;
+		this->stack_ptr = aux->next;
     return true;
   }
   return false;
-}*/
+}
 
 template<class T>
 bool Stack<T>::isEmpty() const{
@@ -86,5 +98,5 @@ bool Stack<T>::isEmpty() const{
 template<class T>
 int Stack<T>::getSize() const{
   return this->size;
-};
+} 
 #endif
