@@ -53,6 +53,7 @@ public:
   bool pop(Node);
   bool isEmpty() const;
   int getSize() const;
+	Node peek() const;
 };
 
 Stack::Stack(){
@@ -92,6 +93,10 @@ bool Stack::isEmpty() const{
 
 int Stack::getSize() const{
   return this->size;
+}
+
+Node Stack::peek() const{
+	return *this->stack_ptr;
 }
 
 #endif
