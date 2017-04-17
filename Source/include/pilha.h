@@ -60,7 +60,8 @@ Pilha<T,S>::Pilha() {
 template<typename T, int S>
 bool Pilha<T,S>::setTexture(SDL_Renderer* renderer) {
 	this->backTexture = Textura("../textures/pilha.png", renderer, this->coord.x, this->coord.y, 69, 100);
-	if(!SDL_QueryTexture(this->backTexture&,NULL,NULL,CARD_WIDTH,CARD_HEIGHT)){
+	int w = CARD_WIDTH, h = CARD_HEIGHT;
+	if(!SDL_QueryTexture(this->backTexture.getTexture(),NULL,NULL,&w,&h)){
 		return true;
 	}
 	return false;
