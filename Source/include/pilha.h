@@ -30,8 +30,6 @@ template<class T, int S>
 class Pilha {
 	T stack[S];
 	T* top;
-	SDL_Point coord;
-	Textura backTexture;
 
 	public:
 	Pilha();
