@@ -31,6 +31,7 @@ class Textura {
 	void setSize(int, int);
 	SDL_Point getPosition() const;
 	void setPosition(SDL_Point);
+	SDL_Texture* getTexture() const;
 	void render();
 };
 
