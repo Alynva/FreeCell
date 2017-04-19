@@ -30,6 +30,8 @@ template<class T, int S>
 class Pilha {
 	T stack[S];
 	T* top;
+//	SDL_Point coord;		
+//	Textura backTexture;
 
 	public:
 	Pilha();
@@ -51,8 +53,8 @@ class Pilha {
 
 template<typename T, int S>
 Pilha<T,S>::Pilha() {
-	top = NULL;
-	coord = {0, 0};
+	this->top = NULL;
+//	this->coord = {0, 0};
 }
 
 template<typename T, int S>

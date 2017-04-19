@@ -3,25 +3,26 @@
 
 #include "SDL2/SDL.h" // SDL_QueryTexture()
 #include "node.h" // TAD base "pilha"
+#include "stack.h"
 #include "carta.h" // texturas de carta e funcoes do baralho
 
-class PilhaInteligente : public Stack{
+class PilhaInteligente : public Stack {
 //TODO: mudar os setTexture() e qualquer coisa da SDL pra ca
-private:
-  SDL_Point coord;
-	Textura backTexture;
-public:
-  PilhaInteligente();
-  bool setTexture(SDL_Renderer*);
-	bool setPosition(SDL_Point);
-  void randomize();
-	void render();
-	void organize();
-	bool isInside(SDL_Point);
+	private:
+		SDL_Point coord;
+		Textura backTexture;
+	public:
+		PilhaInteligente();
+		bool setTexture(SDL_Renderer*);
+		bool setPosition(SDL_Point);
+		void randomize();
+		void render();
+		void organize();
+		bool isInside(SDL_Point);
 };
 
-PilhaInteligente::PilhaInteligente(){
-  this->coord = {0, 0};
+PilhaInteligente::PilhaInteligente() {
+	this->coord = {0, 0};
 }
 
 bool PilhaInteligente::setTexture(SDL_Renderer* renderer) {
@@ -43,11 +44,11 @@ void PilhaInteligente::randomize(){}
 
 /*Nao sei como implementar isso aqui,mas creio que seja so tirar o template
 de Pilha() e mudar o tipo T de t_temp para node,usando o T no construtor Node<T>()*/
-/*template<class T>
-void Pilha::render(){
-  this->backTexture.render();
+/*
+void PilhaInteligente::render(){
+	this->backTexture.render();
 
-	Pilha<T,S> p_temp;
+	Pilha<Node<T>,S> p_temp;
 	T t_temp;
 
 	while (!this->isEmpty()) {
