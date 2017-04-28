@@ -17,27 +17,16 @@
 #define PILHA_H
 
 #include "SDL2/SDL.h" // SDL_QueryTexture()
-#include <ctime> // time()
-#include <cstdlib> // srand(), rand()
 
 using namespace std;
-
-#define DIF_ALTURA 20 // diferen�a de altura entre duas cartas
-#define CARD_WIDTH 100
-#define CARD_HEIGHT 156
 
 template<class T, int S>
 class Pilha {
 	T stack[S];
 	T* top;
-//	SDL_Point coord;		
-//	Textura backTexture;
 
 	public:
 	Pilha();
-
-	bool setTexture(SDL_Renderer*);
-	bool setPosition(SDL_Point);
 
 	bool push(const T&);
 	bool pop(T&);
@@ -46,9 +35,6 @@ class Pilha {
 	bool isEmpty();
 	bool isFull();
 	void randomize();
-	void render();
-	void organize();
-	bool isInside(SDL_Point);
 };
 
 template<typename T, int S>

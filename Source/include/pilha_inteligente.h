@@ -2,15 +2,21 @@
 #define PILHA_INTELIGENTE_H
 
 #include "SDL2/SDL.h" // SDL_QueryTexture()
-#include "node.h" // TAD base "pilha"
-#include "stack.h"
+#include "pilha.h" // TAD base "pilha"
 #include "carta.h" // texturas de carta e funcoes do baralho
 
+#include <ctime> // time()
+#include <cstdlib> // srand(), rand()
+
+#define DIF_ALTURA 20 // diferenca de altura entre duas cartas
+#define CARD_WIDTH 100 // largura final do fundo da pilha
+#define CARD_HEIGHT 156 // altura final do fundo da pilha
+
 class PilhaInteligente : public Stack {
-//TODO: mudar os setTexture() e qualquer coisa da SDL pra ca
 	private:
 		SDL_Point coord;
 		Textura backTexture;
+		
 	public:
 		PilhaInteligente();
 		bool setTexture(SDL_Renderer*);
@@ -27,7 +33,8 @@ PilhaInteligente::PilhaInteligente() {
 
 bool PilhaInteligente::setTexture(SDL_Renderer* renderer) {
 	this->backTexture = Textura("../textures/pilha.png", renderer, this->coord.x, this->coord.y, 69, 100);
-	if(!SDL_QueryTexture(this->backTexture&,NULL,NULL,CARD_WIDTH,CARD_HEIGHT)){
+	int w = CARD_WIDTH, h = CARD_HEIGHT;
+	if(!SDL_QueryTexture(this->backTexture.getTexture(), NULL, NULL, &w, &h)){
 		return true;
 	}
 	return false;
@@ -36,121 +43,81 @@ bool PilhaInteligente::setTexture(SDL_Renderer* renderer) {
 bool PilhaInteligente::setPosition(SDL_Point pos) {
 	this->coord = pos;
 
-	return true; // Por ora, nï¿½o faz nenhuma verificaï¿½ï¿½o de ser negativo ou ultrapassar a tela
+	return true; // Por hora, nao faz nenhuma verificacao de ser negativo ou ultrapassar a tela
 }
 
-//TODO: Implementar randomize(), render(), organize() e isInside() para lista encadeada
-void PilhaInteligente::randomize(){}
+void PilhaInteligente::randomize() {
+	/*
+	// Alynva: aguardando a implementação da sobrecarga do operador []
+	
+	
+	srand(time(0));
+	int S = this.getSize(), in, out;
+	for (int i = 0; i < (rand() % (S * 10) + 50); i++) {
+		do {
+			in = rand() % S;
+			out = rand() % S;
+		} while(in == out);
+		T aux = stack[out];
+		stack[out] = stack[in];
+		stack[in] = aux;
+	}
+	*/
+}
 
-/*Nao sei como implementar isso aqui,mas creio que seja so tirar o template
-de Pilha() e mudar o tipo T de t_temp para node,usando o T no construtor Node<T>()*/
-/*
-void PilhaInteligente::render(){
+void PilhaInteligente::render() {
 	this->backTexture.render();
 
-	Pilha<Node<T>,S> p_temp;
-	T t_temp;
+	Stack<Carta> p_temp;
+	Carta c_temp;
 
 	while (!this->isEmpty()) {
-		this->pop(t_temp);
-		p_temp.push(t_temp);
+		this->pop(c_temp);
+		p_temp.push(c_temp);
 	}
 	while (!p_temp.isEmpty()) {
-		p_temp.pop(t_temp);
-		t_temp.render();
-		this->push(t_temp);
+		p_temp.pop(c_temp);
+		c_temp.render();
+		this->push(c_temp);
 	}
 }
 
-template<class T>
-void Pilha::organize(){
-  Pilha<T,S> p_temp;
-	T t_temp;
+void PilhaInteligente::organize() {
+	
+	Stack<Carta> p_temp;
+	Carta c_temp;
 
 	int y = 0;
 	while (!this->isEmpty()) {
-		this->pop(t_temp);
-		p_temp.push(t_temp);
+		this->pop(c_temp);
+		p_temp.push(c_temp);
 	}
 	while (!p_temp.isEmpty()) {
-		p_temp.pop(t_temp);
-		t_temp.setPosition({this->coord.x, this->coord.y + y});
+		p_temp.pop(c_temp);
+		c_temp.setPosition({this->coord.x, this->coord.y + y});
 		y += DIF_ALTURA;
-		this->push(t_temp);
+		this->push(c_temp);
 	}
 }
 
-template<typename T, int S>
-bool Pilha<T,S>::isInside(SDL_Point point) {
+bool PilhaInteligente::isInside(SDL_Point point) {
 	bool inside = false;
-	Pilha<T,S> p_temp;
-	T t_temp;
+	
+	Stack<Carta> p_temp;
+	Carta c_temp;
 
-	int y = 0;
 	while (!this->isEmpty()) {
-		this->pop(t_temp);
-		p_temp.push(t_temp);
+		this->pop(c_temp);
+		p_temp.push(c_temp);
 	}
 	while (!p_temp.isEmpty()) {
-		p_temp.pop(t_temp);
+		p_temp.pop(c_temp);
 		if (!inside)
-			inside = t_temp.isInside(point);
-		y += DIF_ALTURA;
+			inside = c_temp.isInside(point);
 		this->push(t_temp);
 	}
 
 	return inside;
-}*/
-
-class PilhaIntermediaria : public PilhaInteligente{
-public:
-  PilhaIntermediaria();
-  bool push(const Carta&);
-};
-
-//TODO: Implementar push() para lista encadeada
-bool PilhaIntermediaria::push(const Carta& pushValue){
-  if(!this->isFull()){
-    if(pushValue.getValue() == this->peek().getValue()-1){
-      if(pushValue.getSuit() != this->peek().getSuit()){
-        if(top != NULL){
-          top++;
-        } else {
-          top = &stack[0];
-        }
-    //TODO:	element.setPosition(this->coord);
-        *top = element;
-        return true;
-      }
-    }
-  }
-  return false;
-}
-
-class PilhaDefinitiva : public PilhaInteligente{
-public:
-  PilhaDefinitiva();
-  bool push(const Carta&);
-  void setTexture(SDL_Renderer* renderer) {this->backTexture = Textura("../textures/pilhaDefinitiva.png", renderer, this->coord.x, this->coord.y, 69, 100);}
-};
-
-//TODO: implementar push() para lista encadeada
-bool PilhaIntermediaria::push(const Carta& pushValue){
-  if(!this->isFull()){
-    if(pushValue.getValue() == this->peek().getValue()+1){
-      if(pushValue.getSuit() == this->peekSuit()){
-        if(top != NULL){
-          top++;
-        } else {
-          top = &stack[0];
-        }
-    //TODO:	element.setPosition(this->coord);
-        *top = element;
-        return true;
-      }
-    }
-  }
-  return false;
 }
 
 #endif
