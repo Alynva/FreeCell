@@ -12,7 +12,8 @@
 #define CARD_WIDTH 100 // largura final do fundo da pilha
 #define CARD_HEIGHT 156 // altura final do fundo da pilha
 
-class PilhaInteligente : public Stack<Carta> {
+template<>
+class PilhaInteligente<Carta> : public Stack {
 	private:
 		SDL_Point coord;
 		Textura backTexture;
@@ -29,11 +30,13 @@ class PilhaInteligente : public Stack<Carta> {
 
 #endif
 
-PilhaInteligente::PilhaInteligente() {
+template<>
+PilhaInteligente<Carta>::PilhaInteligente() {
 	this->coord = {0, 0};
 }
 
-bool PilhaInteligente::setTexture(SDL_Renderer* renderer) {
+template<>
+bool PilhaInteligente<Carta>::setTexture(SDL_Renderer* renderer) {
 	this->backTexture = Textura("../textures/pilha.png", renderer, this->coord.x, this->coord.y, 69, 100);
 	int w = CARD_WIDTH, h = CARD_HEIGHT;
 	if(!SDL_QueryTexture(this->backTexture.getTexture(), NULL, NULL, &w, &h)){
@@ -42,7 +45,8 @@ bool PilhaInteligente::setTexture(SDL_Renderer* renderer) {
 	return false;
 }
 
-bool PilhaInteligente::setPosition(SDL_Point pos) {
+template<>
+bool PilhaInteligente<Carta>::setPosition(SDL_Point pos) {
 	SDL_Point size;
 //	SDL_GetWindowSize(gWindow, &size.x, &size.y);
 	
@@ -56,7 +60,8 @@ bool PilhaInteligente::setPosition(SDL_Point pos) {
 	return false;
 }
 
-void PilhaInteligente::randomize() {
+template<>
+void PilhaInteligente<Carta>::randomize() {
 	/*
 	// Alynva: aguardando a implementação da sobrecarga do operador []
 	
@@ -75,7 +80,8 @@ void PilhaInteligente::randomize() {
 	*/
 }
 
-void PilhaInteligente::render() {
+template<>
+void PilhaInteligente<Carta>::render() {
 	this->backTexture.render();
 
 	Stack<Carta> p_temp;
@@ -92,7 +98,8 @@ void PilhaInteligente::render() {
 	}
 }
 
-void PilhaInteligente::organize() {
+template<>
+void PilhaInteligente<Carta>::organize() {
 	
 	Stack<Carta> p_temp;
 	Carta c_temp;
@@ -110,7 +117,8 @@ void PilhaInteligente::organize() {
 	}
 }
 
-bool PilhaInteligente::isInside(SDL_Point point) {
+template<>
+bool PilhaInteligente<Carta>::isInside(SDL_Point point) {
 	bool inside = false;
 	
 	Stack<Carta> p_temp;
