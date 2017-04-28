@@ -18,9 +18,12 @@ class Node {
 };
 
 template<class T>
+Node<T>::Node() {}
+
+template<class T>
 Node<T>::Node(T elementVal) {
 	this->element = elementVal;
-	this->next = 0;
+	this->next = NULL;
 }
 
 template<class T>
@@ -55,6 +58,7 @@ class Stack {
 		~Stack(){};
 		void push(const T&);
 		bool pop(T&);
+		void clear();
 		bool isEmpty() const;
 		int getSize() const;
 		Node<T> peek() const;
@@ -62,7 +66,7 @@ class Stack {
 
 template<class T>
 Stack<T>::Stack() {
-	this->stack_ptr = new Node<T>(0);
+	this->stack_ptr = new Node<T>();
 	this->size = 0;
 }
 
@@ -85,6 +89,16 @@ bool Stack<T>::pop(T& popValue) {
 		return true;
 	}
 	return false;
+}
+
+template<class T>
+void Stack<T>::clear() {
+	while (!this->isEmpty()) {
+		Node<T>* aux = new Node<T>(*this->stack_ptr);
+		delete this->stack_ptr;
+		this->stack_ptr = new Node<T>(*aux->getNext());
+		this->size--;
+	}
 }
 
 template<class T>

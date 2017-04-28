@@ -1,6 +1,5 @@
 #include <iostream>
 #include "../include/baralho.h"
-#include "../include/pilha.h"
 #include "../include/eventmanager.h"
 
 #define SCREEN_WIDTH 1280
@@ -8,11 +7,12 @@
 
 using namespace std;
 
-bool moveCartasParaPilha(Baralho*, Pilha<Carta, 20>*, int);
+bool moveCartasParaPilha(Baralho*, PilhaInteligente*, int);
 
+// Janela principal
+SDL_Window* gWindow = NULL;
+	
 int main(int argv, char** args){
-	// Janela principal
-	SDL_Window* gWindow = NULL;
 
 	// Renderizador principal
 	SDL_Renderer* gRenderer = NULL;
@@ -60,7 +60,7 @@ int main(int argv, char** args){
 	Carta c;
 	b.getCard(c);
 
-	Pilha<Carta, 20> p[4];
+	PilhaInteligente p[4];
 	p[0].setPosition({40, 10});
 	p[0].setTexture(gRenderer);
 	p[1].setPosition({130, 10});
@@ -117,13 +117,12 @@ int main(int argv, char** args){
 	return 0;
 }
 
-bool moveCartasParaPilha(Baralho* b, Pilha<Carta, 20>* p, int qnt) {
+bool moveCartasParaPilha(Baralho* b, PilhaInteligente* p, int qnt) {
 	Carta c;
 	for (int i = 0; i < qnt; i++) {
 		if (!b->getCard(c))
 			return false;
-		if (!p->push(c))
-			return false;
+		p->push(c);
 	}
 	p->organize();
 	return true;

@@ -12,7 +12,7 @@
 #define CARD_WIDTH 100 // largura final do fundo da pilha
 #define CARD_HEIGHT 156 // altura final do fundo da pilha
 
-class PilhaInteligente : public Stack {
+class PilhaInteligente : public Stack<Carta> {
 	private:
 		SDL_Point coord;
 		Textura backTexture;
@@ -26,6 +26,8 @@ class PilhaInteligente : public Stack {
 		void organize();
 		bool isInside(SDL_Point);
 };
+
+#endif
 
 PilhaInteligente::PilhaInteligente() {
 	this->coord = {0, 0};
@@ -41,9 +43,17 @@ bool PilhaInteligente::setTexture(SDL_Renderer* renderer) {
 }
 
 bool PilhaInteligente::setPosition(SDL_Point pos) {
-	this->coord = pos;
+	SDL_Point size;
+//	SDL_GetWindowSize(gWindow, &size.x, &size.y);
+	
+//	if (pos.x > 0 && pos.y > 0 && pos.x + CARD_WIDTH < size.x && pos.y + CARD_HEIGHT < size.y) {
+		this->coord = pos;
+		
+		this->organize();
 
-	return true; // Por hora, nao faz nenhuma verificacao de ser negativo ou ultrapassar a tela
+		return true;
+//	}
+	return false;
 }
 
 void PilhaInteligente::randomize() {
@@ -114,10 +124,8 @@ bool PilhaInteligente::isInside(SDL_Point point) {
 		p_temp.pop(c_temp);
 		if (!inside)
 			inside = c_temp.isInside(point);
-		this->push(t_temp);
+		this->push(c_temp);
 	}
 
 	return inside;
 }
-
-#endif

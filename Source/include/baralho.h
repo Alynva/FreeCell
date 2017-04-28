@@ -12,13 +12,12 @@
 #ifndef BARALHO_H
 #define BARALHO_H
 
-#include "carta.h"
-#include "pilha.h"
+#include "pilha_inteligente.h"
 
 #define MAX_CARD 52
 
 class Baralho {
-	Pilha<Carta, MAX_CARD> deck;
+	PilhaInteligente deck;
 	SDL_Renderer* gRenderer;
 
 	public:
