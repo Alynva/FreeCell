@@ -76,3 +76,4 @@ $RECYCLE.BIN/
 *.lnk
 *.cbp
 *.depend
+*.layout
