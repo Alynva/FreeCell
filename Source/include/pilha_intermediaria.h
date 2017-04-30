@@ -6,25 +6,28 @@
 class PilhaIntermediaria : public PilhaInteligente{
 	public:
 		PilhaIntermediaria();
-		bool push(const Carta&);
+		bool push(Carta&);
 };
 
-//TODO: Implementar push() para lista encadeada
-bool PilhaIntermediaria::push(const Carta& pushValue){
-	if(!this->isFull()){
-		if(pushValue.getValue() == this->peek().getValue()-1){
-			if(pushValue.getSuit() != this->peek().getSuit()){
-				if(top != NULL){
-					top++;
-				} else {
-					top = &stack[0];
+bool PilhaIntermediaria::push(Carta& pushValue){
+		if(this->isEmpty()){
+			Node<Carta>* aux = new Node<Carta>(pushValue);
+			aux->setNext(*stack_ptr);
+			this->stack_ptr = aux;
+			this->size++;
+		}
+		else{
+			if(pushValue.getValue() == this->peek().getElement().getValue()-1){
+				if(this->isDifferentColor(pushValue,this->peek().getElement())){
+					Node<Carta>* aux = new Node<Carta>(pushValue);
+					aux->setNext(*stack_ptr);
+					this->stack_ptr = aux;
+					this->size++;
+					this->peek().getElement().setPosition(this->getCoord());
+					return true;
 				}
-				//TODO:	element.setPosition(this->coord);
-				*top = element;
-				return true;
 			}
 		}
-	}
 	return false;
 }
 

@@ -3,7 +3,7 @@
 
 template<class T>
 class Node {
-	private:
+	protected:
 		T element;
 		Node<T>* next;
 	
@@ -23,7 +23,7 @@ Node<T>::Node() {}
 template<class T>
 Node<T>::Node(T elementVal) {
 	this->element = elementVal;
-	this->next = NULL;
+	this->next = nullptr;
 }
 
 template<class T>
@@ -49,7 +49,7 @@ T Node<T>::getElement() const {
 
 template <class T>
 class Stack {
-	private:
+	protected:
 		Node<T>* stack_ptr;
 		int size;
 	

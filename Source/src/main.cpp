@@ -1,6 +1,8 @@
 #include <iostream>
 #include "../include/baralho.h"
 #include "../include/eventmanager.h"
+#include "../include/pilha_definitiva.h"
+#include "../include/pilha_intermediaria.h"
 
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 720

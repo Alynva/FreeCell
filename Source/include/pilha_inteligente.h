@@ -12,31 +12,30 @@
 #define CARD_WIDTH 100 // largura final do fundo da pilha
 #define CARD_HEIGHT 156 // altura final do fundo da pilha
 
-template<>
-class PilhaInteligente<Carta> : public Stack {
-	private:
+
+class PilhaInteligente : public Stack<Carta> {
+	protected:
 		SDL_Point coord;
 		Textura backTexture;
 		
 	public:
 		PilhaInteligente();
+		SDL_Point getCoord(){return this->coord;};
 		bool setTexture(SDL_Renderer*);
 		bool setPosition(SDL_Point);
 		void randomize();
 		void render();
 		void organize();
 		bool isInside(SDL_Point);
+		bool isDifferentColor(Carta, Carta);
 };
 
-#endif
 
-template<>
-PilhaInteligente<Carta>::PilhaInteligente() {
+PilhaInteligente::PilhaInteligente() : Stack<Carta>() {
 	this->coord = {0, 0};
 }
 
-template<>
-bool PilhaInteligente<Carta>::setTexture(SDL_Renderer* renderer) {
+bool PilhaInteligente::setTexture(SDL_Renderer* renderer) {
 	this->backTexture = Textura("../textures/pilha.png", renderer, this->coord.x, this->coord.y, 69, 100);
 	int w = CARD_WIDTH, h = CARD_HEIGHT;
 	if(!SDL_QueryTexture(this->backTexture.getTexture(), NULL, NULL, &w, &h)){
@@ -45,8 +44,7 @@ bool PilhaInteligente<Carta>::setTexture(SDL_Renderer* renderer) {
 	return false;
 }
 
-template<>
-bool PilhaInteligente<Carta>::setPosition(SDL_Point pos) {
+bool PilhaInteligente::setPosition(SDL_Point pos) {
 	SDL_Point size;
 //	SDL_GetWindowSize(gWindow, &size.x, &size.y);
 	
@@ -60,8 +58,7 @@ bool PilhaInteligente<Carta>::setPosition(SDL_Point pos) {
 	return false;
 }
 
-template<>
-void PilhaInteligente<Carta>::randomize() {
+void PilhaInteligente::randomize() {
 	/*
 	// Alynva: aguardando a implementação da sobrecarga do operador []
 	
@@ -80,8 +77,7 @@ void PilhaInteligente<Carta>::randomize() {
 	*/
 }
 
-template<>
-void PilhaInteligente<Carta>::render() {
+void PilhaInteligente::render() {
 	this->backTexture.render();
 
 	Stack<Carta> p_temp;
@@ -98,8 +94,7 @@ void PilhaInteligente<Carta>::render() {
 	}
 }
 
-template<>
-void PilhaInteligente<Carta>::organize() {
+void PilhaInteligente::organize() {
 	
 	Stack<Carta> p_temp;
 	Carta c_temp;
@@ -117,8 +112,7 @@ void PilhaInteligente<Carta>::organize() {
 	}
 }
 
-template<>
-bool PilhaInteligente<Carta>::isInside(SDL_Point point) {
+bool PilhaInteligente::isInside(SDL_Point point) {
 	bool inside = false;
 	
 	Stack<Carta> p_temp;
@@ -134,6 +128,18 @@ bool PilhaInteligente<Carta>::isInside(SDL_Point point) {
 			inside = c_temp.isInside(point);
 		this->push(c_temp);
 	}
-
 	return inside;
 }
+
+//Faz a verificacao de naipes para dizer se duas cartas sao da mesma cor
+bool PilhaInteligente::isDifferentColor(Carta c1, Carta c2){ 
+	if((c1.getSuit() == 'A' || c1.getSuit() == 'C') && (c2.getSuit() == 'A' || c2.getSuit() == 'C'))
+		return true;	
+		
+	else if((c1.getSuit() == 'B' || c1.getSuit() == 'D') && (c2.getSuit() == 'B' || c1.getSuit() == 'D'))
+		return true;
+		
+	return false;
+}
+
+#endif

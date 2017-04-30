@@ -6,26 +6,31 @@
 class PilhaDefinitiva : public PilhaInteligente{
 	public:
 		PilhaDefinitiva();
-		bool push(const Carta&);
+		bool push(Carta&);
 		void setTexture(SDL_Renderer* renderer) {this->backTexture = Textura("../textures/pilhaDefinitiva.png", renderer, this->coord.x, this->coord.y, 69, 100);}
 };
 
-//TODO: implementar push() para lista encadeada
-bool PilhaDefinitiva::push(const Carta& pushValue){
-	if(!this->isFull()){
-		if(pushValue.getValue() == this->peek().getValue()+1){
-			if(pushValue.getSuit() == this->peekSuit()){
-				if(top != NULL){
-					top++;
-				} else {
-					top = &stack[0];
+//PilhaDefinitiva::PilhaDefinitiva() : PilhaInteligente(){}
+
+bool PilhaDefinitiva::push(Carta& pushValue){
+		if(this->isEmpty()){
+			Node<Carta>* aux = new Node<Carta>(pushValue);
+			aux->setNext(*stack_ptr);
+			this->stack_ptr = aux;
+			this->size++;
+		}
+		else{
+			if(pushValue.getValue() == this->peek().getElement().getValue()+1){
+				if(!this->isDifferentColor(pushValue,this->peek().getElement())){
+					Node<Carta>* aux = new Node<Carta>(pushValue);
+					aux->setNext(*stack_ptr);
+					this->stack_ptr = aux;
+					this->size++;
+					this->peek().getElement().setPosition(this->getCoord());
+					return true;
 				}
-				//TODO:	element.setPosition(this->coord);
-				*top = element;
-				return true;
 			}
 		}
-	}
 	return false;
 }
 
