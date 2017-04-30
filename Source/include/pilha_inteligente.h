@@ -31,11 +31,11 @@ class PilhaInteligente : public Stack<Carta> {
 };
 
 
-PilhaInteligente::PilhaInteligente() : Stack<Carta>() {
+inline PilhaInteligente::PilhaInteligente() : Stack<Carta>() {
 	this->coord = {0, 0};
 }
 
-bool PilhaInteligente::setTexture(SDL_Renderer* renderer) {
+inline bool PilhaInteligente::setTexture(SDL_Renderer* renderer) {
 	this->backTexture = Textura("../textures/pilha.png", renderer, this->coord.x, this->coord.y, 69, 100);
 	int w = CARD_WIDTH, h = CARD_HEIGHT;
 	if(!SDL_QueryTexture(this->backTexture.getTexture(), NULL, NULL, &w, &h)){
@@ -44,7 +44,7 @@ bool PilhaInteligente::setTexture(SDL_Renderer* renderer) {
 	return false;
 }
 
-bool PilhaInteligente::setPosition(SDL_Point pos) {
+inline bool PilhaInteligente::setPosition(SDL_Point pos) {
 	SDL_Point size;
 //	SDL_GetWindowSize(gWindow, &size.x, &size.y);
 	
@@ -58,7 +58,7 @@ bool PilhaInteligente::setPosition(SDL_Point pos) {
 	return false;
 }
 
-void PilhaInteligente::randomize() {
+inline void PilhaInteligente::randomize() {
 	/*
 	// Alynva: aguardando a implementação da sobrecarga do operador []
 	
@@ -77,7 +77,7 @@ void PilhaInteligente::randomize() {
 	*/
 }
 
-void PilhaInteligente::render() {
+inline void PilhaInteligente::render() {
 	this->backTexture.render();
 
 	Stack<Carta> p_temp;
@@ -94,7 +94,7 @@ void PilhaInteligente::render() {
 	}
 }
 
-void PilhaInteligente::organize() {
+inline void PilhaInteligente::organize() {
 	
 	Stack<Carta> p_temp;
 	Carta c_temp;
@@ -112,7 +112,7 @@ void PilhaInteligente::organize() {
 	}
 }
 
-bool PilhaInteligente::isInside(SDL_Point point) {
+inline bool PilhaInteligente::isInside(SDL_Point point) {
 	bool inside = false;
 	
 	Stack<Carta> p_temp;
@@ -132,7 +132,7 @@ bool PilhaInteligente::isInside(SDL_Point point) {
 }
 
 //Faz a verificacao de naipes para dizer se duas cartas sao da mesma cor
-bool PilhaInteligente::isDifferentColor(Carta c1, Carta c2){ 
+inline bool PilhaInteligente::isDifferentColor(Carta c1, Carta c2){ 
 	if((c1.getSuit() == 'A' || c1.getSuit() == 'C') && (c2.getSuit() == 'A' || c2.getSuit() == 'C'))
 		return true;	
 		

@@ -1,42 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
-<CodeBlocks_layout_file>
-	<FileVersion major="1" minor="0" />
-	<ActiveTarget name="Debug" />
-	<File name="main.cpp" open="1" top="1" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="230" topLine="7" />
-		</Cursor>
-	</File>
-	<File name="..\include\baralho.h" open="1" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="261" topLine="2" />
-		</Cursor>
-	</File>
-	<File name="..\include\carta.h" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="275" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="..\include\textura.h" open="0" top="0" tabpos="0" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="53" topLine="0" />
-		</Cursor>
-	</File>
-	<File name="baralho.cpp" open="1" top="0" tabpos="4" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="592" topLine="18" />
-		</Cursor>
-	</File>
-	<File name="carta.cpp" open="1" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="29" topLine="0" />
-		</Cursor>
-	</File>
-</CodeBlocks_layout_file>
 [Editor_0]
-CursorCol=30
-CursorRow=73
-TopLine=66
+CursorCol=1
+CursorRow=1
+TopLine=1
 LeftChar=1
 Open=0
 Top=0
@@ -46,98 +11,43 @@ Focused=-1
 [Editor_1]
 Open=0
 Top=0
-CursorCol=14
-CursorRow=3
-TopLine=8
-LeftChar=1
 [Editor_2]
 Open=0
 Top=0
-CursorCol=2
-CursorRow=27
-TopLine=39
-LeftChar=1
 [Editor_3]
 Open=0
 Top=0
-CursorCol=53
-CursorRow=30
-TopLine=21
-LeftChar=1
 [Editor_4]
 Open=0
 Top=0
-CursorCol=1
-CursorRow=16
-TopLine=8
-LeftChar=1
 [Editor_5]
 Open=0
 Top=0
-CursorCol=12
-CursorRow=20
-TopLine=5
-LeftChar=1
 [Editor_6]
-Open=1
-Top=1
-CursorCol=15
-CursorRow=34
-TopLine=4
-LeftChar=1
-[Editor_7]
-Open=1
+Open=0
 Top=0
-CursorCol=58
-CursorRow=13
-TopLine=1
-LeftChar=1
+[Editor_7]
+Open=0
+Top=0
 [Editor_8]
 Open=0
 Top=0
-CursorCol=18
-CursorRow=13
-TopLine=3
-LeftChar=1
 [Editor_9]
 Open=0
 Top=0
-CursorCol=1
-CursorRow=1
-TopLine=1
-LeftChar=1
 [Editor_10]
-Open=0
-Top=0
-CursorCol=1
-CursorRow=23
-TopLine=4
+Open=1
+Top=1
+CursorCol=7
+CursorRow=145
+TopLine=114
 LeftChar=1
 [Editor_11]
 Open=0
 Top=0
-CursorCol=22
-CursorRow=16
-TopLine=1
-LeftChar=1
 [Editor_12]
-Open=1
+Open=0
 Top=0
-CursorCol=18
-CursorRow=64
-TopLine=56
-LeftChar=1
 [Editor_13]
-CursorCol=1
-CursorRow=1
-TopLine=1
-LeftChar=1
-Open=1
+Open=0
 Top=0
-[Editor_14]
-Open=1
-Top=0
-CursorCol=9
-CursorRow=7
-TopLine=1
-LeftChar=1
