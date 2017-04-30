@@ -6,6 +6,7 @@ EventManager::EventManager(bool* mQuit):quit(mQuit), mousePressed(false) {
 }
 
 void EventManager::update(){
+	SDL_WaitEvent(&this->handler);
 	while(SDL_PollEvent(&this->handler)){
 		switch(handler.type){
 			case SDL_QUIT:
