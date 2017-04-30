@@ -103,10 +103,10 @@ void Stack<T>::clear() {
 
 template<class T>
 bool Stack<T>::isEmpty() const {
-	if(!this->stack_ptr->getNext()) {
-		return true;
-	}
-	return false;
+//	if (!this->stack_ptr->getNext())
+	if (this->size)
+			return false;
+	return true;
 }
 
 template<class T>
