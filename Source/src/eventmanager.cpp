@@ -2,7 +2,7 @@
 #include <iostream>
 
 EventManager::EventManager(bool* mQuit):quit(mQuit), mousePressed(false) {
-	
+
 }
 
 void EventManager::update(){

@@ -1,6 +1,6 @@
 /*
 	Classe relacionada ao baralho.
-	
+
 	DeclaraÃ§Ã£o: O Ãºnico parÃ¢metro de construÃ§Ã£o Ã© um renderizador do SDL para a criaÃ§Ã£o das cartas.
 	MÃ©todos:
 		generate: gera um novo baralho e logo em seguida, o embaralha.
@@ -27,10 +27,10 @@ class Baralho {
 	void randomize();
 
 	bool getCard(Carta&);
-	
-	// Métodos criados apenas para teste. A classe que realmente é renderizada,
-	// organizada e calculada se está dentro ou fora é a Pilha, que por hora eu
-	// adicionei na classe mãe mas depois poderá ser apenas das PilhaIntermedi-
+
+	// Mï¿½todos criados apenas para teste. A classe que realmente ï¿½ renderizada,
+	// organizada e calculada se estï¿½ dentro ou fora ï¿½ a Pilha, que por hora eu
+	// adicionei na classe mï¿½e mas depois poderï¿½ ser apenas das PilhaIntermedi-
 	// aria e PilhaDefinitiva.
 	void render();
 	void organize();

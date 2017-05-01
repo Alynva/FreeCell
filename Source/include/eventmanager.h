@@ -1,6 +1,6 @@
 /*
 	Classe responsável pelos eventos do SDL(cliques, botões do teclaso, finalização do programa, etc.).
-	
+
 	Declaração: O único parâmetro a ser passo é um ponteiro para uma variávl booleana, responsável por avisar o programa que o usuário deseja finalizá-lo.
 	Métodos:
 		update: checa todos os eventos na fila, e trata cada caso com um switch.
@@ -19,14 +19,14 @@ class EventManager {
 	SDL_Event handler;
 	bool* quit;
 	bool mousePressed;
-	
+
 	public:
 	EventManager(bool*);
-	
+
 	void update();
 	void mouseDown();
 	void mouseUp();
 	void mouseMove();
 };
-	
+
 #endif

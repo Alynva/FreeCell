@@ -1,6 +1,6 @@
 /*
 	Classe responsável pelas cartas.
-	
+
 	Declaração: A construção recebe dois parâmetros, um inteiro, que é usado para definir qual é o valor e o naipe da carta, e um renderizador do SDL, para renderizar as cartas.
 	Métodos:
 		renderCard: renderiza a carta na janela principal.

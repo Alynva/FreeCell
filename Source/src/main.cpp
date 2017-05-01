@@ -13,8 +13,13 @@ bool moveCartasParaPilha(Baralho*, PilhaInteligente*, int);
 
 // Janela principal
 SDL_Window* gWindow = NULL;
+<<<<<<< Updated upstream
 	
 int main(){
+=======
+
+int main(int argv, char** args){
+>>>>>>> Stashed changes
 
 	// Renderizador principal
 	SDL_Renderer* gRenderer = NULL;
@@ -34,7 +39,7 @@ int main(){
 		cout << "Window could not be created. SDL Error: " << SDL_GetError() << endl;
 	} else {
 		// Remove a borda da janela
-		
+
 		SDL_SetWindowFullscreen(gWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
 
 		// Cria o renderizador

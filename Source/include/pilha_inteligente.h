@@ -17,7 +17,7 @@ class PilhaInteligente : public Stack<Carta> {
 	protected:
 		SDL_Point coord;
 		Textura backTexture;
-		
+
 	public:
 		PilhaInteligente();
 		SDL_Point getCoord(){return this->coord;};
@@ -47,10 +47,10 @@ inline bool PilhaInteligente::setTexture(SDL_Renderer* renderer) {
 inline bool PilhaInteligente::setPosition(SDL_Point pos) {
 	SDL_Point size;
 //	SDL_GetWindowSize(gWindow, &size.x, &size.y);
-	
+
 //	if (pos.x > 0 && pos.y > 0 && pos.x + CARD_WIDTH < size.x && pos.y + CARD_HEIGHT < size.y) {
 		this->coord = pos;
-		
+
 		this->organize();
 
 		return true;
@@ -60,9 +60,9 @@ inline bool PilhaInteligente::setPosition(SDL_Point pos) {
 
 inline void PilhaInteligente::randomize() {
 	/*
-	// Alynva: aguardando a implementação da sobrecarga do operador []
-	
-	
+	// Alynva: aguardando a implementaï¿½ï¿½o da sobrecarga do operador []
+
+
 	srand(time(0));
 	int S = this.getSize(), in, out;
 	for (int i = 0; i < (rand() % (S * 10) + 50); i++) {
@@ -94,8 +94,13 @@ inline void PilhaInteligente::render() {
 	}
 }
 
+<<<<<<< Updated upstream
 inline void PilhaInteligente::organize() {
 	
+=======
+void PilhaInteligente::organize() {
+
+>>>>>>> Stashed changes
 	Stack<Carta> p_temp;
 	Carta c_temp;
 
@@ -114,7 +119,7 @@ inline void PilhaInteligente::organize() {
 
 inline bool PilhaInteligente::isInside(SDL_Point point) {
 	bool inside = false;
-	
+
 	Stack<Carta> p_temp;
 	Carta c_temp;
 
@@ -132,13 +137,17 @@ inline bool PilhaInteligente::isInside(SDL_Point point) {
 }
 
 //Faz a verificacao de naipes para dizer se duas cartas sao da mesma cor
+<<<<<<< Updated upstream
 inline bool PilhaInteligente::isDifferentColor(Carta c1, Carta c2){ 
+=======
+bool PilhaInteligente::isDifferentColor(Carta c1, Carta c2){
+>>>>>>> Stashed changes
 	if((c1.getSuit() == 'A' || c1.getSuit() == 'C') && (c2.getSuit() == 'A' || c2.getSuit() == 'C'))
-		return true;	
-		
+		return true;
+
 	else if((c1.getSuit() == 'B' || c1.getSuit() == 'D') && (c2.getSuit() == 'B' || c1.getSuit() == 'D'))
 		return true;
-		
+
 	return false;
 }
 
