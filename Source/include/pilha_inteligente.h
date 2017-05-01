@@ -28,6 +28,7 @@ class PilhaInteligente : public Stack<Carta> {
 		void organize();
 		bool isInside(SDL_Point);
 		bool isDifferentColor(Carta, Carta);
+		Node<Carta>* operator[](int);
 };
 
 
@@ -45,7 +46,7 @@ inline bool PilhaInteligente::setTexture(SDL_Renderer* renderer) {
 }
 
 inline bool PilhaInteligente::setPosition(SDL_Point pos) {
-	SDL_Point size;
+//	SDL_Point size;
 //	SDL_GetWindowSize(gWindow, &size.x, &size.y);
 
 //	if (pos.x > 0 && pos.y > 0 && pos.x + CARD_WIDTH < size.x && pos.y + CARD_HEIGHT < size.y) {
@@ -58,24 +59,22 @@ inline bool PilhaInteligente::setPosition(SDL_Point pos) {
 	return false;
 }
 
-inline void PilhaInteligente::randomize() {
-	/*
+//TODO:Tentar implementacao com algorithm::random_shuffle()
+//TODO:Tentar implementacao com o algoritmo fisher-yates
+/*inline void PilhaInteligente::randomize() {
 	// Alynva: aguardando a implementa��o da sobrecarga do operador []
-
-
 	srand(time(0));
-	int S = this.getSize(), in, out;
+	int S = this->getSize(), in, out;
 	for (int i = 0; i < (rand() % (S * 10) + 50); i++) {
 		do {
 			in = rand() % S;
 			out = rand() % S;
 		} while(in == out);
-		T aux = stack[out];
+		Carta aux = stack[out];
 		stack[out] = stack[in];
 		stack[in] = aux;
 	}
-	*/
-}
+}*/
 
 inline void PilhaInteligente::render() {
 	this->backTexture.render();
@@ -139,6 +138,18 @@ inline bool PilhaInteligente::isDifferentColor(Carta c1, Carta c2){
 		return true;
 
 	return false;
+}
+
+//P[x] deve retornar o node da posicao x, nao a carta da posicao x, que eh P[x]->getElement()
+inline Node<Carta>* PilhaInteligente::operator[](int index){
+	if(!(index > this->getSize())){
+		Node<Carta> aux(this->peek());
+		for(int i = 0; i<index; i++){
+			aux.setNext(*aux.getNext());
+		}
+		return aux.getNext();
+	}
+	return nullptr;
 }
 
 #endif

@@ -15,36 +15,46 @@ using namespace std;
 
 Carta::Carta(){}
 
+Carta::Carta(Carta& copyVal){
+		this->value = copyVal.getValue();
+		this->suit = copyVal.getSuit();
+		this->gTexture = copyVal.getTexture();
+		this->isBlur = copyVal.isBlur;
+		this->blurTexture = copyVal.blurTexture;
+}
+
 Carta::Carta(int num, SDL_Renderer* renderer){
 	string pathCarta = "", pathBlur = "";
 	string dir = "../textures/";
 	string folder = "cards/v2/";
 	string file = "";
-	
+
 	int i = (num-1)/13;
 	this->value = num-13*i;
 	this->suit = 65+i;
-	
+
 	file.append(to_string(this->value));
 	file.push_back(this->suit);
 	file.append(".png");
-	
+
 	pathCarta.append(dir);
 	pathCarta.append(folder);
 	pathCarta.append(file);
-	
+
 	this->gTexture = Textura(pathCarta, renderer, 0, 0, CARD_WIDTH, CARD_HEIGHT);
-	
-	if (this->value == 1) this->isBlur = true; else // TESTE PARA BLUR NAS CARTAS A
-	this->isBlur = false;
-	
+
+	if (this->value == 1)
+		this->isBlur = true;
+	else // TESTE PARA BLUR NAS CARTAS A
+		this->isBlur = false;
+
 	pathBlur.append(dir);
 	pathBlur.append("blur_blue.png");
 	this->blurTexture = Textura(pathBlur, renderer, -BLUR_OFFSET_X, -BLUR_OFFSET_Y, BLUR_WIDTH, BLUR_HEIGHT);
 }
 
 void Carta::setPosition(SDL_Point coord){
-	int blurX = coord.x - BLUR_OFFSET_X;	// Aparentemente não é possível converter douple
+	int blurX = coord.x - BLUR_OFFSET_X;	// Aparentemente nï¿½o ï¿½ possï¿½vel converter double
 	int blurY = coord.y - BLUR_OFFSET_Y;	// para int dentro de {}
 	this->blurTexture.setPosition({blurX, blurY});
 	this->gTexture.setPosition(coord);
@@ -67,9 +77,9 @@ char Carta::getSuit(){
 bool Carta::isInside(SDL_Point point) {
 	SDL_Point size = this->gTexture.getSize();
 	SDL_Point position = this->gTexture.getPosition();
-	
+
 	bool inside = ((point.x > position.x && point.x < position.x + size.x) &&
 			(point.y > position.y && point.y < position.y + size.y));
-	
+
 	return inside;
 }

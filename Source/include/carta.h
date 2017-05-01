@@ -25,6 +25,7 @@ class Carta {
 
 	public:
 	Carta(); // meio inútil, mas é necessário para poder declarar a carta sem especificar parâmetros.
+	Carta(Carta&);
 	Carta(int, SDL_Renderer*);
 
 	void render();

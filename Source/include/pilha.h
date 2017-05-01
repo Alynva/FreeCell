@@ -6,7 +6,7 @@ class Node {
 	protected:
 		T element;
 		Node<T>* next;
-	
+
 	public:
 		Node();
 		Node(T);
@@ -18,7 +18,10 @@ class Node {
 };
 
 template<class T>
-Node<T>::Node() {}
+Node<T>::Node() {
+	this->element = 0;
+	this->next = nullptr;
+}
 
 template<class T>
 Node<T>::Node(T elementVal) {
@@ -52,7 +55,7 @@ class Stack {
 	protected:
 		Node<T>* stack_ptr;
 		int size;
-	
+
 	public:
 		Stack();
 		~Stack(){};
