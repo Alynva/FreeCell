@@ -1,29 +1,28 @@
 # Project: FreeCell
-# Makefile created by Dev-C++ 5.1.1.0
+# Makefile created by Dev-C++ 5.11
 
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = baralho.o carta.o eventmanager.o textura.o main.o $(RES)
-LINKOBJ  = baralho.o carta.o eventmanager.o textura.o main.o $(RES)
-LIBS     = -L"C:/Users/Alynva/Downloads/Dev-Cpp/MinGW32/lib" -static-libstdc++ -static-libgcc -L"C:/Users/Alynva/Documents/GitHub/FreeCell/Source/lib" -mwindows -lmingw32 -lSDL2main -lSDL2_image -lSDL2  -std=c++0x 
-INCS     = -I"C:/Users/Alynva/Downloads/Dev-Cpp/MinGW32/include"  -I"C:/Users/Alynva/Documents/GitHub/FreeCell/Source/include" 
-CXXINCS  = -I"C:/Users/Alynva/Downloads/Dev-Cpp/MinGW32/include"  -I"C:/Users/Alynva/Documents/GitHub/FreeCell/Source/include" 
+OBJ      = baralho.o carta.o eventmanager.o textura.o main.o
+LINKOBJ  = baralho.o carta.o eventmanager.o textura.o main.o
+LIBS     = -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib32" -L"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -static-libgcc -L"C:/Users/Gabriel/Documents/GitHub/FreeCell/Source/lib" -lmingw32 -lSDL2main -lSDL2_image -lSDL2 -m32
+INCS     = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Users/Gabriel/Documents/GitHub/FreeCell/Source/include" -I"C:/Users/Gabriel/Documents/GitHub/FreeCell/Source/include/SDL2"
+CXXINCS  = -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"C:/Program Files (x86)/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"C:/Users/Gabriel/Documents/GitHub/FreeCell/Source/include" -I"C:/Users/Gabriel/Documents/GitHub/FreeCell/Source/include/SDL2"
 BIN      = FreeCell.exe
-CXXFLAGS = $(CXXINCS)   -std=c++0x
-CFLAGS   = $(INCS)   -std=c++0x
-RM       = rm -f
+CXXFLAGS = $(CXXINCS) -m32 -std=gnu++11
+CFLAGS   = $(INCS) -m32 -std=gnu++11
+RM       = rm.exe -f
 
 .PHONY: all all-before all-after clean clean-custom
 
-all: all-before FreeCell.exe all-after
-
+all: all-before $(BIN) all-after
 
 clean: clean-custom
 	${RM} $(OBJ) $(BIN)
 
 $(BIN): $(OBJ)
-	$(CPP) $(LINKOBJ) -o "FreeCell.exe" $(LIBS)
+	$(CPP) $(LINKOBJ) -o $(BIN) $(LIBS)
 
 baralho.o: baralho.cpp
 	$(CPP) -c baralho.cpp -o baralho.o $(CXXFLAGS)

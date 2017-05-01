@@ -11,10 +11,10 @@ OBJ_FILE = main.cpp
 AUX_FILES = textura.cpp carta.cpp baralho.cpp eventmanager.cpp
 
 # Flags do compilador
-CC_FLAGS = -w
+CC_FLAGS = -c -Wall
 
 # Linkers do compilador
-CC_LINKERS = -lSDL2_image -lSDL2
+CC_LINKERS = -lSDL_main -lSDL2_image -lSDL2
 
 # Arquivo de saída
 OUT_FILE = ./freecell.out

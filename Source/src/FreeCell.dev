@@ -1,13 +1,13 @@
 [Project]
 FileName=FreeCell.dev
 Name=FreeCell
-Type=0
-Ver=1
+Type=1
+Ver=2
 ObjFiles=
-Includes=C:\Users\Alynva\Documents\GitHub\FreeCell\Source\include
-Libs=C:\Users\Alynva\Documents\GitHub\FreeCell\Source\lib
+Includes=C:\Users\Gabriel\Documents\GitHub\FreeCell\Source\include;C:\Users\Gabriel\Documents\GitHub\FreeCell\Source\include\SDL2
+Libs=C:\Users\Gabriel\Documents\GitHub\FreeCell\Source\lib
 PrivateResource=
-ResourceIncludes=
+ResourceIncludes=C:\Users\Gabriel\Documents\GitHub\FreeCell\Source\bin
 MakeIncludes=
 Compiler=
 CppCompiler=
@@ -24,11 +24,11 @@ HostApplication=
 Folders=
 CommandLine=
 UseCustomMakefile=0
-CustomMakefile=
+CustomMakefile=makefile
 IncludeVersionInfo=0
 SupportXPThemes=0
-CompilerSet=0
-CompilerSettings=00000000000000000000000000c
+CompilerSet=3
+CompilerSettings=00000001g0000000000000000
 UnitCount=14
 
 [VersionInfo]

@@ -14,7 +14,7 @@ bool moveCartasParaPilha(Baralho*, PilhaInteligente*, int);
 // Janela principal
 SDL_Window* gWindow = NULL;
 	
-int main(int argv, char** args){
+int main(){
 
 	// Renderizador principal
 	SDL_Renderer* gRenderer = NULL;
