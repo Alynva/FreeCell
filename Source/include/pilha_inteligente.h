@@ -94,13 +94,7 @@ inline void PilhaInteligente::render() {
 	}
 }
 
-<<<<<<< Updated upstream
 inline void PilhaInteligente::organize() {
-	
-=======
-void PilhaInteligente::organize() {
-
->>>>>>> Stashed changes
 	Stack<Carta> p_temp;
 	Carta c_temp;
 
@@ -137,11 +131,7 @@ inline bool PilhaInteligente::isInside(SDL_Point point) {
 }
 
 //Faz a verificacao de naipes para dizer se duas cartas sao da mesma cor
-<<<<<<< Updated upstream
-inline bool PilhaInteligente::isDifferentColor(Carta c1, Carta c2){ 
-=======
-bool PilhaInteligente::isDifferentColor(Carta c1, Carta c2){
->>>>>>> Stashed changes
+inline bool PilhaInteligente::isDifferentColor(Carta c1, Carta c2){
 	if((c1.getSuit() == 'A' || c1.getSuit() == 'C') && (c2.getSuit() == 'A' || c2.getSuit() == 'C'))
 		return true;
 

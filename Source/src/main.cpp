@@ -13,14 +13,8 @@ bool moveCartasParaPilha(Baralho*, PilhaInteligente*, int);
 
 // Janela principal
 SDL_Window* gWindow = NULL;
-<<<<<<< Updated upstream
-	
-int main(){
-=======
 
 int main(int argv, char** args){
->>>>>>> Stashed changes
-
 	// Renderizador principal
 	SDL_Renderer* gRenderer = NULL;
 
