@@ -1,5 +1,6 @@
 #ifndef NODE_H
 #define NODE_H
+#include <cstddef> //nullptr
 
 template<class T>
 class Node {
@@ -9,7 +10,7 @@ class Node {
 
 	public:
 		Node();
-		Node(T);
+		Node(T, Node<T>* = 0);
 		Node(const Node<T>&);
 		~Node(){};
 		void setNext(Node<T>&);
@@ -18,15 +19,15 @@ class Node {
 };
 
 template<class T>
-Node<T>::Node() {
+Node<T>::Node(){
 	this->element = 0;
 	this->next = nullptr;
 }
 
 template<class T>
-Node<T>::Node(T elementVal) {
+Node<T>::Node(T elementVal, Node<T>* nextVal) {
 	this->element = elementVal;
-	this->next = nullptr;
+	this->next = nextVal;
 }
 
 template<class T>
@@ -58,7 +59,7 @@ class Stack {
 
 	public:
 		Stack();
-		~Stack(){};
+		~Stack(){delete stack_ptr;};
 		void push(const T&);
 		bool pop(T&);
 		void clear();
@@ -68,8 +69,7 @@ class Stack {
 };
 
 template<class T>
-Stack<T>::Stack() {
-	this->stack_ptr = new Node<T>();
+Stack<T>::Stack() : stack_ptr() {
 	this->size = 0;
 }
 

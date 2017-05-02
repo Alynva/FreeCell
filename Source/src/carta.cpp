@@ -15,7 +15,7 @@ using namespace std;
 
 Carta::Carta(){}
 
-Carta::Carta(Carta& copyVal){
+Carta::Carta(const Carta& copyVal){
 		this->value = copyVal.getValue();
 		this->suit = copyVal.getSuit();
 		this->gTexture = copyVal.getTexture();
@@ -66,15 +66,19 @@ void Carta::render() {
 	this->gTexture.render();
 }
 
-int Carta::getValue(){
+int Carta::getValue() const{
 	return this->value;
 }
 
-char Carta::getSuit(){
+char Carta::getSuit() const{
 	return this->suit;
 }
 
-bool Carta::isInside(SDL_Point point) {
+Textura Carta::getTexture() const{
+	return this->gTexture;
+}
+
+bool Carta::isInside(SDL_Point point) const{
 	SDL_Point size = this->gTexture.getSize();
 	SDL_Point position = this->gTexture.getPosition();
 

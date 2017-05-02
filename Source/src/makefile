@@ -8,13 +8,13 @@ C_VERSION = -std=c++11
 OBJ_FILE = main.cpp
 
 # Arquivos auxiliares
-AUX_FILES = textura.cpp carta.cpp baralho.cpp eventmanager.cpp
+AUX_FILES = textura.cpp carta.cpp baralho.cpp eventmanager.cpp pilha_inteligente.cpp
 
 # Flags do compilador
-CC_FLAGS = -c -Wall
+CC_FLAGS = -Wall
 
 # Linkers do compilador
-CC_LINKERS = -lSDL_main -lSDL2_image -lSDL2
+CC_LINKERS = -lSDL2_image -lSDL2
 
 # Arquivo de saída
 OUT_FILE = ./freecell.out

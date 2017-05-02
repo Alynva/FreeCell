@@ -25,16 +25,16 @@ class Carta {
 
 	public:
 	Carta(); // meio inútil, mas é necessário para poder declarar a carta sem especificar parâmetros.
-	Carta(Carta&);
+	Carta(const Carta&);
 	Carta(int, SDL_Renderer*);
 
 	void render();
 
-	int getValue();
-	char getSuit();
-	Textura getTexture();
+	int getValue() const;
+	char getSuit() const;
+	Textura getTexture() const;
 	void setPosition(SDL_Point);
-	bool isInside(SDL_Point);
+	bool isInside(SDL_Point) const;
 };
 
 #endif
