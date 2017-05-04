@@ -19,7 +19,7 @@ class PilhaInteligente : public Stack<Carta> {
 		SDL_Point getCoord() const {return this->coord;};
 		bool setTexture(SDL_Renderer*);
 		bool setPosition(SDL_Point);
-		void randomize();
+		// void randomize();
 		void render();
 		void organize();
 		bool isInside(SDL_Point);

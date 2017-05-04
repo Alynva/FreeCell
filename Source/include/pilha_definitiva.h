@@ -14,19 +14,25 @@ class PilhaDefinitiva : public PilhaInteligente{
 
 bool PilhaDefinitiva::push(Carta& pushValue){
 		if(this->isEmpty()){
-			Node<Carta>* aux = new Node<Carta>(pushValue);
-			aux->setNext(*stack_ptr);
-			this->stack_ptr = aux;
+			Node<Carta>* aux = new(Node<Carta>);
+			aux->value = pushValue;
+			aux->dir = &header;
+			aux->esq = header.esq;
+			header.esq->dir = aux;
+			header.esq = aux;
 			this->size++;
 		}
 		else{
-			if(pushValue.getValue() == this->peek().getElement().getValue()+1){
-				if(!this->isDifferentColor(pushValue,this->peek().getElement())){
-					Node<Carta>* aux = new Node<Carta>(pushValue);
-					aux->setNext(*stack_ptr);
-					this->stack_ptr = aux;
+			if(pushValue.getValue() == this->peek().value.getValue()+1){
+				if(!this->isDifferentColor(pushValue,this->peek().value)){
+					Node<Carta>* aux = new(Node<Carta>);
+					aux->value = pushValue;
+					aux->dir = &header;
+					aux->esq = header.esq;
+					header.esq->dir = aux;
+					header.esq = aux;
 					this->size++;
-					this->peek().getElement().setPosition(this->getCoord());
+					this->peek().value.setPosition(this->getCoord());
 					return true;
 				}
 			}

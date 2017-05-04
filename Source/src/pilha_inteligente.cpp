@@ -33,7 +33,7 @@ bool PilhaInteligente::setPosition(SDL_Point pos) {
 
 //TODO:Tentar implementacao com algorithm::random_shuffle()
 //TODO:Tentar implementacao com o algoritmo fisher-yates
-void PilhaInteligente::randomize() {}
+// void PilhaInteligente::randomize() {}
 
 //}
 /*{
@@ -117,12 +117,13 @@ bool PilhaInteligente::isDifferentColor(Carta c1, Carta c2) const{
 
 //P[x] deve retornar o node da posicao x, nao a carta da posicao x, que eh P[x]->getElement()
 Node<Carta>* PilhaInteligente::operator[](int index){
-	if(!(index > this->getSize())){
-		Node<Carta> aux(this->peek());
-		for(int i = 0; i<index; i++){
-			aux.setNext(*aux.getNext());
+	if(size > index && index >= 0){
+		Node<Carta>* returnNode = header.dir;
+		while(index > 0){
+			returnNode = returnNode->dir;
+			index--;
 		}
-		return aux.getNext();
+		return returnNode;
 	}
 	return nullptr;
 }

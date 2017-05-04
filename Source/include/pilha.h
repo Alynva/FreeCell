@@ -1,125 +1,106 @@
-#ifndef NODE_H
-#define NODE_H
-#include <cstddef> //nullptr
+#ifndef PILHA_H
+#define PILHA_H
+
+#define MAX_ITER_RANDOM 500
+#define MIN_ITER_RANDOM 50
+
+#include <iostream> //cout
+#include <random> //random_device
+#include <cstdlib> // rand
+using namespace std;
 
 template<class T>
 class Node {
-	protected:
-		T element;
-		Node<T>* next;
-
-	public:
-		Node();
-		Node(T, Node<T>* = 0);
-		Node(const Node<T>&);
-		~Node(){};
-		void setNext(Node<T>&);
-		Node<T>* getNext() const;
-		T getElement() const;
+  public:
+    T value;
+    Node* dir;
+    Node* esq;
+    Node():dir(this), esq(this) {};
+		Node(const T val): value(val), dir(this), esq(dir) {};
 };
 
 template<class T>
-Node<T>::Node(){
-	this->element = 0;
-	this->next = nullptr;
-}
-
-template<class T>
-Node<T>::Node(T elementVal, Node<T>* nextVal) {
-	this->element = elementVal;
-	this->next = nextVal;
-}
-
-template<class T>
-Node<T>::Node(const Node<T>& copyNode){
-	this->element = copyNode.getElement();
-	this->next = copyNode.getNext();
-}
-
-template<class T>
-void Node<T>::setNext(Node<T>& nextVal) {
-	this->next = &nextVal;
-}
-
-template<class T>
-Node<T>* Node<T>::getNext() const {
-	return this->next;
-}
-
-template<class T>
-T Node<T>::getElement() const {
-	return  this->element;
-}
-
-template <class T>
 class Stack {
-	protected:
-		Node<T>* stack_ptr;
-		int size;
+  protected:
+    Node<T> header;
+    int size;
 
-	public:
-		Stack();
-		~Stack(){delete stack_ptr;};
-		void push(const T&);
-		bool pop(T&);
-		void clear();
-		bool isEmpty() const;
-		int getSize() const;
-		Node<T> peek() const;
+  public:
+    Stack():size(0){};
+    ~Stack() {this->clear();};
+    bool isEmpty() const { return !size; };
+
+    void push(const T);
+    bool pop(T&);
+    void clear();
+    int getSize() const;
+    void randomize();
+    Node<T> peek() const;
 };
 
 template<class T>
-Stack<T>::Stack() : stack_ptr() {
-	this->size = 0;
+inline void Stack<T>::push(const T element){
+Node<T> *aux = new(Node<T>);
+  aux->value = element;
+  aux->dir = &header;
+  aux->esq = header.esq;
+  header.esq->dir = aux;
+  header.esq = aux;
+  size++;
 }
 
 template<class T>
-void Stack<T>::push(const T& pushValue) {
-	Node<T>* aux = new Node<T>(pushValue);
-	aux->setNext(*stack_ptr);
-	this->stack_ptr = aux;
-	this->size++;
+inline bool Stack<T>::pop(T& element){
+  if(isEmpty())
+    return false;
+  element = header.esq->value;
+  Node<T> *aux = header.esq;
+  header.esq = aux->esq;
+  aux->esq = &header;
+  delete(aux);
+  size--;
+  return true;
 }
 
 template<class T>
-bool Stack<T>::pop(T& popValue) {
-	if(!this->isEmpty()) {
-		Node<T>* aux = new Node<T>(*this->stack_ptr);
-		popValue = aux->getElement();
-		delete this->stack_ptr;
-		this->stack_ptr = new Node<T>(*aux->getNext());
-		this->size--;
-		return true;
-	}
-	return false;
+inline void Stack<T>::clear(){
+  while(!isEmpty()){
+    T a;
+    this->pop(a);
+  }
 }
 
 template<class T>
-void Stack<T>::clear() {
-	while (!this->isEmpty()) {
-		Node<T>* aux = new Node<T>(*this->stack_ptr);
-		delete this->stack_ptr;
-		this->stack_ptr = new Node<T>(*aux->getNext());
-		this->size--;
-	}
+inline int Stack<T>::getSize() const{
+  return size;
 }
 
 template<class T>
-bool Stack<T>::isEmpty() const {
-//	if (!this->stack_ptr->getNext())
-	if (this->size)
-			return false;
-	return true;
+inline void Stack<T>::randomize(){
+  random_device seed;
+  srand(seed());
+  int iter = rand()%(MAX_ITER_RANDOM-MIN_ITER_RANDOM)+MIN_ITER_RANDOM;
+  while(iter > 0){
+    int it1 = rand()%size+1;
+    Node<T>* elem = &header;
+    while(it1 > 0){
+      elem = elem->dir;
+      it1--;
+    }
+    Node<T> aux = *elem;
+    elem->dir->esq = aux.esq;
+    elem->esq->dir = aux.dir;
+    elem->dir = &header;
+    elem->esq = header.esq;
+    header.esq->dir = elem;
+    header.esq = elem;
+    iter--;
+  }
 }
 
 template<class T>
-int Stack<T>::getSize() const {
-	return this->size;
-}
-
-template<class T>
-Node<T> Stack<T>::peek() const {
-	return *this->stack_ptr;
+Node<T> Stack<T>::peek() const{
+  return *header.esq;
 }
 
 #endif

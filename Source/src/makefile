@@ -11,7 +11,7 @@ OBJ_FILE = main.cpp
 AUX_FILES = textura.cpp carta.cpp baralho.cpp eventmanager.cpp pilha_inteligente.cpp
 
 # Flags do compilador
-CC_FLAGS = -Wall
+CC_FLAGS = -g -Wall
 
 # Linkers do compilador
 CC_LINKERS = -lSDL2_image -lSDL2
