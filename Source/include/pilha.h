@@ -35,7 +35,6 @@ class Stack {
 		bool pop(T&);
 		void clear();
 		int getSize() const;
-		void randomize();
 		Node<T> peek() const;
 };
 
@@ -74,29 +73,6 @@ inline void Stack<T>::clear() {
 template<class T>
 inline int Stack<T>::getSize() const {
 	return size;
-}
-
-template<class T>
-inline void Stack<T>::randomize() {
-	random_device seed;
-	srand(seed());
-	int iter = rand()%(MAX_ITER_RANDOM-MIN_ITER_RANDOM)+MIN_ITER_RANDOM;
-	while (iter > 0) {
-		int it1 = rand()%size+1;
-		Node<T>* elem = &header;
-		while (it1 > 0) {
-			elem = elem->dir;
-			it1--;
-		}
-		Node<T> aux = *elem;
-		elem->dir->esq = aux.esq;
-		elem->esq->dir = aux.dir;
-		elem->dir = &header;
-		elem->esq = header.esq;
-		header.esq->dir = elem;
-		header.esq = elem;
-		iter--;
-	}
 }
 
 template<class T>

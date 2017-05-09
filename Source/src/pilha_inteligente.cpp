@@ -33,7 +33,27 @@ bool PilhaInteligente::setPosition(SDL_Point pos) {
 
 //TODO:Tentar implementacao com algorithm::random_shuffle()
 //TODO:Tentar implementacao com o algoritmo fisher-yates
-// void PilhaInteligente::randomize() {}
+void PilhaInteligente::randomize() {
+	random_device seed;
+	srand(seed());
+	int iter = rand()%(MAX_ITER_RANDOM-MIN_ITER_RANDOM)+MIN_ITER_RANDOM;
+	while (iter > 0) {
+		int it1 = rand()%size+1;
+		Node<Carta>* elem = &header;
+		while (it1 > 0) {
+			elem = elem->dir;
+			it1--;
+		}
+		Node<Carta> aux = *elem;
+		elem->dir->esq = aux.esq;
+		elem->esq->dir = aux.dir;
+		elem->dir = &header;
+		elem->esq = header.esq;
+		header.esq->dir = elem;
+		header.esq = elem;
+		iter--;
+	}
+}
 
 //}
 /*{
