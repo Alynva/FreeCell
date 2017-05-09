@@ -14,11 +14,13 @@
 #define EVENTMANAGER_H
 
 #include "SDL2/SDL.h"
+#include "pilha_inteligente.h"
 
 class EventManager {
 	SDL_Event handler;
 	bool* quit;
 	bool mousePressed;
+	Stack<PilhaInteligente*> stacks;
 
 	public:
 	EventManager(bool*);
@@ -27,6 +29,7 @@ class EventManager {
 	void mouseDown();
 	void mouseUp();
 	void mouseMove();
+	void addStack(PilhaInteligente*);
 };
 
 #endif

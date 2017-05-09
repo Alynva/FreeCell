@@ -6,6 +6,7 @@
 
 PilhaInteligente::PilhaInteligente() : Stack<Carta>() {
 	this->coord = {0, 0};
+	this->stateHover = false;
 }
 
 bool PilhaInteligente::setTexture(SDL_Renderer* renderer) {
@@ -28,31 +29,35 @@ bool PilhaInteligente::setPosition(SDL_Point pos) {
 
 		return true;
 //	}
-	return false;
+//	return false;
+}
+
+SDL_Point PilhaInteligente::getPosition() const {
+	return this->coord;
 }
 
 //TODO:Tentar implementacao com algorithm::random_shuffle()
 //TODO:Tentar implementacao com o algoritmo fisher-yates
 void PilhaInteligente::randomize() {
-	random_device seed;
-	srand(seed());
-	int iter = rand()%(MAX_ITER_RANDOM-MIN_ITER_RANDOM)+MIN_ITER_RANDOM;
-	while (iter > 0) {
-		int it1 = rand()%size+1;
-		Node<Carta>* elem = &header;
-		while (it1 > 0) {
-			elem = elem->dir;
-			it1--;
-		}
-		Node<Carta> aux = *elem;
-		elem->dir->esq = aux.esq;
-		elem->esq->dir = aux.dir;
-		elem->dir = &header;
-		elem->esq = header.esq;
-		header.esq->dir = elem;
-		header.esq = elem;
-		iter--;
-	}
+//	random_device seed;
+//	srand(seed());
+//	int iter = rand()%(MAX_ITER_RANDOM-MIN_ITER_RANDOM)+MIN_ITER_RANDOM;
+//	while (iter > 0) {
+//		int it1 = rand()%size+1;
+//		Node<Carta>* elem = &header;
+//		while (it1 > 0) {
+//			elem = elem->dir;
+//			it1--;
+//		}
+//		Node<Carta> aux = *elem;
+//		elem->dir->esq = aux.esq;
+//		elem->esq->dir = aux.dir;
+//		elem->dir = &header;
+//		elem->esq = header.esq;
+//		header.esq->dir = elem;
+//		header.esq = elem;
+//		iter--;
+//	}
 }
 
 //}
@@ -106,21 +111,24 @@ void PilhaInteligente::organize() {
 }
 
 bool PilhaInteligente::isInside(SDL_Point point) {
-	bool inside = false;
+	SDL_Point position = this->backTexture.getPosition();
+//	SDL_Log("P %i %i", position.x, position.y);
+	SDL_Point size = this->backTexture.getSize();
 
-	Stack<Carta> p_temp;
-	Carta c_temp;
+	bool inside = ((point.x > position.x && point.x < position.x + size.x) &&
+		(point.y > position.y && point.y < position.y + size.y));
+	
+	Node<Carta>* element = this->peek().dir;
+	for (int i = 0; i < this->getSize(); i++) {
+		element = element->dir;
+		inside = inside || element->value.isInside(point);
+	}
+	
+	// Alynva: NÃO FUNCIONOU ISSO
+//	for (int i = 0; i < this->getSize(); i++) {
+//		inside = inside || this[1].isInside(point);
+//	}
 
-	while (!this->isEmpty()) {
-		this->pop(c_temp);
-		p_temp.push(c_temp);
-	}
-	while (!p_temp.isEmpty()) {
-		p_temp.pop(c_temp);
-		if (!inside)
-			inside = c_temp.isInside(point);
-		this->push(c_temp);
-	}
 	return inside;
 }
 
@@ -146,4 +154,8 @@ Node<Carta>* PilhaInteligente::operator[](int index) {
 		return returnNode;
 	}
 	return nullptr;
+}
+
+void PilhaInteligente::setStateHover(bool state) {
+	this->stateHover = state;
 }

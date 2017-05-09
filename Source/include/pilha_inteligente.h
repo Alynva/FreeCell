@@ -13,18 +13,21 @@ class PilhaInteligente : public Stack<Carta> {
 	protected:
 		SDL_Point coord;
 		Textura backTexture;
+		bool stateHover;
 
 	public:
 		PilhaInteligente();
 		SDL_Point getCoord() const {return this->coord;};
 		bool setTexture(SDL_Renderer*);
 		bool setPosition(SDL_Point);
+		SDL_Point getPosition() const;
 		void randomize();
 		void render();
 		void organize();
 		bool isInside(SDL_Point);
 		bool isDifferentColor(Carta, Carta) const;
 		Node<Carta>* operator[](int);
+		void setStateHover(bool);
 };
 
 #endif

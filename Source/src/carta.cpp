@@ -8,22 +8,22 @@
 #define BLUR_HEIGHT_ORIG 174
 #define BLUR_WIDTH CARD_WIDTH * BLUR_WIDTH_ORIG / (BLUR_WIDTH_ORIG - 18)
 #define BLUR_HEIGHT CARD_HEIGHT * BLUR_HEIGHT_ORIG / (BLUR_HEIGHT_ORIG - 18)
-#define BLUR_OFFSET_X round((BLUR_WIDTH - CARD_WIDTH) / 2)
-#define BLUR_OFFSET_Y round((BLUR_HEIGHT - CARD_HEIGHT) / 2)
+#define BLUR_OFFSET_X (BLUR_WIDTH - CARD_WIDTH) / 2
+#define BLUR_OFFSET_Y (BLUR_HEIGHT - CARD_HEIGHT) / 2
 
 using namespace std;
 
-Carta::Carta() {}
+Carta::Carta():stateHover(false) {}
 
-Carta::Carta(const Carta& copyVal) {
+Carta::Carta(const Carta& copyVal):stateHover(false) {
 	this->value = copyVal.getValue();
 	this->suit = copyVal.getSuit();
 	this->gTexture = copyVal.getTexture();
-	this->isBlur = copyVal.isBlur;
+	this->stateHover = copyVal.stateHover;
 	this->blurTexture = copyVal.blurTexture;
 }
 
-Carta::Carta(int num, SDL_Renderer* renderer) {
+Carta::Carta(int num, SDL_Renderer* renderer):stateHover(false) {
 	string pathCarta = "", pathBlur = "";
 	string dir = "../textures/";
 	string folder = "cards/v2/";
@@ -43,11 +43,6 @@ Carta::Carta(int num, SDL_Renderer* renderer) {
 
 	this->gTexture = Textura(pathCarta, renderer, 0, 0, CARD_WIDTH, CARD_HEIGHT);
 
-	if (this->value == 1)
-		this->isBlur = true;
-	else // TESTE PARA BLUR NAS CARTAS A
-		this->isBlur = false;
-
 	pathBlur.append(dir);
 	pathBlur.append("blur_blue.png");
 	this->blurTexture = Textura(pathBlur, renderer, -BLUR_OFFSET_X, -BLUR_OFFSET_Y, BLUR_WIDTH, BLUR_HEIGHT);
@@ -61,8 +56,9 @@ void Carta::setPosition(SDL_Point coord) {
 }
 
 void Carta::render() {
-	if (this->isBlur)
+	if (this->stateHover) {
 		this->blurTexture.render();
+	}
 	this->gTexture.render();
 }
 
@@ -82,8 +78,12 @@ bool Carta::isInside(SDL_Point point) const {
 	SDL_Point size = this->gTexture.getSize();
 	SDL_Point position = this->gTexture.getPosition();
 
-	bool inside = ((point.x > position.x && point.x < position.x + size.x) &&
-		(point.y > position.y && point.y < position.y + size.y));
+	bool inside = 	((point.x > position.x && point.x < position.x + size.x) &&
+					 (point.y > position.y && point.y < position.y + size.y));
 
 	return inside;
+}
+
+void Carta::setStateHover(bool state) {
+	this->stateHover = state;
 }

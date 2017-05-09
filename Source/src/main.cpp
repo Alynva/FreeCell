@@ -32,8 +32,7 @@ int main(int argv, char** args) {
 	if (gWindow == NULL) {
 		cout << "Window could not be created. SDL Error: " << SDL_GetError() << endl;
 	} else {
-		// Remove a borda da janela
-
+		// Coloca a janela em full screen
 //		SDL_SetWindowFullscreen(gWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
 
 		// Cria o renderizador
@@ -61,13 +60,16 @@ int main(int argv, char** args) {
 	PilhaInteligente p_u[4]; // Pilha de carta única
 	for (int i = 0; i < 4; i++) {
 		p_u[i].setPosition({130 + 90 * i, 50});
+//		SDL_Log("%i %i", p_u[i].getPosition().x, p_u[i].getPosition().y);
 		p_u[i].setTexture(gRenderer);
+		event.addStack(&p_u[i]);
 	}
 	
 	PilhaDefinitiva p_d[4];
 	for (int i = 0; i < 4; i++) {
 		p_d[i].setPosition({560 + 90 * i, 50});
 		p_d[i].setTexture(gRenderer);
+		event.addStack(&p_d[i]);
 	}
 	
 	PilhaIntermediaria p_i[8];
@@ -75,6 +77,7 @@ int main(int argv, char** args) {
 		moveCartasParaPilha(&b, &p_i[i], i < 4 ? 7 : 6);
 		p_i[i].setPosition({130 + 100 * i, 200});
 		p_i[i].setTexture(gRenderer);
+		event.addStack(&p_i[i]);
 	}
 
 	// Loop  principal

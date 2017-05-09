@@ -1,13 +1,16 @@
 #ifndef PILHA_DEFINITIVA
 #define PILHA_DEFINITIVA
 
+#define CARD_WIDTH 100 // largura final do fundo da pilha
+#define CARD_HEIGHT 156 // altura final do fundo da pilha
+
 #include "pilha_inteligente.h"
 
 class PilhaDefinitiva : public PilhaInteligente {
 	public:
 		PilhaDefinitiva() {};
 		bool push(Carta&);
-		void setTexture(SDL_Renderer* renderer) {this->backTexture = Textura("../textures/pilhaDefinitiva.png", renderer, this->coord.x, this->coord.y, 69, 100);}
+		bool setTexture(SDL_Renderer*);
 };
 
 bool PilhaDefinitiva::push(Carta& pushValue) {
@@ -33,6 +36,15 @@ bool PilhaDefinitiva::push(Carta& pushValue) {
 				return true;
 			}
 		}
+	}
+	return false;
+}
+
+bool PilhaDefinitiva::setTexture(SDL_Renderer* renderer) {
+	this->backTexture = Textura("../textures/pilhaDefinitiva.png", renderer, this->coord.x, this->coord.y, 69, 100);
+	int w = CARD_WIDTH, h = CARD_HEIGHT;
+	if (!SDL_QueryTexture(this->backTexture.getTexture(), NULL, NULL, &w, &h)) {
+		return true;
 	}
 	return false;
 }

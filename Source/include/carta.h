@@ -20,7 +20,7 @@ class Carta {
 	int value;
 	char suit;
 	Textura gTexture;
-	bool isBlur;
+	bool stateHover;
 	Textura blurTexture;
 
 	public:
@@ -35,6 +35,7 @@ class Carta {
 	Textura getTexture() const;
 	void setPosition(SDL_Point);
 	bool isInside(SDL_Point) const;
+	void setStateHover(bool);
 };
 
 #endif
