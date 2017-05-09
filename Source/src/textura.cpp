@@ -3,18 +3,18 @@
 
 using namespace std;
 
-SDL_Texture* Textura::loadTexture(){
+SDL_Texture* Textura::loadTexture() {
 	// Textura final
 	SDL_Texture* newTexture = NULL;
 
 	// Carrega imagem a partir de um caminho
 	SDL_Surface* loadedSurface = IMG_Load(this->pPath.c_str());
-	if(loadedSurface == NULL){
+	if (loadedSurface == NULL) {
 		cout << "Unable to load image " << this->pPath.c_str() << ". SDL_Image Error: " << IMG_GetError() << endl;
 	} else {
 		// Cria textura dos pixels da superficie
 		newTexture = SDL_CreateTextureFromSurface(this->pRenderer, loadedSurface);
-		if( newTexture == NULL) {
+		if ( newTexture == NULL) {
 			cout << "Unable to create texture from " << this->pPath.c_str() << ". SDL Error: " << SDL_GetError() << endl;
 		}
 
@@ -25,9 +25,7 @@ SDL_Texture* Textura::loadTexture(){
 	return newTexture;
 }
 
-Textura::Textura() {}
-
-Textura::Textura(string path, SDL_Renderer* renderer, int x, int y, int w, int h){
+Textura::Textura(string path, SDL_Renderer* renderer, int x, int y, int w, int h) {
 	this->pRenderer = renderer;
 	this->pPath = path;
 	this->pTexture = this->loadTexture();
@@ -40,7 +38,7 @@ Textura::Textura(string path, SDL_Renderer* renderer, int x, int y, int w, int h
 SDL_Point Textura::getSize() const {
 	return {this->recFormat.w, this->recFormat.h};
 }
-void Textura::setSize(int w, int h){
+void Textura::setSize(int w, int h) {
 	this->recFormat.w = w;
 	this->recFormat.h = h;
 }
@@ -48,13 +46,13 @@ void Textura::setSize(int w, int h){
 SDL_Point Textura::getPosition() const {
 	return {this->recFormat.x, this->recFormat.y};
 }
-void Textura::setPosition(SDL_Point coord){
+void Textura::setPosition(SDL_Point coord) {
 	this->recFormat.x = coord.x;
 	this->recFormat.y = coord.y;
 }
 SDL_Texture* Textura::getTexture() const {
 	return this->pTexture;
 }
-void Textura::render(){
+void Textura::render() {
 	SDL_RenderCopy(this->pRenderer, this->pTexture, NULL, &this->recFormat);
 }

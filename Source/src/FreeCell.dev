@@ -2,7 +2,7 @@
 FileName=FreeCell.dev
 Name=FreeCell
 Type=1
-Ver=2
+Ver=1
 ObjFiles=
 Includes=C:\Users\Gabriel\Documents\GitHub\FreeCell\Source\include;C:\Users\Gabriel\Documents\GitHub\FreeCell\Source\include\SDL2
 Libs=C:\Users\Gabriel\Documents\GitHub\FreeCell\Source\lib
@@ -27,9 +27,9 @@ UseCustomMakefile=0
 CustomMakefile=makefile
 IncludeVersionInfo=0
 SupportXPThemes=0
-CompilerSet=3
-CompilerSettings=00000001g0000000000000000
-UnitCount=14
+CompilerSet=0
+CompilerSettings=00000001g00000000000000000c
+UnitCount=15
 
 [VersionInfo]
 Major=1
@@ -182,6 +182,16 @@ BuildCmd=
 
 [Unit14]
 FileName=..\include\to_string.h
+CompileCpp=1
+Folder=FreeCell
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit15]
+FileName=pilha_inteligente.cpp
 CompileCpp=1
 Folder=FreeCell
 Compile=1

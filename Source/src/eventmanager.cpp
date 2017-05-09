@@ -5,10 +5,10 @@ EventManager::EventManager(bool* mQuit):quit(mQuit), mousePressed(false) {
 
 }
 
-void EventManager::update(){
+void EventManager::update() {
 	SDL_WaitEvent(&this->handler);
-	while(SDL_PollEvent(&this->handler)){
-		switch(handler.type){
+	while (SDL_PollEvent(&this->handler)) {
+		switch (handler.type) {
 			case SDL_QUIT:
 				*quit = true;
 				break;
@@ -27,12 +27,12 @@ void EventManager::update(){
 	}
 }
 
-void EventManager::mouseDown(){
+void EventManager::mouseDown() {
 	this->mousePressed = true;
 	SDL_Log("Mouse apertado.\n");
 }
 
-void EventManager::mouseUp(){
+void EventManager::mouseUp() {
 	this->mousePressed = false;
 	SDL_Log("Mouse solto.\n");
 }

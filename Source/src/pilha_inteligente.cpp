@@ -11,7 +11,7 @@ PilhaInteligente::PilhaInteligente() : Stack<Carta>() {
 bool PilhaInteligente::setTexture(SDL_Renderer* renderer) {
 	this->backTexture = Textura("../textures/pilha.png", renderer, this->coord.x, this->coord.y, 69, 100);
 	int w = CARD_WIDTH, h = CARD_HEIGHT;
-	if(!SDL_QueryTexture(this->backTexture.getTexture(), NULL, NULL, &w, &h)){
+	if (!SDL_QueryTexture(this->backTexture.getTexture(), NULL, NULL, &w, &h)) {
 		return true;
 	}
 	return false;
@@ -85,7 +85,7 @@ void PilhaInteligente::organize() {
 	}
 }
 
-bool PilhaInteligente::isInside(SDL_Point point){
+bool PilhaInteligente::isInside(SDL_Point point) {
 	bool inside = false;
 
 	Stack<Carta> p_temp;
@@ -105,21 +105,21 @@ bool PilhaInteligente::isInside(SDL_Point point){
 }
 
 //Faz a verificacao de naipes para dizer se duas cartas sao da mesma cor
-bool PilhaInteligente::isDifferentColor(Carta c1, Carta c2) const{
-	if((c1.getSuit() == 'A' || c1.getSuit() == 'C') && (c2.getSuit() == 'A' || c2.getSuit() == 'C'))
+bool PilhaInteligente::isDifferentColor(Carta c1, Carta c2) const {
+	if ((c1.getSuit() == 'A' || c1.getSuit() == 'C') && (c2.getSuit() == 'A' || c2.getSuit() == 'C'))
 		return true;
-
-	else if((c1.getSuit() == 'B' || c1.getSuit() == 'D') && (c2.getSuit() == 'B' || c1.getSuit() == 'D'))
+		
+	else if ((c1.getSuit() == 'B' || c1.getSuit() == 'D') && (c2.getSuit() == 'B' || c1.getSuit() == 'D'))
 		return true;
 
 	return false;
 }
 
 //P[x] deve retornar o node da posicao x, nao a carta da posicao x, que eh P[x]->getElement()
-Node<Carta>* PilhaInteligente::operator[](int index){
-	if(size > index && index >= 0){
+Node<Carta>* PilhaInteligente::operator[](int index) {
+	if (size > index && index >= 0) {
 		Node<Carta>* returnNode = header.dir;
-		while(index > 0){
+		while (index > 0) {
 			returnNode = returnNode->dir;
 			index--;
 		}

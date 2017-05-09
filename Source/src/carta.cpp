@@ -13,17 +13,17 @@
 
 using namespace std;
 
-Carta::Carta(){}
+Carta::Carta() {}
 
-Carta::Carta(const Carta& copyVal){
-		this->value = copyVal.getValue();
-		this->suit = copyVal.getSuit();
-		this->gTexture = copyVal.getTexture();
-		this->isBlur = copyVal.isBlur;
-		this->blurTexture = copyVal.blurTexture;
+Carta::Carta(const Carta& copyVal) {
+	this->value = copyVal.getValue();
+	this->suit = copyVal.getSuit();
+	this->gTexture = copyVal.getTexture();
+	this->isBlur = copyVal.isBlur;
+	this->blurTexture = copyVal.blurTexture;
 }
 
-Carta::Carta(int num, SDL_Renderer* renderer){
+Carta::Carta(int num, SDL_Renderer* renderer) {
 	string pathCarta = "", pathBlur = "";
 	string dir = "../textures/";
 	string folder = "cards/v2/";
@@ -53,7 +53,7 @@ Carta::Carta(int num, SDL_Renderer* renderer){
 	this->blurTexture = Textura(pathBlur, renderer, -BLUR_OFFSET_X, -BLUR_OFFSET_Y, BLUR_WIDTH, BLUR_HEIGHT);
 }
 
-void Carta::setPosition(SDL_Point coord){
+void Carta::setPosition(SDL_Point coord) {
 	int blurX = coord.x - BLUR_OFFSET_X;	// Aparentemente n�o � poss�vel converter double
 	int blurY = coord.y - BLUR_OFFSET_Y;	// para int dentro de {}
 	this->blurTexture.setPosition({blurX, blurY});
@@ -66,24 +66,24 @@ void Carta::render() {
 	this->gTexture.render();
 }
 
-int Carta::getValue() const{
+int Carta::getValue() const {
 	return this->value;
 }
 
-char Carta::getSuit() const{
+char Carta::getSuit() const {
 	return this->suit;
 }
 
-Textura Carta::getTexture() const{
+Textura Carta::getTexture() const {
 	return this->gTexture;
 }
 
-bool Carta::isInside(SDL_Point point) const{
+bool Carta::isInside(SDL_Point point) const {
 	SDL_Point size = this->gTexture.getSize();
 	SDL_Point position = this->gTexture.getPosition();
 
 	bool inside = ((point.x > position.x && point.x < position.x + size.x) &&
-			(point.y > position.y && point.y < position.y + size.y));
+		(point.y > position.y && point.y < position.y + size.y));
 
 	return inside;
 }

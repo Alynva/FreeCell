@@ -14,7 +14,7 @@ bool moveCartasParaPilha(Baralho*, PilhaInteligente*, int);
 // Janela principal
 SDL_Window* gWindow = NULL;
 
-int main(int argv, char** args){
+int main(int argv, char** args) {
 	// Renderizador principal
 	SDL_Renderer* gRenderer = NULL;
 
@@ -29,16 +29,16 @@ int main(int argv, char** args){
 
 	// Cria a janela
 	gWindow = SDL_CreateWindow("Freecell", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
-	if(gWindow == NULL){
+	if (gWindow == NULL) {
 		cout << "Window could not be created. SDL Error: " << SDL_GetError() << endl;
 	} else {
 		// Remove a borda da janela
 
-		SDL_SetWindowFullscreen(gWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
+//		SDL_SetWindowFullscreen(gWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
 
 		// Cria o renderizador
 		gRenderer = SDL_CreateRenderer(gWindow, -1, SDL_RENDERER_ACCELERATED);
-		if(gRenderer == NULL) {
+		if (gRenderer == NULL) {
 			cout << "Renderer could not be created. SDL Error: " << SDL_GetError() << endl;
 		} else {
 			// Inicializa a cor do renderizador
@@ -46,38 +46,39 @@ int main(int argv, char** args){
 
 			// Inicializa o carregamento de PNG
 			int imgFlags = IMG_INIT_PNG;
-			if(!(IMG_Init(imgFlags) & imgFlags)){
+			if (!(IMG_Init(imgFlags) & imgFlags)) {
 				cout << "SDL could not initialize image. SDL Error: " << IMG_GetError() << endl;
 			}
 
 			// Inicializa o background
 			gBackground = SDL_CreateTextureFromSurface(gRenderer, IMG_Load("../textures/backgrounds/1.png"));
-
 		}
 	}
 
 	Baralho b(gRenderer);
-	b.organize();
-	Carta c;
-	b.getCard(c);
+//	b.randomize();
 
-	PilhaInteligente p[4];
-	p[0].setPosition({40, 10});
-	p[0].setTexture(gRenderer);
-	p[1].setPosition({130, 10});
-	p[1].setTexture(gRenderer);
-	p[2].setPosition({220, 10});
-	p[2].setTexture(gRenderer);
-	p[3].setPosition({310, 10});
-	p[3].setTexture(gRenderer);
-
-	moveCartasParaPilha(&b, &p[0], 7);
-	moveCartasParaPilha(&b, &p[1], 7);
-	moveCartasParaPilha(&b, &p[2], 7);
-	moveCartasParaPilha(&b, &p[3], 7);
+	PilhaInteligente p_u[4]; // Pilha de carta única
+	for (int i = 0; i < 4; i++) {
+		p_u[i].setPosition({130 + 90 * i, 50});
+		p_u[i].setTexture(gRenderer);
+	}
+	
+	PilhaDefinitiva p_d[4];
+	for (int i = 0; i < 4; i++) {
+		p_d[i].setPosition({560 + 90 * i, 50});
+		p_d[i].setTexture(gRenderer);
+	}
+	
+	PilhaIntermediaria p_i[8];
+	for (int i = 0; i < 8; i++) {
+		moveCartasParaPilha(&b, &p_i[i], i < 4 ? 7 : 6);
+		p_i[i].setPosition({130 + 100 * i, 200});
+		p_i[i].setTexture(gRenderer);
+	}
 
 	// Loop  principal
-	while(!quit){
+	while (!quit) {
 		// Responsavel pelos eventos em espera
 		event.update();
 
@@ -87,19 +88,13 @@ int main(int argv, char** args){
 		// Renderiza o background
 		SDL_RenderCopy(gRenderer, gBackground, NULL, NULL);
 
-		// Renderiza o baralho
-		//b.render();
-
-		// Teste para verificar se um ponto estï¿½ dentro do baralho
-		//if (b.isInside({10, 10}))
-		//	SDL_Log("Esta dentro\n");
-
-		// Renderiza a carta
-		//c.renderCard();
-
 		// Renderiza as pilhas
 		for (int i = 0; i < 4; i++)
-			p[i].render();
+			p_u[i].render();
+		for (int i = 0; i < 4; i++)
+			p_d[i].render();
+		for (int i = 0; i < 8; i++)
+			p_i[i].render();
 
 		// Atualiza a tela
 		SDL_RenderPresent(gRenderer);

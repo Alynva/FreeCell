@@ -21,18 +21,19 @@ class Textura {
 	SDL_Texture* pTexture;
 	SDL_Renderer* pRenderer;
 	std::string pPath;
-
+	
 	SDL_Texture* loadTexture();
-	public:
-	Textura();
-	Textura(std::string, SDL_Renderer*, int, int, int, int);
 
-	SDL_Point getSize() const;
-	void setSize(int, int);
-	SDL_Point getPosition() const;
-	void setPosition(SDL_Point);
-	SDL_Texture* getTexture() const;
-	void render();
+	public:
+		Textura() {};
+		Textura(std::string, SDL_Renderer*, int, int, int, int);
+	
+		SDL_Point getSize() const;
+		void setSize(int, int);
+		SDL_Point getPosition() const;
+		void setPosition(SDL_Point);
+		SDL_Texture* getTexture() const;
+		void render();
 };
 
 #endif
