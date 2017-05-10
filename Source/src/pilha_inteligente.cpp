@@ -124,7 +124,7 @@ void PilhaInteligente::setStateHover(bool state) {
 	this->stateHover = state;
 }
 
-bool PilhaInteligente::canBeMoved(const Carta * c) const {
+bool PilhaInteligente::canBeMoved(Carta * c) const {
 	/*bool isDifferent = false;
 	int i;
 	for (i = 0; i < this->getSize(); i++) {

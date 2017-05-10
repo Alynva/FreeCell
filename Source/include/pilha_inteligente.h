@@ -27,7 +27,7 @@ class PilhaInteligente : public Stack<Carta> {
 		bool isDifferentColor(Carta, Carta) const;
 		Node<Carta>* operator[](int) const;
 		void setStateHover(bool);
-		bool canBeMoved(const Carta *) const;
+		bool canBeMoved(Carta *) const;
 };
 
 #endif
