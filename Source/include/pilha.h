@@ -1,9 +1,6 @@
 #ifndef PILHA_H
 #define PILHA_H
 
-#define MAX_ITER_RANDOM 500
-#define MIN_ITER_RANDOM 50
-
 #include <iostream> //cout
 #include <random> //random_device
 #include <cstdlib> // rand
@@ -25,12 +22,12 @@ class Stack {
 	protected:
 		Node<T> header;
 		int size;
-		
+
 	public:
 		Stack():size(0) {};
 		~Stack() { this->clear(); };
 		bool isEmpty() const { return !size; };
-		
+
 		void push(const T);
 		bool pop(T&);
 		void clear();

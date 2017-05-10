@@ -13,8 +13,12 @@
 #define BARALHO_H
 
 #include "pilha_inteligente.h"
+#include <cstdlib> // srand, rand
+#include <ctime> // time
 
 #define MAX_CARD 52
+#define MAX_ITER_RANDOM 5000
+#define MIN_ITER_RANDOM	500
 
 class Baralho {
 	PilhaInteligente deck;

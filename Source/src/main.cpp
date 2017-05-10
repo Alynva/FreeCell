@@ -55,27 +55,27 @@ int main(int argv, char** args) {
 	}
 
 	Baralho b(gRenderer);
-//	b.randomize();
+	b.randomize();
 
 	PilhaInteligente p_m; // Pilha que persegue o mouse
 	p_m.setTexture(gRenderer);
 	event.addStack(&p_m);
 
-	PilhaInteligente p_u[4]; // Pilha de carta única
+	PilhaInteligente p_u[4]; // Pilha de carta ï¿½nica
 	for (int i = 0; i < 4; i++) {
 		p_u[i].setPosition({130 + 90 * i, 50});
 //		SDL_Log("%i %i", p_u[i].getPosition().x, p_u[i].getPosition().y);
 		p_u[i].setTexture(gRenderer);
 		event.addStack(&p_u[i]);
 	}
-	
+
 	PilhaDefinitiva p_d[4];
 	for (int i = 0; i < 4; i++) {
 		p_d[i].setPosition({560 + 90 * i, 50});
 		p_d[i].setTexture(gRenderer);
 		event.addStack(&p_d[i]);
 	}
-	
+
 	PilhaIntermediaria p_i[8];
 	for (int i = 0; i < 8; i++) {
 		moveCartasParaPilha(&b, &p_i[i], i < 4 ? 7 : 6);

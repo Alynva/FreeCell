@@ -37,46 +37,6 @@ SDL_Point PilhaInteligente::getPosition() const {
 	return this->coord;
 }
 
-//TODO:Tentar implementacao com algorithm::random_shuffle()
-//TODO:Tentar implementacao com o algoritmo fisher-yates
-void PilhaInteligente::randomize() {
-//	random_device seed;
-//	srand(seed());
-//	int iter = rand()%(MAX_ITER_RANDOM-MIN_ITER_RANDOM)+MIN_ITER_RANDOM;
-//	while (iter > 0) {
-//		int it1 = rand()%size+1;
-//		Node<Carta>* elem = &header;
-//		while (it1 > 0) {
-//			elem = elem->dir;
-//			it1--;
-//		}
-//		Node<Carta> aux = *elem;
-//		elem->dir->esq = aux.esq;
-//		elem->esq->dir = aux.dir;
-//		elem->dir = &header;
-//		elem->esq = header.esq;
-//		header.esq->dir = elem;
-//		header.esq = elem;
-//		iter--;
-//	}
-}
-
-//}
-/*{
-	// Alynva: aguardando a implementaï¿½ï¿½o da sobrecarga do operador []
-	srand(time(0));
-	int S = this->getSize(), in, out;
-	for (int i = 0; i < (rand() % (S * 10) + 50); i++) {
-		do {
-			in = rand() % S;
-			out = rand() % S;
-		} while(in == out);
-		Carta aux = stack[out];
-		stack[out] = stack[in];
-		stack[in] = aux;
-	}
-}*/
-
 void PilhaInteligente::render() {
 	this->backTexture.render();
 
@@ -118,14 +78,14 @@ bool PilhaInteligente::isInside(SDL_Point point) {
 
 	bool inside = ((point.x > position.x && point.x < position.x + size.x) &&
 		(point.y > position.y && point.y < position.y + size.y));
-	
+
 	Node<Carta>* element = this->peek().dir;
 	for (int i = 0; i < this->getSize(); i++) {
 		element = element->dir;
 		inside = inside || element->value.isInside(point);
 	}
-	
-	// Alynva: NÃO FUNCIONOU ISSO
+
+	// Alynva: Nï¿½O FUNCIONOU ISSO
 //	for (int i = 0; i < this->getSize(); i++) {
 //		inside = inside || this[1].isInside(point);
 //	}
@@ -137,7 +97,7 @@ bool PilhaInteligente::isInside(SDL_Point point) {
 bool PilhaInteligente::isDifferentColor(Carta c1, Carta c2) const {
 	if ((c1.getSuit() == 'A' || c1.getSuit() == 'C') && (c2.getSuit() == 'A' || c2.getSuit() == 'C'))
 		return true;
-		
+
 	else if ((c1.getSuit() == 'B' || c1.getSuit() == 'D') && (c2.getSuit() == 'B' || c1.getSuit() == 'D'))
 		return true;
 
@@ -145,7 +105,8 @@ bool PilhaInteligente::isDifferentColor(Carta c1, Carta c2) const {
 }
 
 //P[x] deve retornar o node da posicao x, nao a carta da posicao x, que eh P[x]->getElement()
-Node<Carta>* PilhaInteligente::operator[](int index) {
+//P[-1] retorna o Ãºltimo elemento
+Node<Carta>* PilhaInteligente::operator[](int index) const {
 	if (size > index && index >= 0) {
 		Node<Carta>* returnNode = header.dir;
 		while (index > 0) {
@@ -153,6 +114,8 @@ Node<Carta>* PilhaInteligente::operator[](int index) {
 			index--;
 		}
 		return returnNode;
+	} else if(index == -1) {
+		return header.esq;
 	}
 	return nullptr;
 }
@@ -162,17 +125,18 @@ void PilhaInteligente::setStateHover(bool state) {
 }
 
 bool PilhaInteligente::canBeMoved(const Carta * c) const {
-	bool isDifferent = false;
+	/*bool isDifferent = false;
 	int i;
 	for (i = 0; i < this->getSize(); i++) {
-		if (this[i].value == c) {
+		if (*(this[0][i]->value) == c) {
 			isDifferent = true;
 			break;
 		}
 	}
 	while (i < this->getSize() - 1 && isDifferent) {
-		isDifferent = this->isDifferentColor(this[i].value, this[i+1].value);
+		isDifferent = this->isDifferentColor(this[0][i]->value, this[0][i+1]->value);
 		i++;
 	}
-	return isDifferent;
+	return isDifferent;*/
+	return true;
 }

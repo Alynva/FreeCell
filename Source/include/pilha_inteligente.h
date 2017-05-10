@@ -21,12 +21,11 @@ class PilhaInteligente : public Stack<Carta> {
 		bool setTexture(SDL_Renderer*);
 		bool setPosition(SDL_Point);
 		SDL_Point getPosition() const;
-		void randomize();
 		void render();
 		void organize();
 		bool isInside(SDL_Point);
 		bool isDifferentColor(Carta, Carta) const;
-		Node<Carta>* operator[](int);
+		Node<Carta>* operator[](int) const;
 		void setStateHover(bool);
 		bool canBeMoved(const Carta *) const;
 };
