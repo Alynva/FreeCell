@@ -57,6 +57,10 @@ int main(int argv, char** args) {
 	Baralho b(gRenderer);
 //	b.randomize();
 
+	PilhaInteligente p_m; // Pilha que persegue o mouse
+	p_m.setTexture(gRenderer);
+	event.addStack(&p_m);
+
 	PilhaInteligente p_u[4]; // Pilha de carta única
 	for (int i = 0; i < 4; i++) {
 		p_u[i].setPosition({130 + 90 * i, 50});
@@ -98,6 +102,8 @@ int main(int argv, char** args) {
 			p_d[i].render();
 		for (int i = 0; i < 8; i++)
 			p_i[i].render();
+		if (p_m.getSize()) // Exibe a pilha que persegue o mouse somente se houver cartas nela
+			p_m.render();
 
 		// Atualiza a tela
 		SDL_RenderPresent(gRenderer);

@@ -24,6 +24,7 @@ bool PilhaInteligente::setPosition(SDL_Point pos) {
 
 //	if (pos.x > 0 && pos.y > 0 && pos.x + CARD_WIDTH < size.x && pos.y + CARD_HEIGHT < size.y) {
 		this->coord = pos;
+		this->backTexture.setPosition(this->coord);
 
 		this->organize();
 
@@ -158,4 +159,20 @@ Node<Carta>* PilhaInteligente::operator[](int index) {
 
 void PilhaInteligente::setStateHover(bool state) {
 	this->stateHover = state;
+}
+
+bool PilhaInteligente::canBeMoved(const Carta * c) const {
+	bool isDifferent = false;
+	int i;
+	for (i = 0; i < this->getSize(); i++) {
+		if (this[i].value == c) {
+			isDifferent = true;
+			break;
+		}
+	}
+	while (i < this->getSize() - 1 && isDifferent) {
+		isDifferent = this->isDifferentColor(this[i].value, this[i+1].value);
+		i++;
+	}
+	return isDifferent;
 }

@@ -17,7 +17,7 @@ class PilhaInteligente : public Stack<Carta> {
 
 	public:
 		PilhaInteligente();
-		SDL_Point getCoord() const {return this->coord;};
+		SDL_Point getCoord() const { return this->coord; };
 		bool setTexture(SDL_Renderer*);
 		bool setPosition(SDL_Point);
 		SDL_Point getPosition() const;
@@ -28,6 +28,7 @@ class PilhaInteligente : public Stack<Carta> {
 		bool isDifferentColor(Carta, Carta) const;
 		Node<Carta>* operator[](int);
 		void setStateHover(bool);
+		bool canBeMoved(const Carta *) const;
 };
 
 #endif

@@ -40,17 +40,28 @@ void EventManager::mouseUp() {
 void EventManager::mouseMove() {
 	SDL_Point mouse_pos;
 	SDL_GetMouseState(&mouse_pos.x, &mouse_pos.y);
+
+	// Move a pilha que persegue o mouse	
+	PilhaInteligente* mouse_stack = this->stacks.peek().dir->dir->value;
+	mouse_stack->setPosition(mouse_pos);
 	
-	Node<PilhaInteligente*>* element = this->stacks.peek().dir;
-	for (int i = 0; i < this->stacks.getSize(); i++) {
-		element = element->dir;
-		element->value->setStateHover(element->value->isInside(mouse_pos));
+	Node<PilhaInteligente*>* stack = this->stacks.peek().dir->dir;
+	for (int i = 1; i < this->stacks.getSize(); i++) { // Inicia em 1 pois o primeiro é a pilha que persegue o mouse
+		stack = stack->dir;
+		stack->value->setStateHover(stack->value->isInside(mouse_pos));
 		
-		if (element->value->getSize()) {
-			Node<Carta>* otherElement = element->value->peek().dir;
-			for (int j = 0; j < element->value->getSize(); j++) {
-				otherElement = otherElement->dir;
-				otherElement->value.setStateHover(otherElement->value.isInside(mouse_pos));
+		if (stack->value->getSize()) {
+			bool isMovable = false;
+			Node<Carta>* nodeCard = stack->value->peek().dir;
+			for (int j = 0; j < stack->value->getSize(); j++) {
+				nodeCard = nodeCard->dir;
+				if (nodeCard->value->canBeMoved(otherElement->value)) {
+					if (nodeCard->value.isInside(mouse_pos) || isMovable)
+						nodeCard->value.setStateHover(true);
+					else
+						nodeCard->value.setStateHover(false);
+					isMovable = true;
+				}
 			}
 		}
 	}
