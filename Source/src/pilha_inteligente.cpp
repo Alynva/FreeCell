@@ -123,18 +123,17 @@ void PilhaInteligente::setStateHover(bool state) {
 }
 
 bool PilhaInteligente::canBeMoved(Carta * c) const {
-	/*bool isDifferent = false;
+	bool isDifferent = false;
 	int i;
 	for (i = 0; i < this->getSize(); i++) {
-		if (*(this[0][i]->value) == c) {
+		if (&(this[0][i]->value) == c) {
 			isDifferent = true;
 			break;
 		}
 	}
 	while (i < this->getSize() - 1 && isDifferent) {
-		isDifferent = this->isDifferentColor(this[0][i]->value, this[0][i+1]->value);
+		isDifferent = this->isDifferentColor(this[0][i]->value, this[0][i+1]->value) && this[0][i]->value.getValue() == this[0][i+1]->value.getValue() + 1;
 		i++;
 	}
-	return isDifferent;*/
-	return true;
+	return isDifferent;
 }

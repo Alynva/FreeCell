@@ -20,16 +20,19 @@ class EventManager {
 	SDL_Event handler;
 	bool* quit;
 	bool mousePressed;
+	SDL_Point mouse_pos;
 	Stack<PilhaInteligente*> stacks;
+	PilhaInteligente* previous_stack;
+	SDL_Point stack_offset;
 
 	public:
-	EventManager(bool*);
-
-	void update();
-	void mouseDown();
-	void mouseUp();
-	void mouseMove();
-	void addStack(PilhaInteligente*);
+		EventManager(bool*);
+	
+		void update();
+		void mouseDown();
+		void mouseUp();
+		void mouseMove();
+		void addStack(PilhaInteligente*);
 };
 
 #endif

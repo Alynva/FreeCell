@@ -6,7 +6,6 @@ Baralho::Baralho(SDL_Renderer* renderer) {
 	for (int i = 1; i <= MAX_CARD; i++) {
 		this->deck.push(Carta(i, this->gRenderer));
 	}
-	this->randomize();
 }
 
 void Baralho::generate() {

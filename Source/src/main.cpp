@@ -96,14 +96,22 @@ int main(int argv, char** args) {
 		SDL_RenderCopy(gRenderer, gBackground, NULL, NULL);
 
 		// Renderiza as pilhas
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 4; i++) {
+			p_u[i].organize();
 			p_u[i].render();
-		for (int i = 0; i < 4; i++)
+		}
+		for (int i = 0; i < 4; i++) {
+			p_d[i].organize();
 			p_d[i].render();
-		for (int i = 0; i < 8; i++)
+		}
+		for (int i = 0; i < 8; i++) {
+			p_i[i].organize();
 			p_i[i].render();
-		if (p_m.getSize()) // Exibe a pilha que persegue o mouse somente se houver cartas nela
+		}
+		if (p_m.getSize()) { // Exibe a pilha que persegue o mouse somente se houver cartas nela
+			p_m.organize();
 			p_m.render();
+		}
 
 		// Atualiza a tela
 		SDL_RenderPresent(gRenderer);

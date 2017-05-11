@@ -24,18 +24,19 @@ class Carta {
 	Textura blurTexture;
 
 	public:
-	Carta(); // meio inútil, mas é necessário para poder declarar a carta sem especificar parâmetros.
-	Carta(const Carta&);
-	Carta(int, SDL_Renderer*);
-
-	void render();
-
-	int getValue() const;
-	char getSuit() const;
-	Textura getTexture() const;
-	void setPosition(SDL_Point);
-	bool isInside(SDL_Point) const;
-	void setStateHover(bool);
+		Carta(); // meio inútil, mas é necessário para poder declarar a carta sem especificar parâmetros.
+		Carta(const Carta&);
+		Carta(int, SDL_Renderer*);
+	
+		void render();
+	
+		int getValue() const;
+		char getSuit() const;
+		Textura getTexture() const;
+		void setPosition(SDL_Point);
+		SDL_Point getPosition() const;
+		bool isInside(SDL_Point) const;
+		void setStateHover(bool);
 };
 
 #endif
