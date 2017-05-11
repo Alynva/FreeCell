@@ -64,7 +64,6 @@ int main(int argv, char** args) {
 	PilhaInteligente p_u[4]; // Pilha de carta �nica
 	for (int i = 0; i < 4; i++) {
 		p_u[i].setPosition({130 + 90 * i, 50});
-//		SDL_Log("%i %i", p_u[i].getPosition().x, p_u[i].getPosition().y);
 		p_u[i].setTexture(gRenderer);
 		event.addStack(&p_u[i]);
 	}
