@@ -95,10 +95,8 @@ bool PilhaInteligente::isInside(SDL_Point point) {
 
 //Faz a verificacao de naipes para dizer se duas cartas sao da mesma cor
 bool PilhaInteligente::isDifferentColor(Carta c1, Carta c2) const {
-	if ((c1.getSuit() == 'A' || c1.getSuit() == 'C') && (c2.getSuit() == 'A' || c2.getSuit() == 'C'))
-		return true;
-
-	else if ((c1.getSuit() == 'B' || c1.getSuit() == 'D') && (c2.getSuit() == 'B' || c1.getSuit() == 'D'))
+	if (((c1.getSuit() == 'A' || c1.getSuit() == 'C') && (c2.getSuit() == 'B' || c2.getSuit() == 'D')) ||
+		((c1.getSuit() == 'B' || c1.getSuit() == 'D') && (c2.getSuit() == 'A' || c2.getSuit() == 'C')))
 		return true;
 
 	return false;
