@@ -18,6 +18,7 @@ bool PilhaIntermediaria::push(Carta& pushValue) {
 		header.esq->dir = aux;
 		header.esq = aux;
 		this->size++;
+		return true;
 	} else {
 		if (pushValue.getValue() == this->peek().value.getValue()-1) {
 			if (this->isDifferentColor(pushValue,this->peek().value)) {

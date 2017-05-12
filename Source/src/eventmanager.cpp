@@ -8,19 +8,18 @@ EventManager::EventManager(bool* mQuit):quit(mQuit), mousePressed(false) {
 
 void EventManager::update() {
 	SDL_GetMouseState(&this->mouse_pos.x, &this->mouse_pos.y);
-	//SDL_WaitEvent(&this->handler);
 	while (SDL_PollEvent(&this->handler)) {
 		switch (handler.type) {
 			case SDL_QUIT:
 				*quit = true;
 				break;
 			case SDL_MOUSEBUTTONDOWN:
-//				if (handler.button.button == SDL_BUTTON_LEFT)
-					mouseDown();
+				if (handler.button.button == SDL_BUTTON_LEFT)
+					mouseLeftDown();
 				break;
 			case SDL_MOUSEBUTTONUP:
-//				if (handler.button.button == SDL_BUTTON_LEFT)
-					mouseUp();
+				if (handler.button.button == SDL_BUTTON_LEFT)
+					mouseLeftUp();
 				break;
 			case SDL_MOUSEMOTION:
 				mouseMove();
@@ -29,9 +28,8 @@ void EventManager::update() {
 	}
 }
 
-void EventManager::mouseDown() {
+void EventManager::mouseLeftDown() {
 	this->mousePressed = true;
-	SDL_Log("Mouse apertado.");
 	
 	PilhaInteligente* mouse_stack = this->stacks.peek().dir->dir->value;
 	
@@ -81,11 +79,11 @@ void EventManager::mouseDown() {
 	} 
 }
 
-void EventManager::mouseUp() {
+void EventManager::mouseLeftUp() {
 	this->mousePressed = false;
-	SDL_Log("Mouse solto.");
 	
 	PilhaInteligente* mouse_stack = this->stacks.peek().dir->dir->value;
+	PilhaInteligente* original_stack = this->previous_stack;
 	PilhaInteligente* target_stack = this->previous_stack;
 //	mouse_stack->clear();
 
@@ -114,6 +112,8 @@ void EventManager::mouseUp() {
 				
 				if (can_join) target_stack = nodeStack->value;
 			}
+		} else {
+			if (nodeStack->value->isInside(mouse_pos)) target_stack = nodeStack->value;
 		}
 	}
 	
@@ -126,7 +126,7 @@ void EventManager::mouseUp() {
 	}
 	while (!stack_temp.isEmpty()) {
 		stack_temp.pop(card_temp);
-		target_stack->push(card_temp);
+		if (!target_stack->push(card_temp)) original_stack->push(card_temp);
 	}
 }
 

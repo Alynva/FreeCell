@@ -7,6 +7,7 @@ class PilhaUnica : public PilhaInteligente {
 	public:
 		PilhaUnica() {};
 		bool push(Carta&);
+		bool isDifferentColor(Carta, Carta) const;
 };
 
 bool PilhaUnica::push(Carta& pushValue) {
@@ -21,6 +22,9 @@ bool PilhaUnica::push(Carta& pushValue) {
 		
 		return true;
 	}
+	return false;
+}
+bool PilhaUnica::isDifferentColor(Carta c1, Carta c2) const {
 	return false;
 }
 

@@ -29,8 +29,8 @@ class EventManager {
 		EventManager(bool*);
 	
 		void update();
-		void mouseDown();
-		void mouseUp();
+		void mouseLeftDown();
+		void mouseLeftUp();
 		void mouseMove();
 		void addStack(PilhaInteligente*);
 };
