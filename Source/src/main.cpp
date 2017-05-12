@@ -1,8 +1,9 @@
 #include <iostream>
-#include "../include/baralho.h"
-#include "../include/eventmanager.h"
-#include "../include/pilha_definitiva.h"
-#include "../include/pilha_intermediaria.h"
+#include "baralho.h"
+#include "eventmanager.h"
+#include "pilha_unica.h"
+#include "pilha_definitiva.h"
+#include "pilha_intermediaria.h"
 
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 720
@@ -61,7 +62,7 @@ int main(int argv, char** args) {
 	p_m.setTexture(gRenderer);
 	event.addStack(&p_m);
 
-	PilhaInteligente p_u[4]; // Pilha de carta �nica
+	PilhaUnica p_u[4]; // Pilha de carta �nica
 	for (int i = 0; i < 4; i++) {
 		p_u[i].setPosition({130 + 90 * i, 50});
 		p_u[i].setTexture(gRenderer);
