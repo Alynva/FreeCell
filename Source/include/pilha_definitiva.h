@@ -9,12 +9,13 @@
 class PilhaDefinitiva : public PilhaInteligente {
 	public:
 		PilhaDefinitiva() {};
-		bool push(Carta&);
+		void push(Carta&, bool&);
 		bool setTexture(SDL_Renderer*);
 		void organize();
 };
 
-bool PilhaDefinitiva::push(Carta& pushValue) {
+void PilhaDefinitiva::push(Carta& pushValue, bool& check) {
+	check = false;
 	if (this->isEmpty() && pushValue.getValue() == 1) {
 		Node<Carta>* aux = new(Node<Carta>);
 		aux->value = pushValue;
@@ -23,7 +24,7 @@ bool PilhaDefinitiva::push(Carta& pushValue) {
 		header.esq->dir = aux;
 		header.esq = aux;
 		this->size++;
-		return true;
+		check = true;
 	} else {
 		if (pushValue.getValue() == this->peek().dir->value.getValue()+1) {
 			if (pushValue.getSuit() == this->peek().dir->value.getSuit()) {
@@ -35,11 +36,10 @@ bool PilhaDefinitiva::push(Carta& pushValue) {
 				header.esq = aux;
 				this->size++;
 				this->peek().dir->value.setPosition(this->getCoord());
-				return true;
+				check = true;
 			}
 		}
 	}
-	return false;
 }
 
 bool PilhaDefinitiva::setTexture(SDL_Renderer* renderer) {
@@ -54,15 +54,16 @@ bool PilhaDefinitiva::setTexture(SDL_Renderer* renderer) {
 void PilhaDefinitiva::organize() {
 	Stack<Carta> p_temp;
 	Carta c_temp;
+	bool ok;
 
 	while (!this->isEmpty()) {
 		this->pop(c_temp);
-		p_temp.push(c_temp);
+		p_temp.push(c_temp, ok);
 	}
 	while (!p_temp.isEmpty()) {
 		p_temp.pop(c_temp);
 		c_temp.setPosition(this->coord);
-		this->push(c_temp);
+		this->push(c_temp, ok);
 	}
 }
 

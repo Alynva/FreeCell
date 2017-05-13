@@ -30,10 +30,10 @@ void EventManager::update() {
 
 void EventManager::mouseLeftDown() {
 	this->mousePressed = true;
-	
+
 	PilhaInteligente* mouse_stack = this->stacks.peek().dir->dir->value;
-	
-	// Alynva: Implementação do [] continua não funcionando
+
+	// Alynva: Implementaï¿½ï¿½o do [] continua nï¿½o funcionando
 	Node<PilhaInteligente*>* nodeStack = this->stacks.peek().dir->dir;
 	for (int i = 1; i < this->stacks.getSize(); i++) { // Inicia em 1 pois o primeiro ï¿½ a pilha que persegue o mouse
 		nodeStack = nodeStack->dir;
@@ -41,27 +41,27 @@ void EventManager::mouseLeftDown() {
 
 		if (nodeStack->value->getSize()) {
 			bool isMovable = false;
-			bool finded = false;
+			bool found = false;
 			Node<Carta>* nodeCard = nodeStack->value->peek().dir;
 			Node<Carta>* lastNodeCard;
 			for (int j = 0; j <= nodeStack->value->getSize(); j++) {
 				if (nodeCard->value.isInside(mouse_pos)) {
 					lastNodeCard = nodeCard;
-					finded = true;
+					found = true;
 				}
 				nodeCard = nodeCard->dir;
 			}
-			if (finded && nodeStack->value->canBeMoved(&lastNodeCard->value)) {
+			if (found && nodeStack->value->canBeMoved(&lastNodeCard->value)) {
 				this->previous_stack = nodeStack->value; // Salva de onde foi retirado a(s) carta(s)
-				
+
 				bool afterThan = false;
 				PilhaInteligente stackTemp;
-				
+
 				nodeCard = nodeStack->value->peek().dir;
-				for (int j = 0; j <= nodeStack->value->getSize(); !afterThan ? j++ : j) { // Se encontrar, não incrementa o j pois ele será retirado da pilha, portanto o próximo será o atual depois de ser retirado
+				for (int j = 0; j <= nodeStack->value->getSize(); !afterThan ? j++ : j) { // Se encontrar, nï¿½o incrementa o j pois ele serï¿½ retirado da pilha, portanto o prï¿½ximo serï¿½ o atual depois de ser retirado
 					if (afterThan || nodeCard == lastNodeCard) {
 						afterThan = true;
-						
+
 						Carta cardTemp;
 						nodeStack->value->pop(cardTemp);
 						cardTemp.setStateHover(false);
@@ -76,12 +76,12 @@ void EventManager::mouseLeftDown() {
 				}
 			}
 		}
-	} 
+	}
 }
 
 void EventManager::mouseLeftUp() {
 	this->mousePressed = false;
-	
+
 	PilhaInteligente* mouse_stack = this->stacks.peek().dir->dir->value;
 	PilhaInteligente* original_stack = this->previous_stack;
 	PilhaInteligente* target_stack = this->previous_stack;
@@ -96,27 +96,27 @@ void EventManager::mouseLeftUp() {
 
 		if (nodeStack->value->getSize()) {
 			bool isMovable = false;
-			bool finded = false;
+			bool found = false;
 			Node<Carta>* lastNodeCard;
 			Node<Carta>* nodeCard = nodeStack->value->peek().dir;
 			for (int j = 0; j <= nodeStack->value->getSize(); j++) {
 				if (nodeCard->value.isInside(mouse_pos)) {
 					lastNodeCard = nodeCard;
-					finded = true;
+					found = true;
 				}
 				nodeCard = nodeCard->dir;
 			}
-			if (finded && nodeStack->value->canBeMoved(&lastNodeCard->value)) {
+			if (found && nodeStack->value->canBeMoved(&lastNodeCard->value)) {
 				Node<Carta>* first_node_card_mouse = mouse_stack->peek().dir->dir;
 				can_join = nodeStack->value->isDifferentColor(lastNodeCard->value, first_node_card_mouse->value) && lastNodeCard->value.getValue() == first_node_card_mouse->value.getValue() + 1;
-				
+
 				if (can_join) target_stack = nodeStack->value;
 			}
 		} else {
 			if (nodeStack->value->isInside(mouse_pos)) target_stack = nodeStack->value;
 		}
 	}
-	
+
 
 	PilhaInteligente stack_temp;
 	Carta card_temp;
@@ -132,14 +132,14 @@ void EventManager::mouseLeftUp() {
 
 void EventManager::mouseMove() {
 	SDL_GetMouseState(&mouse_pos.x, &mouse_pos.y);
-	
+
 	// Move a pilha que persegue o mouse
 	PilhaInteligente* mouse_stack = this->stacks.peek().dir->dir->value;
 	mouse_stack->setPosition({mouse_pos.x + this->stack_offset.x, mouse_pos.y + this->stack_offset.y});
-	
+
 	bool can_join = false;
 
-	// Alynva: Implementação do [] continua não funcionando
+	// Alynva: Implementaï¿½ï¿½o do [] continua nï¿½o funcionando
 	Node<PilhaInteligente*>* nodeStack = this->stacks.peek().dir->dir;
 	for (int i = 1; i < this->stacks.getSize(); i++) { // Inicia em 1 pois o primeiro ï¿½ a pilha que persegue o mouse
 		nodeStack = nodeStack->dir;
@@ -148,18 +148,18 @@ void EventManager::mouseMove() {
 
 		if (nodeStack->value->getSize()) {
 			bool isMovable = false;
-			bool finded = false;
+			bool found = false;
 			Node<Carta>* lastNodeCard;
 			Node<Carta>* nodeCard = nodeStack->value->peek().dir;
 			for (int j = 0; j <= nodeStack->value->getSize(); j++) {
 				if (nodeCard->value.isInside(mouse_pos)) {
 					lastNodeCard = nodeCard;
-					finded = true;
+					found = true;
 				}
 					nodeCard->value.setStateHover(false);
 				nodeCard = nodeCard->dir;
 			}
-			if (finded && nodeStack->value->canBeMoved(&lastNodeCard->value)) {
+			if (found && nodeStack->value->canBeMoved(&lastNodeCard->value)) {
 				bool afterThan = false;
 				nodeCard = nodeStack->value->peek().dir;
 				for (int j = 0; j <= nodeStack->value->getSize(); j++) {
