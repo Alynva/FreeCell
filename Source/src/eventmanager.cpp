@@ -124,9 +124,14 @@ void EventManager::mouseLeftUp() {
 		mouse_stack->pop(card_temp);
 		stack_temp.push(card_temp);
 	}
+	bool test;
+	int i = 0;
 	while (!stack_temp.isEmpty()) {
 		stack_temp.pop(card_temp);
-		if (!target_stack->push(card_temp)) original_stack->push(card_temp);
+		test = target_stack->push(card_temp);
+		SDL_Log("%i", i++);
+		if (test) SDL_Log("true");
+		if (!test) SDL_Log("false");
 	}
 }
 
