@@ -1,6 +1,7 @@
 #include "../include/eventmanager.h"
 #include <iostream>
 
+bool abc;
 EventManager::EventManager(bool* mQuit):quit(mQuit), mousePressed(false) {
 	this->stacks.clear();
 	this->stack_offset = {0, 0};
@@ -65,14 +66,14 @@ void EventManager::mouseLeftDown() {
 						Carta cardTemp;
 						nodeStack->value->pop(cardTemp);
 						cardTemp.setStateHover(false);
-						stackTemp.push(cardTemp);
+						stackTemp.push(cardTemp, abc);
 					}
 					nodeCard = nodeCard->dir;
 				}
 				Carta cardTemp;
 				while (!stackTemp.isEmpty()) {
 					stackTemp.pop(cardTemp);
-					mouse_stack->push(cardTemp);
+					mouse_stack->push(cardTemp, abc);
 				}
 			}
 		}
@@ -122,16 +123,14 @@ void EventManager::mouseLeftUp() {
 	Carta card_temp;
 	while (!mouse_stack->isEmpty()) {
 		mouse_stack->pop(card_temp);
-		stack_temp.push(card_temp);
+		stack_temp.push(card_temp, abc);
 	}
-	bool test;
-	int i = 0;
 	while (!stack_temp.isEmpty()) {
+		bool test = false;
 		stack_temp.pop(card_temp);
-		test = target_stack->push(card_temp);
-		SDL_Log("%i", i++);
-		if (test) SDL_Log("true");
-		if (!test) SDL_Log("false");
+		target_stack->push(card_temp, test);
+		if (!test) original_stack->push(card_temp, test); // Alynva: o PilhaDefinitiva.push() está sempre retornando true, suspeito que é por que o this->peek().dir não existe, portanto não é possível executar getValue()
+		SDL_Log("%c", test ? 's' : 'n');
 	}
 }
 
@@ -195,5 +194,5 @@ void EventManager::mouseMove() {
 }
 
 void EventManager::addStack(PilhaInteligente * stack) {
-	this->stacks.push(stack);
+	this->stacks.push(stack, abc);
 }

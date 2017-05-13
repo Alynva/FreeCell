@@ -10,6 +10,7 @@
 
 using namespace std;
 
+bool bca;
 bool moveCartasParaPilha(Baralho*, PilhaInteligente*, int);
 
 // Janela principal
@@ -135,7 +136,7 @@ bool moveCartasParaPilha(Baralho* b, PilhaInteligente* p, int qnt) {
 	for (int i = 0; i < qnt; i++) {
 		if (!b->getCard(c))
 			return false;
-		p->push(c);
+		p->push(c, bca);
 	}
 	p->organize();
 	return true;

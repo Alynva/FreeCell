@@ -4,6 +4,7 @@
 #define CARD_WIDTH 100 // largura final do fundo da pilha
 #define CARD_HEIGHT 156 // altura final do fundo da pilha
 
+bool cba;
 PilhaInteligente::PilhaInteligente() : Stack<Carta>() {
 	this->coord = {0, 0};
 	this->stateHover = false;
@@ -45,12 +46,12 @@ void PilhaInteligente::render() {
 
 	while (!this->isEmpty()) {
 		this->pop(c_temp);
-		p_temp.push(c_temp);
+		p_temp.push(c_temp, cba);
 	}
 	while (!p_temp.isEmpty()) {
 		p_temp.pop(c_temp);
 		c_temp.render();
-		this->push(c_temp);
+		this->push(c_temp, cba);
 	}
 }
 
@@ -61,13 +62,13 @@ void PilhaInteligente::organize() {
 	int y = 0;
 	while (!this->isEmpty()) {
 		this->pop(c_temp);
-		p_temp.push(c_temp);
+		p_temp.push(c_temp, cba);
 	}
 	while (!p_temp.isEmpty()) {
 		p_temp.pop(c_temp);
 		c_temp.setPosition({this->coord.x, this->coord.y + y});
 		y += DIF_ALTURA;
-		this->push(c_temp);
+		this->push(c_temp, cba);
 	}
 }
 

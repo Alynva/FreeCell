@@ -15,7 +15,6 @@ class PilhaDefinitiva : public PilhaInteligente {
 };
 
 void PilhaDefinitiva::push(Carta& pushValue, bool& check) {
-	check = false;
 	if (this->isEmpty() && pushValue.getValue() == 1) {
 		Node<Carta>* aux = new(Node<Carta>);
 		aux->value = pushValue;
@@ -40,6 +39,7 @@ void PilhaDefinitiva::push(Carta& pushValue, bool& check) {
 			}
 		}
 	}
+	check = false;
 }
 
 bool PilhaDefinitiva::setTexture(SDL_Renderer* renderer) {

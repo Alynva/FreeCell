@@ -28,7 +28,7 @@ class Stack {
 		~Stack() { this->clear(); };
 		bool isEmpty() const { return !size; };
 
-		void push(const T, bool& = false);
+		void push(const T, bool&);
 		bool pop(T&);
 		void clear();
 		int getSize() const;
@@ -37,6 +37,7 @@ class Stack {
 
 template<class T>
 inline void Stack<T>::push(const T element, bool& check){
+	check = false;
 	Node<T> *aux = new Node<T>;
 	aux->value = element;
 	aux->dir = &header;

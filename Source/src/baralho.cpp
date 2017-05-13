@@ -1,17 +1,19 @@
 #include "../include/baralho.h"
 
+
+bool cab;
 Baralho::Baralho(SDL_Renderer* renderer) {
 	this->deck.setTexture(renderer);
 	this->gRenderer = renderer;
 	for (int i = 1; i <= MAX_CARD; i++) {
-		this->deck.push(Carta(i, this->gRenderer));
+		this->deck.push(Carta(i, this->gRenderer), cab);
 	}
 }
 
 void Baralho::generate() {
 	this->deck.clear();
 	for (int i = 1; i <= MAX_CARD; i++) {
-		this->deck.push(Carta(i, this->gRenderer));
+		this->deck.push(Carta(i, this->gRenderer), cab);
 	}
 }
 
