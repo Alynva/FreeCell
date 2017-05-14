@@ -11,7 +11,7 @@ ResourceIncludes=C:\Users\Gabriel\Documents\GitHub\FreeCell\Source\bin
 MakeIncludes=
 Compiler=
 CppCompiler=
-Linker=-lmingw32 -lSDL2main -lSDL2_image -lSDL2_@@_
+Linker=-lmingw32 -lSDL2main -lSDL2_image -lSDL2_mixer -lSDL2_@@_
 IsCpp=1
 Icon=
 ExeOutput=
@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=00000001g00000000000000000c
-UnitCount=15
+UnitCount=16
 
 [VersionInfo]
 Major=1
@@ -194,6 +194,16 @@ BuildCmd=
 FileName=pilha_inteligente.cpp
 CompileCpp=1
 Folder=FreeCell
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit16]
+FileName=testemusica.h
+CompileCpp=1
+Folder=
 Compile=1
 Link=1
 Priority=1000
