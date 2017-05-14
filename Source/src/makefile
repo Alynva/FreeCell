@@ -2,7 +2,7 @@
 CC = g++
 
 # Flags de versao
-C_VERSION = -std=c++0x
+C_VERSION = -std=c++11
 
 # Arquivo principal
 OBJ_FILE = main.cpp
@@ -14,7 +14,7 @@ AUX_FILES = textura.cpp carta.cpp baralho.cpp eventmanager.cpp pilha_inteligente
 CC_FLAGS = -g -Wall
 
 # Linkers do compilador
-CC_LINKERS = -lmingw32 -L"../lib" -lSDL2 -lSDL2_image -lSDL2_mixer
+CC_LINKERS = -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lSDL2main
 
 # Arquivo de saída
 OUT_FILE = ../bin/freecell.out
