@@ -17,7 +17,7 @@ CC_FLAGS = -g -Wall
 CC_LINKERS = -lmingw32 -L"../lib" -lSDL2 -lSDL2_image -lSDL2_mixer
 
 # Arquivo de saída
-OUT_FILE = ./freecell.out
+OUT_FILE = ../bin/freecell.out
 
 all:
 	$(CC) $(C_VERSION) $(OBJ_FILE) $(AUX_FILES) $(CC_FLAGS) $(CC_LINKERS) -o $(OUT_FILE)
