@@ -12,6 +12,7 @@ class PilhaIntermediaria : public PilhaInteligente {
 };
 
 void PilhaIntermediaria::pushChild(const Carta pushValue, bool& check) {
+	SDL_Log("%i%c > %i%c", this->peek()->esq->esq->value.getValue(), this->peek()->esq->esq->value.getSuit(), pushValue.getValue(), pushValue.getSuit());
 	if (this->isEmpty()) {
 		Node<Carta>* aux = new(Node<Carta>);
 		aux->value = pushValue;
@@ -21,7 +22,7 @@ void PilhaIntermediaria::pushChild(const Carta pushValue, bool& check) {
 		header.esq = aux;
 		this->size++;
 		check = true;
-	} else if (pushValue.getValue() == this->peek()->value.getValue() - 1 && this->isDifferentColor(pushValue,this->peek()->value)) {
+	} else if (pushValue.getValue() == this->peek()->esq->esq->value.getValue() - 1 && this->isDifferentColor(pushValue, this->peek()->esq->esq->value)) {
 		Node<Carta>* aux = new(Node<Carta>);
 		aux->value = pushValue;
 		aux->dir = &header;
