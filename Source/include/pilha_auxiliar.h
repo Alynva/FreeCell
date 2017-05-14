@@ -1,17 +1,17 @@
-#ifndef PILHA_UNICA
-#define PILHA_UNICA
+#ifndef PILHA_AUXILIAR
+#define PILHA_AUXLIAR
 
 #include "pilha_inteligente.h"
 
-class PilhaUnica : public PilhaInteligente {
+class PilhaAuxiliar : public PilhaInteligente {
 	public:
-		PilhaUnica() {};
+		PilhaAuxiliar() {};
 		virtual void pushChild(const Carta, bool&);
 		virtual bool canBeMoved(Carta *) const;
 		virtual bool canPush(Carta, Carta) const;
 };
 
-void PilhaUnica::pushChild(const Carta pushValue, bool& check) {
+void PilhaAuxiliar::pushChild(const Carta pushValue, bool& check) {
 	if (this->isEmpty()) {
 		Node<Carta>* aux = new(Node<Carta>);
 		aux->value = pushValue;
@@ -24,14 +24,14 @@ void PilhaUnica::pushChild(const Carta pushValue, bool& check) {
 		check = true;
 	} else
 		check = false;
-	SDL_Log("Tentativa de pushChild em PilhaUnica; R: %c", check ? 's' : 'n');
+	SDL_Log("Tentativa de pushChild em PilhaAuxiliar; R: %c", check ? 's' : 'n');
 }
 
-bool PilhaUnica::canBeMoved(Carta * c) const {
+bool PilhaAuxiliar::canBeMoved(Carta * c) const {
 	return true;
 }
 
-bool PilhaUnica::canPush(Carta c1, Carta c2) const {
+bool PilhaAuxiliar::canPush(Carta c1, Carta c2) const {
 	return this->isEmpty();
 }
 

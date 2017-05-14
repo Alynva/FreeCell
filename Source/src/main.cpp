@@ -1,9 +1,9 @@
 #include <iostream>
-#include "../include/baralho.h"
-#include "../include/eventmanager.h"
-#include "../include/pilha_unica.h"
-#include "../include/pilha_definitiva.h"
-#include "../include/pilha_intermediaria.h"
+#include "baralho.h"
+#include "eventmanager.h"
+#include "pilha_auxiliar.h"
+#include "pilha_definitiva.h"
+#include "pilha_intermediaria.h"
 
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 720
@@ -69,11 +69,11 @@ int main(int argv, char** args) {
 	p_m.setTexture(gRenderer);
 	event.addStack(&p_m);
 
-	PilhaUnica p_u[4]; // Pilha de carta �nica
+	PilhaAuxiliar p_a[4];
 	for (int i = 0; i < 4; i++) {
-		p_u[i].setPosition({window_size.x/2 - 385 + 90 * i, 50});
-		p_u[i].setTexture(gRenderer);
-		event.addStack(&p_u[i]);
+		p_a[i].setPosition({window_size.x/2 - 385 + 90 * i, 50});
+		p_a[i].setTexture(gRenderer);
+		event.addStack(&p_a[i]);
 	}
 
 	PilhaDefinitiva p_d[4];
@@ -90,7 +90,7 @@ int main(int argv, char** args) {
 		p_i[i].setTexture(gRenderer);
 		event.addStack(&p_i[i]);
 	}
-
+	
 	SDL_Log("\n\n\tInsersoes da main finalizadas\n\n");
 
 	// Loop  principal
@@ -106,8 +106,8 @@ int main(int argv, char** args) {
 
 		// Renderiza as pilhas
 		for (int i = 0; i < 4; i++) {
-			p_u[i].organize();
-			p_u[i].render();
+			p_a[i].organize();
+			p_a[i].render();
 		}
 		for (int i = 0; i < 4; i++) {
 			p_d[i].organize();
