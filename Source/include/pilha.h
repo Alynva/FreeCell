@@ -32,12 +32,11 @@ class Stack {
 		bool pop(T&);
 		void clear();
 		int getSize() const;
-		Node<T> peek() const;
+		Node<T>* peek() const;
 };
 
 template<class T>
 inline void Stack<T>::push(const T element, bool& check){
-	check = false;
 	Node<T> *aux = new Node<T>;
 	aux->value = element;
 	aux->dir = &header;
@@ -46,6 +45,7 @@ inline void Stack<T>::push(const T element, bool& check){
 	header.esq = aux;
 	size++;
 	check = true;
+	SDL_Log("Tentativa de push em Stack; R: %c", check ? 's' : 'n');
 }
 
 template<class T>
@@ -76,8 +76,8 @@ inline int Stack<T>::getSize() const {
 }
 
 template<class T>
-Node<T> Stack<T>::peek() const {
-	return *header.esq;
+Node<T>* Stack<T>::peek() const {
+	return header.dir;
 }
 
 #endif

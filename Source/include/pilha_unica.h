@@ -6,11 +6,12 @@
 class PilhaUnica : public PilhaInteligente {
 	public:
 		PilhaUnica() {};
-		bool push(Carta&);
-		bool isDifferentColor(Carta, Carta) const;
+		virtual void pushChild(const Carta, bool&);
+		virtual bool canBeMoved(Carta *) const;
+		virtual bool canPush(Carta, Carta) const;
 };
 
-bool PilhaUnica::push(Carta& pushValue) {
+void PilhaUnica::pushChild(const Carta pushValue, bool& check) {
 	if (this->isEmpty()) {
 		Node<Carta>* aux = new(Node<Carta>);
 		aux->value = pushValue;
@@ -20,12 +21,18 @@ bool PilhaUnica::push(Carta& pushValue) {
 		header.esq = aux;
 		this->size++;
 		
-		return true;
-	}
-	return false;
+		check = true;
+	} else
+		check = false;
+	SDL_Log("Tentativa de pushChild em PilhaUnica; R: %c", check ? 's' : 'n');
 }
-bool PilhaUnica::isDifferentColor(Carta c1, Carta c2) const {
-	return false;
+
+bool PilhaUnica::canBeMoved(Carta * c) const {
+	return true;
+}
+
+bool PilhaUnica::canPush(Carta c1, Carta c2) const {
+	return this->isEmpty();
 }
 
 #endif
