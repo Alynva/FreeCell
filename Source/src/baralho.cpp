@@ -39,15 +39,3 @@ bool Baralho::getCard(Carta& card) {
 		return true;
 	return false;
 }
-
-void Baralho::render() {
-	this->deck.render();
-}
-
-void Baralho::organize() {
-	this->deck.organize();
-}
-
-bool Baralho::isInside(SDL_Point point) {
-	return this->deck.isInside(point);
-}

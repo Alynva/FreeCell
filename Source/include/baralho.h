@@ -31,14 +31,6 @@ class Baralho {
 	void randomize();
 
 	bool getCard(Carta&);
-
-	// M�todos criados apenas para teste. A classe que realmente � renderizada,
-	// organizada e calculada se est� dentro ou fora � a Pilha, que por hora eu
-	// adicionei na classe m�e mas depois poder� ser apenas das PilhaIntermedi-
-	// aria e PilhaDefinitiva.
-	void render();
-	void organize();
-	bool isInside(SDL_Point);
 };
 
 #endif
