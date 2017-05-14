@@ -1,14 +1,16 @@
 #include <iostream>
-#include "../include/baralho.h"
-#include "../include/eventmanager.h"
-#include "../include/pilha_definitiva.h"
-#include "../include/pilha_intermediaria.h"
+#include "baralho.h"
+#include "eventmanager.h"
+#include "pilha_unica.h"
+#include "pilha_definitiva.h"
+#include "pilha_intermediaria.h"
 
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 720
 
 using namespace std;
 
+bool bca;
 bool moveCartasParaPilha(Baralho*, PilhaInteligente*, int);
 
 // Janela principal
@@ -57,14 +59,13 @@ int main(int argv, char** args) {
 	Baralho b(gRenderer);
 	b.randomize();
 
-	PilhaInteligente p_m; // Pilha que persegue o mouse
+	PilhaIntermediaria p_m; // Pilha que persegue o mouse
 	p_m.setTexture(gRenderer);
 	event.addStack(&p_m);
 
-	PilhaInteligente p_u[4]; // Pilha de carta �nica
+	PilhaUnica p_u[4]; // Pilha de carta �nica
 	for (int i = 0; i < 4; i++) {
 		p_u[i].setPosition({130 + 90 * i, 50});
-//		SDL_Log("%i %i", p_u[i].getPosition().x, p_u[i].getPosition().y);
 		p_u[i].setTexture(gRenderer);
 		event.addStack(&p_u[i]);
 	}
@@ -83,6 +84,8 @@ int main(int argv, char** args) {
 		p_i[i].setTexture(gRenderer);
 		event.addStack(&p_i[i]);
 	}
+	
+	SDL_Log("\n\n\tInsersoes da main finalizadas\n\n");
 
 	// Loop  principal
 	while (!quit) {
@@ -96,14 +99,22 @@ int main(int argv, char** args) {
 		SDL_RenderCopy(gRenderer, gBackground, NULL, NULL);
 
 		// Renderiza as pilhas
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < 4; i++) {
+			p_u[i].organize();
 			p_u[i].render();
-		for (int i = 0; i < 4; i++)
+		}
+		for (int i = 0; i < 4; i++) {
+			p_d[i].organize();
 			p_d[i].render();
-		for (int i = 0; i < 8; i++)
+		}
+		for (int i = 0; i < 8; i++) {
+			p_i[i].organize();
 			p_i[i].render();
-		if (p_m.getSize()) // Exibe a pilha que persegue o mouse somente se houver cartas nela
+		}
+		if (p_m.getSize()) { // Exibe a pilha que persegue o mouse somente se houver cartas nela
+			p_m.organize();
 			p_m.render();
+		}
 
 		// Atualiza a tela
 		SDL_RenderPresent(gRenderer);
@@ -127,7 +138,7 @@ bool moveCartasParaPilha(Baralho* b, PilhaInteligente* p, int qnt) {
 	for (int i = 0; i < qnt; i++) {
 		if (!b->getCard(c))
 			return false;
-		p->push(c);
+		p->push(c, bca);
 	}
 	p->organize();
 	return true;

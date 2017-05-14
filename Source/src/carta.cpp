@@ -54,6 +54,9 @@ void Carta::setPosition(SDL_Point coord) {
 	this->blurTexture.setPosition({blurX, blurY});
 	this->gTexture.setPosition(coord);
 }
+SDL_Point Carta::getPosition() const {
+	return this->gTexture.getPosition();
+}
 
 void Carta::render() {
 	if (this->stateHover) {

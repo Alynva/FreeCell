@@ -4,6 +4,7 @@
 #define CARD_WIDTH 100 // largura final do fundo da pilha
 #define CARD_HEIGHT 156 // altura final do fundo da pilha
 
+bool cba;
 PilhaInteligente::PilhaInteligente() : Stack<Carta>() {
 	this->coord = {0, 0};
 	this->stateHover = false;
@@ -39,35 +40,18 @@ SDL_Point PilhaInteligente::getPosition() const {
 
 void PilhaInteligente::render() {
 	this->backTexture.render();
-
-	Stack<Carta> p_temp;
-	Carta c_temp;
-
-	while (!this->isEmpty()) {
-		this->pop(c_temp);
-		p_temp.push(c_temp);
-	}
-	while (!p_temp.isEmpty()) {
-		p_temp.pop(c_temp);
-		c_temp.render();
-		this->push(c_temp);
+	
+	for (int i = 0; i < this->getSize(); i++) {
+		this[0][i]->value.render();
 	}
 }
 
 void PilhaInteligente::organize() {
-	Stack<Carta> p_temp;
-	Carta c_temp;
-
 	int y = 0;
-	while (!this->isEmpty()) {
-		this->pop(c_temp);
-		p_temp.push(c_temp);
-	}
-	while (!p_temp.isEmpty()) {
-		p_temp.pop(c_temp);
-		c_temp.setPosition({this->coord.x, this->coord.y + y});
+	
+	for (int i = 0; i < this->getSize(); i++) {
+		this[0][i]->value.setPosition({this->coord.x, this->coord.y + y});
 		y += DIF_ALTURA;
-		this->push(c_temp);
 	}
 }
 
@@ -79,26 +63,24 @@ bool PilhaInteligente::isInside(SDL_Point point) {
 	bool inside = ((point.x > position.x && point.x < position.x + size.x) &&
 		(point.y > position.y && point.y < position.y + size.y));
 
-	Node<Carta>* element = this->peek().dir;
-	for (int i = 0; i < this->getSize(); i++) {
-		element = element->dir;
-		inside = inside || element->value.isInside(point);
-	}
+//	Node<Carta>* element = this->peek()->dir;
+//	for (int i = 0; i < this->getSize(); i++) {
+//		element = element->dir;
+//		inside = inside || element->value.isInside(point);
+//	}
 
 	// Alynva: N�O FUNCIONOU ISSO
-//	for (int i = 0; i < this->getSize(); i++) {
-//		inside = inside || this[1].isInside(point);
-//	}
+	for (int i = 0; i < this->getSize(); i++) {
+		inside = inside || this[0][i]->value.isInside(point);
+	}
 
 	return inside;
 }
 
 //Faz a verificacao de naipes para dizer se duas cartas sao da mesma cor
 bool PilhaInteligente::isDifferentColor(Carta c1, Carta c2) const {
-	if ((c1.getSuit() == 'A' || c1.getSuit() == 'C') && (c2.getSuit() == 'A' || c2.getSuit() == 'C'))
-		return true;
-
-	else if ((c1.getSuit() == 'B' || c1.getSuit() == 'D') && (c2.getSuit() == 'B' || c1.getSuit() == 'D'))
+	if (((c1.getSuit() == 'A' || c1.getSuit() == 'C') && (c2.getSuit() == 'B' || c2.getSuit() == 'D')) ||
+		((c1.getSuit() == 'B' || c1.getSuit() == 'D') && (c2.getSuit() == 'A' || c2.getSuit() == 'C')))
 		return true;
 
 	return false;
@@ -125,18 +107,10 @@ void PilhaInteligente::setStateHover(bool state) {
 }
 
 bool PilhaInteligente::canBeMoved(Carta * c) const {
-	/*bool isDifferent = false;
-	int i;
-	for (i = 0; i < this->getSize(); i++) {
-		if (*(this[0][i]->value) == c) {
-			isDifferent = true;
-			break;
-		}
-	}
-	while (i < this->getSize() - 1 && isDifferent) {
-		isDifferent = this->isDifferentColor(this[0][i]->value, this[0][i+1]->value);
-		i++;
-	}
-	return isDifferent;*/
+	return true;
+}
+
+bool PilhaInteligente::canPush(Carta c1, Carta c2) const {
+	SDL_Log("Tentativa de canPush em PilhaInteligente; R: %c", true ? 's' : 'n');
 	return true;
 }

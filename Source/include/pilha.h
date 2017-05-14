@@ -28,15 +28,15 @@ class Stack {
 		~Stack() { this->clear(); };
 		bool isEmpty() const { return !size; };
 
-		void push(const T);
+		void push(const T, bool&);
 		bool pop(T&);
 		void clear();
 		int getSize() const;
-		Node<T> peek() const;
+		Node<T>* peek() const;
 };
 
 template<class T>
-inline void Stack<T>::push(const T element) {
+inline void Stack<T>::push(const T element, bool& check){
 	Node<T> *aux = new Node<T>;
 	aux->value = element;
 	aux->dir = &header;
@@ -44,19 +44,22 @@ inline void Stack<T>::push(const T element) {
 	header.esq->dir = aux;
 	header.esq = aux;
 	size++;
+	check = true;
+	SDL_Log("Tentativa de push em Stack; R: %c", check ? 's' : 'n');
 }
 
 template<class T>
 inline bool Stack<T>::pop(T& element) {
-	if (isEmpty())
-		return false;
-	element = header.esq->value;
-	Node<T> *aux = header.esq;
-	header.esq = aux->esq;
-	aux->esq = &header;
-	delete(aux);
-	size--;
-	return true;
+	if (!this->isEmpty()){
+		element = header.esq->value;
+		Node<T> *aux = header.esq;
+		header.esq = aux->esq;
+		aux->esq = &header;
+		delete(aux);
+		size--;
+		return true;
+	}
+	return false;
 }
 
 template<class T>
@@ -73,8 +76,8 @@ inline int Stack<T>::getSize() const {
 }
 
 template<class T>
-Node<T> Stack<T>::peek() const {
-	return *header.esq;
+Node<T>* Stack<T>::peek() const {
+	return header.dir;
 }
 
 #endif
