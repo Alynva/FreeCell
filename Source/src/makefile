@@ -14,7 +14,7 @@ AUX_FILES = textura.cpp carta.cpp baralho.cpp eventmanager.cpp pilha_inteligente
 CC_FLAGS = -g -Wall
 
 # Linkers do compilador
-CC_LINKERS = -lmingw32 -L"../lib"  -lSDL2main -lSDL2_image -lSDL2_mixer -lSDL2
+CC_LINKERS = -lmingw32 -L"../lib" -lSDL2 -lSDL2_image -lSDL2_mixer
 
 # Arquivo de saída
 OUT_FILE = ./freecell.out
