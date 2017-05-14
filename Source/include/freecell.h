@@ -19,18 +19,18 @@ class FreeCell {
 	SDL_Texture* gBackground; // Plano de fundo
 	bool quit; // Responsavel pelo loop principal
 	EventManager event; // Eventos
-	
+
 	Baralho b;
 	PilhaIntermediaria p_m; // Pilha que persegue o mouse
 	PilhaAuxiliar p_a[4];
 	PilhaDefinitiva p_d[4];
 	PilhaIntermediaria p_i[8];
-	
+
 	public:
 		FreeCell();
 		~FreeCell();
 		bool init();
-		void setupItens();
+		void setupItems();
 		bool finish() const;
 		void update();
 };
@@ -68,7 +68,7 @@ bool FreeCell::init() {
 			SDL_Log("Renderer could not be created. SDL Error: %s", SDL_GetError());
 			return false;
 		} else {
-			
+
 			// Inicializa a cor do renderizador
 			SDL_SetRenderDrawColor(this->gRenderer, 0xFF, 0xFF, 0xFF, 0xFF);
 
@@ -81,13 +81,13 @@ bool FreeCell::init() {
 
 			// Inicializa o background
 			this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("../textures/backgrounds/1.png"));
-			
+
 			return true;
 		}
 	}
 }
 
-void FreeCell::setupItens() {
+void FreeCell::setupItems() {
 	this->b.setTexture(this->gRenderer);;
 	this->b.generate();
 	this->b.randomize();
@@ -95,7 +95,7 @@ void FreeCell::setupItens() {
 	this->event.addStack(&this->p_m);
 
 	this->p_m.setTexture(this->gRenderer);
-		
+
 	for (int i = 0; i < 4; i++) {
 		this->p_a[i].setPosition({this->window_size.x/2 - 385 + 90 * i, 50});
 		this->p_a[i].setTexture(this->gRenderer);
@@ -114,8 +114,8 @@ void FreeCell::setupItens() {
 		this->p_i[i].setTexture(this->gRenderer);
 		this->event.addStack(&this->p_i[i]);
 	}
-	
-	SDL_Log("\n\n\tInsersoes do setup finalizadas\n\n");
+
+	SDL_Log("\n\n\tInsercoes do setup finalizadas\n\n");
 }
 
 bool FreeCell::finish() const {

@@ -3,8 +3,8 @@
 int main(int argv, char** args) {
 	FreeCell freecell;
 	if (freecell.init()) {
-		freecell.setupItens();
-		
+		freecell.setupItems();
+
 		while (!freecell.finish()) {
 			freecell.update();
 		}
