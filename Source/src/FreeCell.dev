@@ -29,7 +29,7 @@ IncludeVersionInfo=0
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=00000001g00000000000000000c
-UnitCount=17
+UnitCount=18
 
 [VersionInfo]
 Major=1
@@ -212,6 +212,16 @@ BuildCmd=
 
 [Unit17]
 FileName=..\include\pilha_auxiliar.h
+CompileCpp=1
+Folder=FreeCell
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit18]
+FileName=..\include\freecell.h
 CompileCpp=1
 Folder=FreeCell
 Compile=1

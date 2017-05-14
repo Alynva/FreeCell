@@ -32,6 +32,8 @@ Carta::Carta(int num, SDL_Renderer* renderer):stateHover(false) {
 	int i = (num-1)/13;
 	this->value = num-13*i;
 	this->suit = 65+i;
+	
+//	SDL_Log("Carta %i%c criada", this->value, this->suit);
 
 	file.append(to_string(this->value));
 	file.push_back(this->suit);
@@ -63,6 +65,8 @@ void Carta::render() {
 		this->blurTexture.render();
 	}
 	this->gTexture.render();
+	
+//	SDL_Log("Carta %i%c renderizada", this->getValue(), this->getSuit());
 }
 
 int Carta::getValue() const {

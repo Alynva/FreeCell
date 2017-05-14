@@ -25,12 +25,13 @@ class Baralho {
 	SDL_Renderer* gRenderer;
 
 	public:
-	Baralho(SDL_Renderer*);
-
-	void generate();
-	void randomize();
-
-	bool getCard(Carta&);
+		Baralho();
+		
+		void setTexture(SDL_Renderer*);
+		void generate();
+		void randomize();
+	
+		bool getCard(Carta&);
 };
 
 #endif
