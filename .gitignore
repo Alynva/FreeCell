@@ -5,6 +5,8 @@
 *.obj
 .dev
 .layout
+*.dev
+*.layout
 
 # Precompiled Headers
 *.gch
