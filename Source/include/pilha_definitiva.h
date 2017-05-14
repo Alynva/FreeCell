@@ -26,7 +26,7 @@ void PilhaDefinitiva::pushChild(const Carta pushValue, bool& check) {
 		header.esq = aux;
 		this->size++;
 		check = true;
-	} else if (pushValue.getValue() == this[0][0]->value.getValue() + 1 && pushValue.getSuit() == this[0][0]->value.getSuit()) {
+	} else if (pushValue.getValue() == this->peek()->esq->esq->value.getValue() + 1 && pushValue.getSuit() == this->peek()->esq->esq->value.getSuit()) {
 		Node<Carta>* aux = new(Node<Carta>);
 		aux->value = pushValue;
 		aux->dir = &header;

@@ -7,9 +7,9 @@ WINDRES  = windres.exe
 RES      = FreeCell_private.res
 OBJ      = baralho.o carta.o eventmanager.o textura.o main.o pilha_inteligente.o $(RES)
 LINKOBJ  = baralho.o carta.o eventmanager.o textura.o main.o pilha_inteligente.o $(RES)
-LIBS     = -L"C:/Users/rafap/Desktop/Dev-Cpp/MinGW32/lib" -L"C:/Users/rafap/Desktop/FreeCell/Source/lib" -static-libstdc++ -static-libgcc -lmingw32 -lwinmm -luser32 -lgdi32 -ldxguid -lmingw32 -lSDL2main -lSDL2 -L"C:/Users/Gabriel/Documents/GitHub/FreeCell/Source/lib" -lmingw32 -lSDL2main -lSDL2_image -lSDL2_mixer -lSDL2  -std=c++0x 
-INCS     = -I"C:/Users/rafap/Desktop/Dev-Cpp/MinGW32/include" 
-CXXINCS  = -I"C:/Users/rafap/Desktop/Dev-Cpp/MinGW32/include"  -I"C:/Users/rafap/Desktop/FreeCell/Source/include" 
+LIBS     = -L"C:/Users/Alynva/Downloads/Dev-Cpp/MinGW32/lib" -L"C:/Users/Alynva/Documents/GitHub/FreeCell/Source/lib" -static-libstdc++ -static-libgcc -L"C:/Users/Gabriel/Documents/GitHub/FreeCell/Source/lib" -lmingw32 -lSDL2main -lSDL2_image -lSDL2_mixer -lSDL2  -std=c++0x 
+INCS     = -I"C:/Users/Alynva/Downloads/Dev-Cpp/MinGW32/include" 
+CXXINCS  = -I"C:/Users/Alynva/Downloads/Dev-Cpp/MinGW32/include"  -I"C:/Users/Alynva/Documents/GitHub/FreeCell/Source/include" 
 BIN      = FreeCell.exe
 CXXFLAGS = $(CXXINCS)   -fshort-double -std=c++0x
 CFLAGS   = $(INCS)   -fshort-double -std=c++0x
