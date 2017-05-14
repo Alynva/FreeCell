@@ -10,6 +10,8 @@
 #include "pilha_definitiva.h"
 #include "pilha_intermediaria.h"
 
+#include "../src/delay.cpp"
+
 bool moveCartasParaPilha(Baralho*, PilhaInteligente*, int);
 
 class FreeCell {
@@ -25,6 +27,8 @@ class FreeCell {
 	PilhaAuxiliar p_a[4];
 	PilhaDefinitiva p_d[4];
 	PilhaIntermediaria p_i[8];
+	
+	PilhaInteligente p_r; // Pilha da chuva de cartas
 
 	public:
 		FreeCell();
@@ -33,7 +37,8 @@ class FreeCell {
 		void setupItens();
 		void update();
 		bool finish() const;
-		bool win() const;
+		bool win();
+		void cardRain();
 };
 
 FreeCell::FreeCell():gWindow(NULL), gRenderer(NULL), quit(false), event(EventManager(&this->quit)) {}
@@ -94,6 +99,9 @@ void FreeCell::setupItens() {
 	this->b.randomize();
 
 	this->event.addStack(&this->p_m);
+	
+	this->p_r.setTexture(this->gRenderer);
+	this->p_r.setPosition({-50, -50});
 
 	this->p_m.setTexture(this->gRenderer);
 
@@ -146,6 +154,8 @@ void FreeCell::update() {
 		this->p_m.organize();
 		this->p_m.render();
 	}
+	if (this->p_r.getSize())
+		this->p_r.render();
 
 	// Atualiza a tela
 	SDL_RenderPresent(this->gRenderer);
@@ -155,7 +165,7 @@ bool FreeCell::finish() const {
 	return this->quit;
 }
 
-bool FreeCell::win() const {
+bool FreeCell::win() {
 	bool win = true;
 	
 	if (this->p_m.getSize())
@@ -169,8 +179,61 @@ bool FreeCell::win() const {
 	for (int i = 0; i < 8; i++)
 		if (this->p_i[i].getSize())
 			win = false;
+
+	if (win)
+		this->cardRain();
 			
 	return win;
+}
+
+void FreeCell::cardRain() {
+	bool ok;
+	SDL_Point gravity = {0, 3};
+	for (int i = 0; i < 4; i++) {
+		for (int j = this->p_d[i].getSize() - 1; j >= 0 ; j--) {
+			SDL_Point pos = this->p_d[i][j]->value.getPosition();
+			SDL_Point vel = {0, 0};
+			SDL_Point acc = {0, 0};
+			
+			SDL_Point force {0, 0};
+			if (rand() % 2 - 1)
+				force.x = rand() % 5 - 7;
+			else if (rand() % 2 - 1)
+				force.x = rand() % 5 + 2;
+			else if (rand() % 2 - 1)
+				force.x = rand() % 3 - 2;
+			if (!force.x) force.x = 4;
+			force.y = rand() % 25 - 30;
+			
+			acc.x += force.x; acc.y += force.y;
+			while (pos.x + 69 >= 0 && pos.x <= this->window_size.x) {
+				Carta c = this->p_d[i][j]->value;
+				
+				acc.x += gravity.x; acc.y += gravity.y;
+				if (pos.y + 100 >= this->window_size.y && vel.y > 0)
+					vel.y = -vel.y;
+				
+				vel.x += acc.x; vel.y += acc.y;
+				pos.x += vel.x; pos.y += vel.y;
+				acc = {0, 0};
+				
+				if (pos.y + 100 > this->window_size.y)
+					pos.y = this->window_size.y - 100;
+					
+				c.setPosition(pos);
+				p_r.push(c, ok);
+				this->update();
+				delay(10);
+				
+				if (this->finish())
+					break;
+			}
+			if (this->finish())
+				break;
+		}
+		if (this->finish())
+			break;
+	}
 }
 
 bool moveCartasParaPilha(Baralho* b, PilhaInteligente* p, int qnt) {
