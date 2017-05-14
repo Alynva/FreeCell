@@ -36,6 +36,7 @@ class EventManager {
 		void mouseLeftUp();
 		void mouseMove();
 		void addStack(PilhaInteligente*);
+		void windowResized(int, int);
 };
 
 #endif
