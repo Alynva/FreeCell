@@ -11,7 +11,7 @@ ResourceIncludes=C:\Users\Gabriel\Documents\GitHub\FreeCell\Source\bin
 MakeIncludes=
 Compiler=
 CppCompiler=
-Linker=-lmingw32 -lSDL2main -lSDL2_image -lSDL2_@@_
+Linker=-lmingw32 -lSDL2main -lSDL2_image -lSDL2_mixer -lSDL2_@@_
 IsCpp=1
 Icon=FreeCell.ico
 ExeOutput=
@@ -201,7 +201,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit16]
-FileName=..\include\pilha_unica.h
+FileName=testemusica.h
 CompileCpp=1
 Folder=
 Compile=1
