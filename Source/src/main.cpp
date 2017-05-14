@@ -65,13 +65,6 @@ int main(int argv, char** args) {
 
 	PilhaUnica p_u[4]; // Pilha de carta �nica
 	for (int i = 0; i < 4; i++) {
-		if (i == 0) {
-			Carta c(1, gRenderer);
-			p_u[i].pushChild(c, bca);
-			SDL_Log("Teste 1: inserir carta diretamente em PilhaUnica; R: %c", bca ? 's' : 'n');
-			p_u[i].pushChild(c, bca);
-			SDL_Log("Teste 2: inserur carta diretanebte en PilhaUnica; R: %c", bca?'s':'n');
-		}
 		p_u[i].setPosition({130 + 90 * i, 50});
 		p_u[i].setTexture(gRenderer);
 		event.addStack(&p_u[i]);
@@ -79,13 +72,6 @@ int main(int argv, char** args) {
 
 	PilhaDefinitiva p_d[4];
 	for (int i = 0; i < 4; i++) {
-		if (i == 0) {
-			Carta c(1, gRenderer);
-			p_d[i].pushChild(c, bca);
-			SDL_Log("Teste 1: inserir carta diretamente em PilhaDefinitiva; R: %c", bca ? 's' : 'n');
-			p_d[i].pushChild(c, bca);
-			SDL_Log("Teste 2: inserur carta diretanebte en PilhaDefinitiva; R: %c", bca?'s':'n');
-		}
 		p_d[i].setPosition({560 + 90 * i, 50});
 		p_d[i].setTexture(gRenderer);
 		event.addStack(&p_d[i]);
