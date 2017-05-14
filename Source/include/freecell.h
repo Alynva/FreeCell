@@ -170,7 +170,7 @@ bool FreeCell::win() const {
 		if (this->p_i[i].getSize())
 			win = false;
 			
-	return true;
+	return win;
 }
 
 bool moveCartasParaPilha(Baralho* b, PilhaInteligente* p, int qnt) {
