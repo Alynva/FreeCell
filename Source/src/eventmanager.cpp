@@ -2,7 +2,7 @@
 #include <iostream>
 
 bool abc;
-EventManager::EventManager(bool* mQuit):quit(mQuit), mouse_pressed(false) {
+EventManager::EventManager(bool* mQuit, SDL_Point* mWinSize):quit(mQuit), window_size(mWinSize), mouse_pressed(false) {
 	this->stacks.clear();
 	this->stack_offset = {0, 0};
 	
@@ -252,6 +252,7 @@ void EventManager::addStack(PilhaInteligente * stack) {
 }
 
 void EventManager::windowResized(int w, int h) {
+	*this->window_size = {w, h};
 	Node<PilhaInteligente*>* node_stack = this->stacks.peek()->dir;
 	for (int i = 1; i < this->stacks.getSize(); i++) { // Inicia em 1 pois o primeiro � a pilha que persegue o mouse
 		if (i >= 1 && i <= 4)

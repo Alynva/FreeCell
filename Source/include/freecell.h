@@ -41,7 +41,7 @@ class FreeCell {
 		void cardRain();
 };
 
-FreeCell::FreeCell():gWindow(NULL), gRenderer(NULL), quit(false), event(EventManager(&this->quit)) {}
+FreeCell::FreeCell():gWindow(NULL), gRenderer(NULL), quit(false), event(EventManager(&this->quit, &this->window_size)) {}
 
 FreeCell::~FreeCell() {
 	// Destroi a janela
@@ -220,9 +220,12 @@ void FreeCell::cardRain() {
 				if (pos.y + 100 > this->window_size.y)
 					pos.y = this->window_size.y - 100;
 					
+				this->event.update();
 				c.setPosition(pos);
-				p_r.push(c, ok);
-				this->update();
+				c.render();
+				SDL_RenderPresent(this->gRenderer);
+//				p_r.push(c, ok);
+//				this->update();
 				delay(10);
 				
 				if (this->finish())

@@ -19,6 +19,7 @@
 class EventManager {
 	SDL_Event handler;
 	bool* quit;
+	SDL_Point* window_size;
 	bool mouse_pressed;
 	SDL_Point mouse_pos;
 	Stack<PilhaInteligente*> stacks;
@@ -29,7 +30,7 @@ class EventManager {
 	SDL_Point stack_offset;
 
 	public:
-		EventManager(bool*);
+		EventManager(bool*, SDL_Point*);
 	
 		void update();
 		void mouseLeftDown();
