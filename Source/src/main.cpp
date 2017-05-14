@@ -7,6 +7,10 @@ int main(int argv, char** args) {
 		
 		while (!freecell.finish()) {
 			freecell.update();
+			if (freecell.win()) {
+				SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Resultado", "Você ganhou!", NULL);
+				break;
+			}
 		}
 	}
 

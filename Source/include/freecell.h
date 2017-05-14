@@ -31,8 +31,9 @@ class FreeCell {
 		~FreeCell();
 		bool init();
 		void setupItens();
-		bool finish() const;
 		void update();
+		bool finish() const;
+		bool win() const;
 };
 
 FreeCell::FreeCell():gWindow(NULL), gRenderer(NULL), quit(false), event(EventManager(&this->quit)) {}
@@ -118,10 +119,6 @@ void FreeCell::setupItens() {
 	SDL_Log("\n\n\tInsersoes do setup finalizadas\n\n");
 }
 
-bool FreeCell::finish() const {
-	return this->quit;
-}
-
 void FreeCell::update() {
 	// Responsavel pelos eventos em espera
 	this->event.update();
@@ -152,6 +149,28 @@ void FreeCell::update() {
 
 	// Atualiza a tela
 	SDL_RenderPresent(this->gRenderer);
+}
+
+bool FreeCell::finish() const {
+	return this->quit;
+}
+
+bool FreeCell::win() const {
+	bool win = true;
+	
+	if (this->p_m.getSize())
+		win = false;
+	for (int i = 0; i < 4; i++)
+		if (this->p_a[i].getSize())
+			win = false;
+	for (int i = 0; i < 4; i++)
+		if (this->p_d[i].getSize() != 13)
+			win = false;
+	for (int i = 0; i < 8; i++)
+		if (this->p_i[i].getSize())
+			win = false;
+			
+	return true;
 }
 
 bool moveCartasParaPilha(Baralho* b, PilhaInteligente* p, int qnt) {
