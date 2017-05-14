@@ -8,7 +8,7 @@ Top=0
 [Editors]
 Order=-1,2,14,4,0
 <<<<<<< Updated upstream
-Focused=2
+Focused=-1
 =======
 Focused=-1
 >>>>>>> Stashed changes
@@ -21,7 +21,7 @@ TopLine=1
 LeftChar=1
 [Editor_2]
 Open=1
-Top=1
+Top=0
 CursorCol=69
 CursorRow=93
 TopLine=68
@@ -36,9 +36,9 @@ LeftChar=1
 [Editor_4]
 Open=1
 Top=0
-CursorCol=32
-CursorRow=84
-TopLine=67
+CursorCol=1
+CursorRow=30
+TopLine=30
 LeftChar=1
 [Editor_5]
 Open=1
@@ -84,10 +84,10 @@ TopLine=4
 LeftChar=1
 [Editor_11]
 Open=1
-Top=0
-CursorCol=32
-CursorRow=9
-TopLine=8
+Top=1
+CursorCol=1
+CursorRow=15
+TopLine=13
 LeftChar=1
 [Editor_12]
 Open=0
