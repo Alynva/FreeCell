@@ -1,9 +1,9 @@
 #include <iostream>
-#include "baralho.h"
-#include "eventmanager.h"
-#include "pilha_unica.h"
-#include "pilha_definitiva.h"
-#include "pilha_intermediaria.h"
+#include "../include/baralho.h"
+#include "../include/eventmanager.h"
+#include "../include/pilha_unica.h"
+#include "../include/pilha_definitiva.h"
+#include "../include/pilha_intermediaria.h"
 
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 720
@@ -84,7 +84,7 @@ int main(int argv, char** args) {
 		p_i[i].setTexture(gRenderer);
 		event.addStack(&p_i[i]);
 	}
-	
+
 	SDL_Log("\n\n\tInsersoes da main finalizadas\n\n");
 
 	// Loop  principal
