@@ -10,8 +10,6 @@
 #include "pilha_definitiva.h"
 #include "pilha_intermediaria.h"
 
-#include "../src/delay.cpp"
-
 bool moveCartasParaPilha(Baralho*, PilhaInteligente*, int);
 
 class FreeCell {
@@ -103,6 +101,10 @@ void FreeCell::menu() {
 		SDL_RenderClear(this->gRenderer);
 	
 		// Renderiza o background
+//		int x = 0, y = 0, w = 0, h = 0;
+//		SDL_QueryTexture(this->gBackground, NULL, NULL, &w, &h);
+//		SDL_Rect backgroundQuad = {x, y, w, h};
+//		SDL_RenderCopy(this->gRenderer, this->gBackground, NULL, &backgroundQuad);
 		SDL_RenderCopy(this->gRenderer, this->gBackground, NULL, NULL);
 		
 		// Atualiza a tela
@@ -251,7 +253,7 @@ void FreeCell::cardRain() {
 				SDL_RenderPresent(this->gRenderer);
 //				p_r.push(c, ok);
 //				this->update();
-				delay(30);
+				SDL_Delay(30);
 				
 				if (this->finish())
 					break;
