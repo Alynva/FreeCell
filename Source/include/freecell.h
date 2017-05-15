@@ -226,7 +226,7 @@ void FreeCell::cardRain() {
 				SDL_RenderPresent(this->gRenderer);
 //				p_r.push(c, ok);
 //				this->update();
-				delay(10);
+				delay(30);
 				
 				if (this->finish())
 					break;
