@@ -330,16 +330,12 @@ void FreeCell::playAgain() {
         buttons, /* .buttons */
         &colorScheme /* .colorScheme */
     };
-    int buttonid;
+    int buttonid = -1;
     if (SDL_ShowMessageBox(&messageboxdata, &buttonid) < 0) {
         SDL_Log("Error displaying message box");
     }
-    if (buttonid == -1) {
-        SDL_Log("no selection");
-    } else {
-		if (buttonid == 0) this->quit = false;
-        SDL_Log("selection was %s", buttons[buttonid].text);
-    }
+    
+	if (buttonid == 0) this->quit = false;
 }
 
 bool moveCartasParaPilha(Baralho* b, PilhaInteligente* p, int qnt) {
