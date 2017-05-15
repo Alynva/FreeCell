@@ -3,14 +3,19 @@
 int main(int argv, char** args) {
 	FreeCell freecell;
 	if (freecell.init()) {
-		freecell.setupItens();
+		freecell.menu();
 		
-		while (!freecell.finish()) {
-			freecell.update();
-			if (freecell.win()) {
-				SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_INFORMATION, "Resultado", "Voce ganhou!", NULL);
-				break;
-			}
+		if (!freecell.finish()) {
+			do {
+				freecell.setupItens();
+				
+				while (!freecell.finish()) {
+					freecell.update();
+					if (freecell.win());
+				}
+				
+				freecell.playAgain();
+			} while (!freecell.finish());
 		}
 	}
 
