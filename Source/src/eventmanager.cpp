@@ -323,4 +323,19 @@ void EventManager::windowResized(int w, int h) {
 			node_stack = node_stack->dir;
 		}
 	}
+	
+	if (this->buttons.getSize()) {
+		Node<Button*>* node_button = this->buttons.peek();
+		for (int i = 0; i < this->buttons.getSize(); i++) {
+			string type = node_button->value->getType();
+			if (type == "play")
+				node_button->value->setPosition({this->window_size->x / 2 - 125, this->window_size->y / 2 - 100});
+			else if (type == "project")
+				node_button->value->setPosition({this->window_size->x / 2 - 125, this->window_size->y / 2 - 25});
+			else if (type == "quit")
+				node_button->value->setPosition({this->window_size->x / 2 - 125, this->window_size->y / 2 + 50});
+	
+			node_button = node_button->dir;
+		}
+	}
 }

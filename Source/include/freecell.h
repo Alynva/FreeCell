@@ -42,6 +42,7 @@ class FreeCell {
 		bool finish() const;
 		bool win();
 		void cardRain();
+		void playAgain();
 };
 
 FreeCell::FreeCell():gWindow(NULL), gRenderer(NULL), quit(false), play(false), event(EventManager(&this->quit, &this->play, &this->window_size)) {}
@@ -130,9 +131,13 @@ void FreeCell::menu() {
 		// Atualiza a tela
 		SDL_RenderPresent(this->gRenderer);
 	}
+	
+	this->event.clearButtons();
 }
 
 void FreeCell::setupItens() {
+	this->quit = false;
+	
 	// Inicializa o background
 	this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("../textures/backgrounds/1.png"));
 	
@@ -140,6 +145,8 @@ void FreeCell::setupItens() {
 	this->b.setTexture(this->gRenderer);;
 	this->b.generate();
 	this->b.randomize();
+	
+	this->event.clearStacks();
 
 	// Inicializa e adiciona a pilha do mouse ao EventManager
 	this->p_m.setTexture(this->gRenderer);
@@ -151,6 +158,7 @@ void FreeCell::setupItens() {
 
 	// Inicializa e adiciona a pilha auxiliar ao EventManager
 	for (int i = 0; i < 4; i++) {
+		this->p_a[i].clear();
 		this->p_a[i].setPosition({this->window_size.x/2 - 385 + 90 * i, 50});
 		this->p_a[i].setTexture(this->gRenderer);
 		this->event.addStack(&this->p_a[i]);
@@ -158,6 +166,7 @@ void FreeCell::setupItens() {
 
 	// Inicializa e adiciona a pilha definitiva ao EventManager
 	for (int i = 0; i < 4; i++) {
+		this->p_d[i].clear();
 		this->p_d[i].setPosition({this->window_size.x/2 + 45 + 90 * i, 50});
 		this->p_d[i].setTexture(this->gRenderer);
 		this->event.addStack(&this->p_d[i]);
@@ -165,6 +174,7 @@ void FreeCell::setupItens() {
 
 	// Inicializa e adiciona a pilha intermediária ao EventManager
 	for (int i = 0; i < 8; i++) {
+		this->p_i[i].clear();
 		moveCartasParaPilha(&b, &p_i[i], i < 4 ? 7 : 6);
 		this->p_i[i].setPosition({this->window_size.x/2 - 385 + 100 * i, 200});
 		this->p_i[i].setTexture(this->gRenderer);
@@ -230,8 +240,10 @@ bool FreeCell::win() {
 		if (this->p_i[i].getSize())
 			win = false;
 
-	if (win)
+	if (win && this->quit == false) {
 		this->cardRain();
+		this->quit = true;
+	}
 			
 	return win;
 }
@@ -287,6 +299,47 @@ void FreeCell::cardRain() {
 		if (this->finish())
 			break;
 	}
+}
+
+void FreeCell::playAgain() {
+	const SDL_MessageBoxButtonData buttons[] = {
+        { SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT, 1, "Sair" },
+        { SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT, 0, "Jogar novamente" },
+    };
+    const SDL_MessageBoxColorScheme colorScheme = {
+        { /* .colors (.r, .g, .b) */
+            /* [SDL_MESSAGEBOX_COLOR_BACKGROUND] */
+            { 255,   0,   0 },
+            /* [SDL_MESSAGEBOX_COLOR_TEXT] */
+            {   0, 255,   0 },
+            /* [SDL_MESSAGEBOX_COLOR_BUTTON_BORDER] */
+            { 255, 255,   0 },
+            /* [SDL_MESSAGEBOX_COLOR_BUTTON_BACKGROUND] */
+            {   0,   0, 255 },
+            /* [SDL_MESSAGEBOX_COLOR_BUTTON_SELECTED] */
+            { 255,   0, 255 }
+        }
+    };
+    string message = this->win() ? "Parabéns, você venceu!! Deseja jogar novamente?" : "Que pena que você não conseguiu. Deseja jogar novamente?";
+    const SDL_MessageBoxData messageboxdata = {
+        SDL_MESSAGEBOX_INFORMATION, /* .flags */
+        this->gWindow, /* .window */
+        "Acabou!", /* .title */
+        message.c_str(), /* .message */
+        SDL_arraysize(buttons), /* .numbuttons */
+        buttons, /* .buttons */
+        &colorScheme /* .colorScheme */
+    };
+    int buttonid;
+    if (SDL_ShowMessageBox(&messageboxdata, &buttonid) < 0) {
+        SDL_Log("Error displaying message box");
+    }
+    if (buttonid == -1) {
+        SDL_Log("no selection");
+    } else {
+		if (buttonid == 0) this->quit = false;
+        SDL_Log("selection was %s", buttons[buttonid].text);
+    }
 }
 
 bool moveCartasParaPilha(Baralho* b, PilhaInteligente* p, int qnt) {
