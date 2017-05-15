@@ -4,6 +4,8 @@
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 720
 
+#include "button.h"
+
 #include "baralho.h"
 #include "eventmanager.h"
 #include "pilha_auxiliar.h"
@@ -18,6 +20,7 @@ class FreeCell {
 	SDL_Point window_size; // Tamanho da janela
 	SDL_Texture* gBackground; // Plano de fundo
 	bool quit; // Responsavel pelo loop principal
+	bool play; // Responsável por começar o jogo
 	EventManager event; // Eventos
 
 	Baralho b;
@@ -35,12 +38,13 @@ class FreeCell {
 		void menu();
 		void setupItens();
 		void update();
+		bool start() const;
 		bool finish() const;
 		bool win();
 		void cardRain();
 };
 
-FreeCell::FreeCell():gWindow(NULL), gRenderer(NULL), quit(false), event(EventManager(&this->quit, &this->window_size)) {}
+FreeCell::FreeCell():gWindow(NULL), gRenderer(NULL), quit(false), play(false), event(EventManager(&this->quit, &this->play, &this->window_size)) {}
 
 FreeCell::~FreeCell() {
 	// Destroi a janela
@@ -92,8 +96,20 @@ bool FreeCell::init() {
 void FreeCell::menu() {
 	// Inicializa o background
 	this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("../textures/backgrounds/3.png"));
+	
+	Button play("play", this->gRenderer);
+	play.setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 - 100});
+	this->event.addButton(&play);
+	
+	Button project("project", this->gRenderer);
+	project.setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 - 25});
+	this->event.addButton(&project);
+	
+	Button quit("quit", this->gRenderer);
+	quit.setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 + 50});
+	this->event.addButton(&quit);
 
-	while (!this->finish()) {
+	while (!this->start() && !this->finish()) {
 		// Responsavel pelos eventos em espera
 		this->event.update();
 		
@@ -106,6 +122,10 @@ void FreeCell::menu() {
 //		SDL_Rect backgroundQuad = {x, y, w, h};
 //		SDL_RenderCopy(this->gRenderer, this->gBackground, NULL, &backgroundQuad);
 		SDL_RenderCopy(this->gRenderer, this->gBackground, NULL, NULL);
+		
+		play.render();
+		project.render();
+		quit.render();
 		
 		// Atualiza a tela
 		SDL_RenderPresent(this->gRenderer);
@@ -188,6 +208,9 @@ void FreeCell::update() {
 	SDL_RenderPresent(this->gRenderer);
 }
 
+bool FreeCell::start() const {
+	return this->play;
+}
 bool FreeCell::finish() const {
 	return this->quit;
 }

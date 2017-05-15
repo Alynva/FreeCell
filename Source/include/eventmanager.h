@@ -15,10 +15,12 @@
 
 #include "SDL2/SDL.h"
 #include "pilha_inteligente.h"
+#include "button.h"
 
 class EventManager {
 	SDL_Event handler;
 	bool* quit;
+	bool* play;
 	SDL_Point* window_size;
 	bool mouse_pressed;
 	SDL_Point mouse_pos;
@@ -28,15 +30,20 @@ class EventManager {
 	Carta* card_hovered;
 	PilhaInteligente* previous_stack;
 	SDL_Point stack_offset;
+	
+	Stack<Button*> buttons;
 
 	public:
-		EventManager(bool*, SDL_Point*);
+		EventManager(bool*, bool*, SDL_Point*);
 	
 		void update();
+		void mouseMove();
 		void mouseLeftDown();
 		void mouseLeftUp();
-		void mouseMove();
 		void addStack(PilhaInteligente*);
+		void clearStacks();
+		void addButton(Button*);
+		void clearButtons();
 		void windowResized(int, int);
 };
 
