@@ -3,6 +3,8 @@
 int main(int argv, char** args) {
 	FreeCell freecell;
 	if (freecell.init()) {
+		freecell.menu();
+		
 		freecell.setupItens();
 		
 		while (!freecell.finish()) {

@@ -83,14 +83,14 @@ void EventManager::update() {
 			        case SDL_WINDOWEVENT_CLOSE:
 //			            SDL_Log("Window %d closed", this->handler.window.windowID);
 			            break;
-			#if SDL_VERSION_ATLEAST(2, 0, 5)
+#if SDL_VERSION_ATLEAST(2, 0, 5)
 			        case SDL_WINDOWEVENT_TAKE_FOCUS:
 //			            SDL_Log("Window %d is offered a focus", this->handler.window.windowID);
 			            break;
 			        case SDL_WINDOWEVENT_HIT_TEST:
 //			            SDL_Log("Window %d has a special hit test", this->handler.window.windowID);
 			            break;
-			#endif
+#endif
 			        default:
 			            SDL_Log("Window %d got unknown event %d",
 			                    this->handler.window.windowID, this->handler.window.event);
@@ -168,81 +168,83 @@ void EventManager::mouseMove() {
 	SDL_GetMouseState(&mouse_pos.x, &mouse_pos.y);
 
 	// Move a pilha que persegue o mouse
-	PilhaInteligente* mouse_stack = this->stacks.peek()->value;
-	mouse_stack->setPosition({mouse_pos.x + this->stack_offset.x, mouse_pos.y + this->stack_offset.y});
-
-	bool found = false;
-	bool can_join = false;
-	Node<Carta>* last_node_card;
-	this->stack_hovered = nullptr;
-	// Alynva: Implementa��o do [] continua n�o funcionando
-	Node<PilhaInteligente*>* node_stack = this->stacks.peek()->dir;
-	for (int i = 1; i < this->stacks.getSize(); i++) { // Inicia em 1 pois o primeiro � a pilha que persegue o mouse
-		bool is_stack_hover = node_stack->value->isInside(mouse_pos);
-		if (is_stack_hover)
-			this->stack_hovered = node_stack->value;
-		node_stack->value->setStateHover(is_stack_hover);
-
-		if (node_stack->value->getSize()) {
-			Node<Carta>* node_card = node_stack->value->peek();
-			for (int j = 0; j < node_stack->value->getSize(); j++) {
-				if (node_card->value.isInside(mouse_pos)) {
-					if (!this->mouse_pressed || mouse_stack->getSize()) {
-						last_node_card = node_card;
-						found = true;
-					}
-				}
-				node_card->value.setStateHover(false);
-				node_card = node_card->dir;
-			}
-		}
-		node_stack = node_stack->dir;
-	}
-	if (this->stack_hovered) {
-		if (found && this->stack_hovered->canBeMoved(&last_node_card->value)) {
-			this->card_hovered = &last_node_card->value;
-//			this->card_hovered->setStateHover(true);
-
-			bool is_after = false;
-			Node<Carta>* node_card = this->stack_hovered->peek();
-			for (int i = 0; i < this->stack_hovered->getSize(); i++) {
-				if (!is_after) {
-					if (&node_card->value == this->card_hovered) {
-						is_after = true;
-						
-						if (!mouse_stack->getSize())
-							this->stack_offset = {node_card->value.getPosition().x - mouse_pos.x, node_card->value.getPosition().y - mouse_pos.y};
-						else {
-							can_join = this->stack_hovered->canPush(*this->card_hovered, mouse_stack->peek()->value);
-							this->stack_joining = can_join ? this->stack_hovered : nullptr;
+	if (this->stacks.getSize()) {
+		PilhaInteligente* mouse_stack = this->stacks.peek()->value;
+		mouse_stack->setPosition({mouse_pos.x + this->stack_offset.x, mouse_pos.y + this->stack_offset.y});
+	
+		bool found = false;
+		bool can_join = false;
+		Node<Carta>* last_node_card;
+		this->stack_hovered = nullptr;
+		// Alynva: Implementa��o do [] continua n�o funcionando
+		Node<PilhaInteligente*>* node_stack = this->stacks.peek()->dir;
+		for (int i = 1; i < this->stacks.getSize(); i++) { // Inicia em 1 pois o primeiro � a pilha que persegue o mouse
+			bool is_stack_hover = node_stack->value->isInside(mouse_pos);
+			if (is_stack_hover)
+				this->stack_hovered = node_stack->value;
+			node_stack->value->setStateHover(is_stack_hover);
+	
+			if (node_stack->value->getSize()) {
+				Node<Carta>* node_card = node_stack->value->peek();
+				for (int j = 0; j < node_stack->value->getSize(); j++) {
+					if (node_card->value.isInside(mouse_pos)) {
+						if (!this->mouse_pressed || mouse_stack->getSize()) {
+							last_node_card = node_card;
+							found = true;
 						}
 					}
+					node_card->value.setStateHover(false);
+					node_card = node_card->dir;
 				}
-				
-				if (is_after) {
-					if (!mouse_stack->getSize() || can_join) {
-						node_card->value.setStateHover(true);
-					}
-				}
-				node_card = node_card->dir;
 			}
-		} else if (!this->stack_hovered->getSize() || (mouse_stack->getSize() && found && this->stack_hovered->canPush(last_node_card->value, mouse_stack->peek()->value))) {
-			this->card_hovered = &last_node_card->value;
-			this->stack_joining = this->stack_hovered;
+			node_stack = node_stack->dir;
+		}
+		if (this->stack_hovered) {
+			if (found && this->stack_hovered->canBeMoved(&last_node_card->value)) {
+				this->card_hovered = &last_node_card->value;
+	//			this->card_hovered->setStateHover(true);
+	
+				bool is_after = false;
+				Node<Carta>* node_card = this->stack_hovered->peek();
+				for (int i = 0; i < this->stack_hovered->getSize(); i++) {
+					if (!is_after) {
+						if (&node_card->value == this->card_hovered) {
+							is_after = true;
+							
+							if (!mouse_stack->getSize())
+								this->stack_offset = {node_card->value.getPosition().x - mouse_pos.x, node_card->value.getPosition().y - mouse_pos.y};
+							else {
+								can_join = this->stack_hovered->canPush(*this->card_hovered, mouse_stack->peek()->value);
+								this->stack_joining = can_join ? this->stack_hovered : nullptr;
+							}
+						}
+					}
+					
+					if (is_after) {
+						if (!mouse_stack->getSize() || can_join) {
+							node_card->value.setStateHover(true);
+						}
+					}
+					node_card = node_card->dir;
+				}
+			} else if (!this->stack_hovered->getSize() || (mouse_stack->getSize() && found && this->stack_hovered->canPush(last_node_card->value, mouse_stack->peek()->value))) {
+				this->card_hovered = &last_node_card->value;
+				this->stack_joining = this->stack_hovered;
+			} else {
+				this->card_hovered = nullptr;
+				this->stack_joining = nullptr;
+			}
 		} else {
 			this->card_hovered = nullptr;
 			this->stack_joining = nullptr;
 		}
-	} else {
-		this->card_hovered = nullptr;
-		this->stack_joining = nullptr;
-	}
-
-	if (mouse_stack->getSize()) {
-		Node<Carta>* node_card = mouse_stack->peek();
-		for (int j = 0; j < mouse_stack->getSize(); j++) {
-			node_card->value.setStateHover(can_join);
-			node_card = node_card->dir;
+	
+		if (mouse_stack->getSize()) {
+			Node<Carta>* node_card = mouse_stack->peek();
+			for (int j = 0; j < mouse_stack->getSize(); j++) {
+				node_card->value.setStateHover(can_join);
+				node_card = node_card->dir;
+			}
 		}
 	}
 }

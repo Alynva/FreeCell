@@ -34,6 +34,7 @@ class FreeCell {
 		FreeCell();
 		~FreeCell();
 		bool init();
+		void menu();
 		void setupItens();
 		void update();
 		bool finish() const;
@@ -85,38 +86,62 @@ bool FreeCell::init() {
 				return false;
 			}
 
-			// Inicializa o background
-			this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("../textures/backgrounds/1.png"));
-
 			return true;
 		}
 	}
 }
 
+void FreeCell::menu() {
+	// Inicializa o background
+	this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("../textures/backgrounds/3.png"));
+
+	while (!this->finish()) {
+		// Responsavel pelos eventos em espera
+		this->event.update();
+		
+		// Limpa a tela
+		SDL_RenderClear(this->gRenderer);
+	
+		// Renderiza o background
+		SDL_RenderCopy(this->gRenderer, this->gBackground, NULL, NULL);
+		
+		// Atualiza a tela
+		SDL_RenderPresent(this->gRenderer);
+	}
+}
+
 void FreeCell::setupItens() {
+	// Inicializa o background
+	this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("../textures/backgrounds/1.png"));
+	
+	// Inicializa o baralho
 	this->b.setTexture(this->gRenderer);;
 	this->b.generate();
 	this->b.randomize();
 
+	// Inicializa e adiciona a pilha do mouse ao EventManager
+	this->p_m.setTexture(this->gRenderer);
 	this->event.addStack(&this->p_m);
 	
-	this->p_r.setTexture(this->gRenderer);
-	this->p_r.setPosition({-50, -50});
+	// Inicializa a pilha de cuhva de cartas
+//	this->p_r.setTexture(this->gRenderer);
+//	this->p_r.setPosition({-50, -50});
 
-	this->p_m.setTexture(this->gRenderer);
-
+	// Inicializa e adiciona a pilha auxiliar ao EventManager
 	for (int i = 0; i < 4; i++) {
 		this->p_a[i].setPosition({this->window_size.x/2 - 385 + 90 * i, 50});
 		this->p_a[i].setTexture(this->gRenderer);
 		this->event.addStack(&this->p_a[i]);
 	}
 
+	// Inicializa e adiciona a pilha definitiva ao EventManager
 	for (int i = 0; i < 4; i++) {
 		this->p_d[i].setPosition({this->window_size.x/2 + 45 + 90 * i, 50});
 		this->p_d[i].setTexture(this->gRenderer);
 		this->event.addStack(&this->p_d[i]);
 	}
 
+	// Inicializa e adiciona a pilha intermediária ao EventManager
 	for (int i = 0; i < 8; i++) {
 		moveCartasParaPilha(&b, &p_i[i], i < 4 ? 7 : 6);
 		this->p_i[i].setPosition({this->window_size.x/2 - 385 + 100 * i, 200});
