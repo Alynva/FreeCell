@@ -7,7 +7,7 @@ WINDRES  = windres.exe
 RES      = FreeCell_private.res
 OBJ      = baralho.o carta.o eventmanager.o textura.o main.o pilha_inteligente.o delay.o $(RES)
 LINKOBJ  = baralho.o carta.o eventmanager.o textura.o main.o pilha_inteligente.o delay.o $(RES)
-LIBS     = -L"C:/Users/Alynva/Downloads/Dev-Cpp/MinGW32/lib" -L"C:/Users/Alynva/Documents/GitHub/FreeCell/Source/lib" -static-libstdc++ -static-libgcc -L"C:/Users/Gabriel/Documents/GitHub/FreeCell/Source/lib" -lmingw32 -lSDL2main -lSDL2_image -lSDL2_mixer -lSDL2  -std=c++0x 
+LIBS     = -L"C:/Users/Alynva/Downloads/Dev-Cpp/MinGW32/lib" -L"C:/Users/Alynva/Documents/GitHub/FreeCell/Source/lib" -static-libstdc++ -static-libgcc -L"C:/Users/Gabriel/Documents/GitHub/FreeCell/Source/lib" -mwindows -lmingw32 -lSDL2main -lSDL2_image -lSDL2_mixer -lSDL2  -std=c++0x 
 INCS     = -I"C:/Users/Alynva/Downloads/Dev-Cpp/MinGW32/include" 
 CXXINCS  = -I"C:/Users/Alynva/Downloads/Dev-Cpp/MinGW32/include"  -I"C:/Users/Alynva/Documents/GitHub/FreeCell/Source/include" 
 BIN      = FreeCell.exe
@@ -48,4 +48,4 @@ delay.o: delay.cpp
 	$(CPP) -c delay.cpp -o delay.o $(CXXFLAGS)
 
 FreeCell_private.res: FreeCell_private.rc 
-	$(WINDRES) -i FreeCell_private.rc --input-format=rc -o FreeCell_private.res -O coff 
+	$(WINDRES) -i FreeCell_private.rc --input-format=rc -o FreeCell_private.res -O coff  --include-dir 

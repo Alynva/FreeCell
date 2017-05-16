@@ -1,6 +1,5 @@
 #include "../include/pilha_inteligente.h"
 
-#define DIF_ALTURA 20 // diferenca de altura entre duas cartas
 #define CARD_WIDTH 100 // largura final do fundo da pilha
 #define CARD_HEIGHT 156 // altura final do fundo da pilha
 
@@ -49,9 +48,16 @@ void PilhaInteligente::render() {
 void PilhaInteligente::organize() {
 	int y = 0;
 	
+	int offset_height;
+	if (this->getSize() < 10)
+		offset_height = 20;
+	else if (this->getSize() < 13)
+		offset_height = 17;
+	else
+		offset_height = 15;
 	for (int i = 0; i < this->getSize(); i++) {
 		this[0][i]->value.setPosition({this->coord.x, this->coord.y + y});
-		y += DIF_ALTURA;
+		y += offset_height;
 	}
 }
 
