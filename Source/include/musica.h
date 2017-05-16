@@ -5,30 +5,24 @@
 #include "SDL2/SDL_mixer.h"
 
 class Musica {
-		
-	bool quit;
+
 	SDL_Event event;
-//	Mix_Music *music;
-	Mix_Chunk *sample;
-//	Mix_Chunk *scratch;
-//	Mix_Chunk *high;
-//	Mix_Chunk *med;
-//	Mix_Chunk *low;
+	Mix_Music* song;
 
 	public:
 	
 		Musica() {
-			this->quit = false;
-//			*this->music = NULL;	
-			this->sample = NULL;
-//			*this->scratch = NULL;
-//			*this->high = NULL;
-//			*this->med = NULL;
-//			*this->low = NULL;
+			this->song = NULL;
+		};
+			
+		~Musica() {
+			Mix_FreeMusic(this->song);
+			this->song = NULL;
+			Mix_Quit();	
 		};
 		
 		bool init() {
-			Mix_AllocateChannels(16);
+//			Mix_AllocateChannels(16);
 			if(SDL_Init(SDL_INIT_AUDIO)==-1) {									
 			    printf("SDL_Init: %s\n", SDL_GetError());
 			    return false;
@@ -42,23 +36,26 @@ class Musica {
 			return true;
 		};
 			
-		void addMusic() {
-//			this->music = Mix_LoadMUS( "beat.wav" );									
-//			this->scratch = Mix_LoadWAV( "scratch.wav" );								
-//			this->high = Mix_LoadWAV( "high.wav" );
-//			this->med = Mix_LoadWAV( "medium.wav" );
-//			this->low = Mix_LoadWAV( "low.wav" );
-			this->sample = Mix_LoadWAV("../musics/fgi.wav");
+		void addMusic(const char* path) {
+			this->song = Mix_LoadMUS(path);
 		};
 		
 		void play() {
-			Mix_PlayChannel(-1, sample, -1);
+			Mix_FadeInMusic(this->song, -1, 5000);
 		};
-			
-		~Musica() {
-			Mix_Quit();	
+		
+		void pause() {
+			Mix_PauseMusic();
+		}
+		
+		void resume() {
+			Mix_ResumeMusic();
+		}
+		
+		void setVolume(int vol) {
+			Mix_VolumeMusic(vol);
 		};
-			
+
 };
 
 #endif

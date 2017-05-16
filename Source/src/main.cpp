@@ -4,7 +4,8 @@
 int main(int argv, char** args) {
 	Musica back_music;
 	back_music.init();
-	back_music.addMusic();
+	back_music.addMusic("../musics/fgi.wav");
+//	back_music.setVolume(5);
 	back_music.play();
 	
 	FreeCell freecell;
