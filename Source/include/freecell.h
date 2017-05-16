@@ -98,19 +98,19 @@ void FreeCell::menu() {
 	// Inicializa o background
 	this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("../textures/backgrounds/0.png"));
 	
-	Textura logo("../textures/logo/logo.png", this->gRenderer, this->window_size.x / 2 - 118, this->window_size.y / 2 - this->window_size.y / 3 - 52, 236, 108);
+	Textura logo("../textures/logo/logo.png", this->gRenderer, this->window_size.x / 2 - 204, this->window_size.y / 4 - 79, 408, 158);
 	this->event.addLogo(&logo);
 	
 	Button play("play", this->gRenderer);
-	play.setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 - 100});
+	play.setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 - 25});
 	this->event.addButton(&play);
 	
 	Button project("project", this->gRenderer);
-	project.setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 - 25});
+	project.setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 + 50});
 	this->event.addButton(&project);
 	
 	Button quit("quit", this->gRenderer);
-	quit.setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 + 50});
+	quit.setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 + 125});
 	this->event.addButton(&quit);
 
 	while (!this->start() && !this->finish()) {

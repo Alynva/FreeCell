@@ -317,7 +317,7 @@ void EventManager::windowResized(int w, int h) {
 	*this->window_size = {w, h};
 	
 	if (this->logo) {
-		this->logo->setPosition({window_size->x / 2 - 118, window_size->y / 2 - window_size->y / 3 - 52});
+		this->logo->setPosition({this->window_size->x / 2 - 204, this->window_size->y / 4 - 79});
 	}
 	
 	if (this->stacks.getSize()) {
@@ -338,11 +338,11 @@ void EventManager::windowResized(int w, int h) {
 		for (int i = 0; i < this->buttons.getSize(); i++) {
 			string type = node_button->value->getType();
 			if (type == "play")
-				node_button->value->setPosition({this->window_size->x / 2 - 125, this->window_size->y / 2 - 100});
-			else if (type == "project")
 				node_button->value->setPosition({this->window_size->x / 2 - 125, this->window_size->y / 2 - 25});
-			else if (type == "quit")
+			else if (type == "project")
 				node_button->value->setPosition({this->window_size->x / 2 - 125, this->window_size->y / 2 + 50});
+			else if (type == "quit")
+				node_button->value->setPosition({this->window_size->x / 2 - 125, this->window_size->y / 2 + 125});
 	
 			node_button = node_button->dir;
 		}
