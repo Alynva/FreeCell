@@ -1,6 +1,12 @@
 #include "../include/freecell.h"
+#include "../include/musica.h"
 
 int main(int argv, char** args) {
+	Musica back_music;
+	back_music.init();
+	back_music.addMusic();
+	back_music.play();
+	
 	FreeCell freecell;
 	if (freecell.init()) {
 		freecell.menu();
