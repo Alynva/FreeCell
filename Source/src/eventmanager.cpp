@@ -283,8 +283,10 @@ void EventManager::mouseLeftUp() {
 				string type = node_button->value->getType();
 				if (type == "play")
 					*this->play = true;
-				else if (type == "project")
+				else if (type == "project"){
 					system("start https://github.com/Alynva/FreeCell");
+					system("firefox https://github.com/Alynva/Freecell");
+				}
 				else if (type == "quit")
 					*this->quit = true;
 			}

@@ -20,7 +20,7 @@ class FreeCell {
 	SDL_Point window_size; // Tamanho da janela
 	SDL_Texture* gBackground; // Plano de fundo
 	bool quit; // Responsavel pelo loop principal
-	bool play; // Responsável por começar o jogo
+	bool play; // Responsï¿½vel por comeï¿½ar o jogo
 	EventManager event; // Eventos
 
 	Baralho b;
@@ -28,7 +28,7 @@ class FreeCell {
 	PilhaAuxiliar p_a[4];
 	PilhaDefinitiva p_d[4];
 	PilhaIntermediaria p_i[8];
-	
+
 	PilhaInteligente p_r; // Pilha da chuva de cartas
 
 	public:
@@ -97,18 +97,18 @@ bool FreeCell::init() {
 void FreeCell::menu() {
 	// Inicializa o background
 	this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("../textures/backgrounds/0.png"));
-	
+
 	Textura logo("../textures/logo/logo.png", this->gRenderer, this->window_size.x / 2 - 204, this->window_size.y / 4 - 79, 408, 158);
 	this->event.addLogo(&logo);
-	
+
 	Button play("play", this->gRenderer);
 	play.setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 - 25});
 	this->event.addButton(&play);
-	
+
 	Button project("project", this->gRenderer);
 	project.setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 + 50});
 	this->event.addButton(&project);
-	
+
 	Button quit("quit", this->gRenderer);
 	quit.setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 + 125});
 	this->event.addButton(&quit);
@@ -116,48 +116,48 @@ void FreeCell::menu() {
 	while (!this->start() && !this->finish()) {
 		// Responsavel pelos eventos em espera
 		this->event.update();
-		
+
 		// Limpa a tela
 		SDL_RenderClear(this->gRenderer);
-	
+
 		// Renderiza o background
 //		int x = 0, y = 0, w = 0, h = 0;
 //		SDL_QueryTexture(this->gBackground, NULL, NULL, &w, &h);
 //		SDL_Rect backgroundQuad = {x, y, w, h};
 //		SDL_RenderCopy(this->gRenderer, this->gBackground, NULL, &backgroundQuad);
 		SDL_RenderCopy(this->gRenderer, this->gBackground, NULL, NULL);
-		
+
 		logo.render();
-		
+
 		play.render();
 		project.render();
 		quit.render();
-		
+
 		// Atualiza a tela
 		SDL_RenderPresent(this->gRenderer);
 	}
-	
+
 	this->event.clearButtons();
 	this->event.clearLogo();
 }
 
 void FreeCell::setupItens() {
 	this->quit = false;
-	
+
 	// Inicializa o background
 	this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("../textures/backgrounds/1.png"));
-	
+
 	// Inicializa o baralho
 	this->b.setTexture(this->gRenderer);;
 	this->b.generate();
 	this->b.randomize();
-	
+
 	this->event.clearStacks();
 
 	// Inicializa e adiciona a pilha do mouse ao EventManager
 	this->p_m.setTexture(this->gRenderer);
 	this->event.addStack(&this->p_m);
-	
+
 	// Inicializa a pilha de cuhva de cartas
 //	this->p_r.setTexture(this->gRenderer);
 //	this->p_r.setPosition({-50, -50});
@@ -178,7 +178,7 @@ void FreeCell::setupItens() {
 		this->event.addStack(&this->p_d[i]);
 	}
 
-	// Inicializa e adiciona a pilha intermediária ao EventManager
+	// Inicializa e adiciona a pilha intermediï¿½ria ao EventManager
 	for (int i = 0; i < 8; i++) {
 		this->p_i[i].clear();
 		moveCartasParaPilha(&b, &p_i[i], i < 4 ? 7 : 6);
@@ -233,7 +233,7 @@ bool FreeCell::finish() const {
 
 bool FreeCell::win() {
 	bool win = true;
-	
+
 	if (this->p_m.getSize())
 		win = false;
 	for (int i = 0; i < 4; i++)
@@ -250,7 +250,7 @@ bool FreeCell::win() {
 		this->cardRain();
 		this->quit = true;
 	}
-			
+
 	return win;
 }
 
@@ -262,7 +262,7 @@ void FreeCell::cardRain() {
 			SDL_Point pos = this->p_d[i][j]->value.getPosition();
 			SDL_Point vel = {0, 0};
 			SDL_Point acc = {0, 0};
-			
+
 			SDL_Point force {0, 0};
 			if (rand() % 2 - 1)
 				force.x = rand() % 5 - 7;
@@ -272,22 +272,22 @@ void FreeCell::cardRain() {
 				force.x = rand() % 3 - 2;
 			if (!force.x) force.x = 4;
 			force.y = rand() % 25 - 30;
-			
+
 			acc.x += force.x; acc.y += force.y;
 			while (pos.x + 69 >= 0 && pos.x <= this->window_size.x) {
 				Carta c = this->p_d[i][j]->value;
-				
+
 				acc.x += gravity.x; acc.y += gravity.y;
 				if (pos.y + 100 >= this->window_size.y && vel.y > 0)
 					vel.y = -vel.y;
-				
+
 				vel.x += acc.x; vel.y += acc.y;
 				pos.x += vel.x; pos.y += vel.y;
 				acc = {0, 0};
-				
+
 				if (pos.y + 100 > this->window_size.y)
 					pos.y = this->window_size.y - 100;
-					
+
 				this->event.update();
 				c.setPosition(pos);
 				c.render();
@@ -295,7 +295,7 @@ void FreeCell::cardRain() {
 //				p_r.push(c, ok);
 //				this->update();
 				SDL_Delay(30);
-				
+
 				if (this->finish())
 					break;
 			}
@@ -326,7 +326,7 @@ void FreeCell::playAgain() {
             { 255,   0, 255 }
         }
     };
-    string message = this->win() ? "Parabéns, você venceu!! Deseja jogar novamente?" : "Que pena que você não conseguiu. Deseja jogar novamente?";
+    string message = this->win() ? "Parabens, voce venceu!! Deseja jogar novamente?" : "Que pena que voce nao conseguiu. Deseja jogar novamente?";
     const SDL_MessageBoxData messageboxdata = {
         SDL_MESSAGEBOX_INFORMATION, /* .flags */
         this->gWindow, /* .window */
@@ -340,7 +340,7 @@ void FreeCell::playAgain() {
     if (SDL_ShowMessageBox(&messageboxdata, &buttonid) < 0) {
         SDL_Log("Error displaying message box");
     }
-    
+
 	if (buttonid == 0) this->quit = false;
 }
 
