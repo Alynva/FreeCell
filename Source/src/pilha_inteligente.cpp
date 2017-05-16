@@ -39,7 +39,7 @@ SDL_Point PilhaInteligente::getPosition() const {
 
 void PilhaInteligente::render() {
 	this->backTexture.render();
-	
+
 	for (int i = 0; i < this->getSize(); i++) {
 		this[0][i]->value.render();
 	}
@@ -47,7 +47,7 @@ void PilhaInteligente::render() {
 
 void PilhaInteligente::organize() {
 	int y = 0;
-	
+
 	int offset_height;
 	if (this->getSize() < 10)
 		offset_height = 20;
@@ -69,9 +69,9 @@ bool PilhaInteligente::isInside(SDL_Point point) {
 	bool inside = ((point.x > position.x && point.x < position.x + size.x) &&
 		(point.y > position.y && point.y < position.y + size.y));
 
-//	Node<Carta>* element = this->peek()->dir;
+//	Node<Carta>* element = this->peek()->next;
 //	for (int i = 0; i < this->getSize(); i++) {
-//		element = element->dir;
+//		element = element->next;
 //		inside = inside || element->value.isInside(point);
 //	}
 
@@ -96,14 +96,14 @@ bool PilhaInteligente::isDifferentColor(Carta c1, Carta c2) const {
 //P[-1] retorna o último elemento
 Node<Carta>* PilhaInteligente::operator[](int index) const {
 	if (size > index && index >= 0) {
-		Node<Carta>* returnNode = header.dir;
+		Node<Carta>* returnNode = header.next;
 		while (index > 0) {
-			returnNode = returnNode->dir;
+			returnNode = returnNode->next;
 			index--;
 		}
 		return returnNode;
 	} else if(index == -1) {
-		return header.esq;
+		return header.previous;
 	}
 	return nullptr;
 }

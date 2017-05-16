@@ -12,23 +12,23 @@ class PilhaIntermediaria : public PilhaInteligente {
 };
 
 void PilhaIntermediaria::pushChild(const Carta pushValue, bool& check) {
-	SDL_Log("%i%c > %i%c", this->peek()->esq->esq->value.getValue(), this->peek()->esq->esq->value.getSuit(), pushValue.getValue(), pushValue.getSuit());
+	SDL_Log("%i%c > %i%c", this->peek()->previous->previous->value.getValue(), this->peek()->previous->previous->value.getSuit(), pushValue.getValue(), pushValue.getSuit());
 	if (this->isEmpty()) {
 		Node<Carta>* aux = new(Node<Carta>);
 		aux->value = pushValue;
-		aux->dir = &header;
-		aux->esq = header.esq;
-		header.esq->dir = aux;
-		header.esq = aux;
+		aux->next = &header;
+		aux->previous = header.previous;
+		header.previous->next = aux;
+		header.previous = aux;
 		this->size++;
 		check = true;
-	} else if (pushValue.getValue() == this->peek()->esq->esq->value.getValue() - 1 && this->isDifferentColor(pushValue, this->peek()->esq->esq->value)) {
+	} else if (pushValue.getValue() == this->peek()->previous->previous->value.getValue() - 1 && this->isDifferentColor(pushValue, this->peek()->previous->previous->value)) {
 		Node<Carta>* aux = new(Node<Carta>);
 		aux->value = pushValue;
-		aux->dir = &header;
-		aux->esq = header.esq;
-		header.esq->dir = aux;
-		header.esq = aux;
+		aux->next = &header;
+		aux->previous = header.previous;
+		header.previous->next = aux;
+		header.previous = aux;
 		this->size++;
 		this->peek()->value.setPosition(this->getCoord());
 		check = true;

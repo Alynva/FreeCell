@@ -23,12 +23,12 @@ void Baralho::randomize() {
 		int i = rand()%this->deck.getSize();
 		Node<Carta>* elem = this->deck[i];
 		Node<Carta> aux = *elem;
-		elem->dir->esq = aux.esq;
-		elem->esq->dir = aux.dir;
-		elem->dir = this->deck[0]->esq;
-		elem->esq = this->deck[-1];
-		this->deck[-1]->dir = elem;
-		this->deck[0]->esq->esq = elem;
+		elem->next->previous = aux.previous;
+		elem->previous->next = aux.next;
+		elem->next = this->deck[0]->previous;
+		elem->previous = this->deck[-1];
+		this->deck[-1]->next = elem;
+		this->deck[0]->previous->previous = elem;
 		iter--;
 	}
 }

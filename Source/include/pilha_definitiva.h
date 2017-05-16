@@ -20,21 +20,21 @@ void PilhaDefinitiva::pushChild(const Carta pushValue, bool& check) {
 	if (this->isEmpty() && pushValue.getValue() == 1) {
 		Node<Carta>* aux = new(Node<Carta>);
 		aux->value = pushValue;
-		aux->dir = &header;
-		aux->esq = header.esq;
-		header.esq->dir = aux;
-		header.esq = aux;
+		aux->next = &header;
+		aux->previous = header.previous;
+		header.previous->next = aux;
+		header.previous = aux;
 		this->size++;
 		check = true;
-	} else if (pushValue.getValue() == this->peek()->esq->esq->value.getValue() + 1 && pushValue.getSuit() == this->peek()->esq->esq->value.getSuit()) {
+	} else if (pushValue.getValue() == this->peek()->previous->previous->value.getValue() + 1 && pushValue.getSuit() == this->peek()->previous->previous->value.getSuit()) {
 		Node<Carta>* aux = new(Node<Carta>);
 		aux->value = pushValue;
-		aux->dir = &header;
-		aux->esq = header.esq;
-		header.esq->dir = aux;
-		header.esq = aux;
+		aux->next = &header;
+		aux->previous = header.previous;
+		header.previous->next = aux;
+		header.previous = aux;
 		this->size++;
-		this->peek()->dir->value.setPosition(this->getCoord());
+		this->peek()->next->value.setPosition(this->getCoord());
 		check = true;
 	} else
 		check = false;

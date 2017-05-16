@@ -15,12 +15,12 @@ void PilhaAuxiliar::pushChild(const Carta pushValue, bool& check) {
 	if (this->isEmpty()) {
 		Node<Carta>* aux = new(Node<Carta>);
 		aux->value = pushValue;
-		aux->dir = &header;
-		aux->esq = header.esq;
-		header.esq->dir = aux;
-		header.esq = aux;
+		aux->next = &header;
+		aux->previous = header.previous;
+		header.previous->next = aux;
+		header.previous = aux;
 		this->size++;
-		
+
 		check = true;
 	} else
 		check = false;
