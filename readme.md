@@ -1,4 +1,4 @@
-[![GitHub tag](https://img.shields.io/github/tag/Alynva/FreeCell.svg)](https://github.com/Alynva/FreeCell/tags) [![Codacy grade](https://img.shields.io/codacy/grade/ad0f531c54c748269e35392ea2f79756.svg)](https://www.codacy.com/app/Alynva/FreeCell?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Alynva/FreeCell&amp;utm_campaign=Badge_Grade)
+[![GitHub tag](https://img.shields.io/github/tag/Alynva/FreeCell.svg)](https://github.com/Alynva/FreeCell/tags) [![Codacy grade](https://img.shields.io/codacy/grade/ad0f531c54c748269e35392ea2f79756.svg)](https://www.codacy.com/app/Alynva/FreeCell?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Alynva/FreeCell&amp;utm_campaign=Badge_Grade) [![Github Downloads All Releases](https://img.shields.io/github/downloads/Alynva/FreeCell/total.svg)](https://github.com/Alynva/FreeCell/releases/latest)
 
 # FreeCell
 
