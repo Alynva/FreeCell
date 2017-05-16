@@ -298,6 +298,9 @@ void EventManager::mouseLeftUp() {
 void EventManager::addLogo(Textura * logo) {
 	this->logo = logo;
 }
+void EventManager::clearLogo() {
+	this->logo = nullptr;
+}
 
 void EventManager::addStack(PilhaInteligente * stack) {
 	this->stacks.push(stack, abc);

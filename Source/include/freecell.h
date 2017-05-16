@@ -138,6 +138,7 @@ void FreeCell::menu() {
 	}
 	
 	this->event.clearButtons();
+	this->event.clearLogo();
 }
 
 void FreeCell::setupItens() {

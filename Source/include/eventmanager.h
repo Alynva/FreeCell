@@ -44,6 +44,7 @@ class EventManager {
 		void mouseLeftDown();
 		void mouseLeftUp();
 		void addLogo(Textura*);
+		void clearLogo();
 		void addStack(PilhaInteligente*);
 		void clearStacks();
 		void addButton(Button*);
