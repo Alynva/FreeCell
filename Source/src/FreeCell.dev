@@ -1,7 +1,7 @@
 [Project]
 FileName=FreeCell.dev
 Name=FreeCell
-Type=0
+Type=1
 Ver=1
 ObjFiles=
 Includes=C:\Users\Gabriel\Documents\GitHub\FreeCell\Source\include;C:\Users\Gabriel\Documents\GitHub\FreeCell\Source\include\SDL2

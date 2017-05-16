@@ -24,6 +24,9 @@ class EventManager {
 	SDL_Point* window_size;
 	bool mouse_pressed;
 	SDL_Point mouse_pos;
+	
+	Textura* logo;
+	
 	Stack<PilhaInteligente*> stacks;
 	PilhaInteligente* stack_joining;
 	PilhaInteligente* stack_hovered;
@@ -40,6 +43,7 @@ class EventManager {
 		void mouseMove();
 		void mouseLeftDown();
 		void mouseLeftUp();
+		void addLogo(Textura*);
 		void addStack(PilhaInteligente*);
 		void clearStacks();
 		void addButton(Button*);

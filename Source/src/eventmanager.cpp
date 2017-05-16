@@ -5,9 +5,10 @@ using namespace std;
 
 bool abc;
 EventManager::EventManager(bool* mQuit, bool* gPlay, SDL_Point* mWinSize):quit(mQuit), play(gPlay), window_size(mWinSize), mouse_pressed(false) {
+	this->logo = NULL;
+	
 	this->stacks.clear();
 	this->stack_offset = {0, 0};
-	
 	this->stack_joining = nullptr;
 	this->stack_hovered = nullptr;
 	this->card_hovered = nullptr;
@@ -294,6 +295,10 @@ void EventManager::mouseLeftUp() {
 	}
 }
 
+void EventManager::addLogo(Textura * logo) {
+	this->logo = logo;
+}
+
 void EventManager::addStack(PilhaInteligente * stack) {
 	this->stacks.push(stack, abc);
 }
@@ -310,6 +315,10 @@ void EventManager::clearButtons() {
 
 void EventManager::windowResized(int w, int h) {
 	*this->window_size = {w, h};
+	
+	if (this->logo) {
+		this->logo->setPosition({window_size->x / 2 - 118, window_size->y / 2 - window_size->y / 3 - 52});
+	}
 	
 	if (this->stacks.getSize()) {
 		Node<PilhaInteligente*>* node_stack = this->stacks.peek()->dir;

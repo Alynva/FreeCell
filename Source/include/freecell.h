@@ -61,7 +61,7 @@ FreeCell::~FreeCell() {
 
 bool FreeCell::init() {
 	// Cria a janela
-	this->gWindow = SDL_CreateWindow("Freecell", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_RESIZABLE);
+	this->gWindow = SDL_CreateWindow("FreeCell", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_RESIZABLE);
 	if (this->gWindow == NULL) {
 		SDL_Log("Window could not be created. SDL Error: %s", SDL_GetError());
 		return false;
@@ -96,7 +96,10 @@ bool FreeCell::init() {
 
 void FreeCell::menu() {
 	// Inicializa o background
-	this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("../textures/backgrounds/3.png"));
+	this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("../textures/backgrounds/0.png"));
+	
+	Textura logo("../textures/logo/logo.png", this->gRenderer, this->window_size.x / 2 - 118, this->window_size.y / 2 - this->window_size.y / 3 - 52, 236, 108);
+	this->event.addLogo(&logo);
 	
 	Button play("play", this->gRenderer);
 	play.setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 - 100});
@@ -123,6 +126,8 @@ void FreeCell::menu() {
 //		SDL_Rect backgroundQuad = {x, y, w, h};
 //		SDL_RenderCopy(this->gRenderer, this->gBackground, NULL, &backgroundQuad);
 		SDL_RenderCopy(this->gRenderer, this->gBackground, NULL, NULL);
+		
+		logo.render();
 		
 		play.render();
 		project.render();
