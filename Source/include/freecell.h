@@ -132,6 +132,9 @@ void FreeCell::menu() {
 	Button quit("quit", this->gRenderer);
 	quit.setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 + 125});
 	this->event.addButton(&quit);
+	
+	int iw, ih; // Variáveis para calcular o tamanho e posição da imagem sem distorão
+	SDL_QueryTexture(this->gBackground, NULL, NULL, &iw, &ih); // Get the image size
 
 	while (!this->start() && !this->finish()) {
 		// Responsavel pelos eventos em espera
@@ -141,11 +144,9 @@ void FreeCell::menu() {
 		SDL_RenderClear(this->gRenderer);
 
 		// Renderiza o background
-//		int x = 0, y = 0, w = 0, h = 0;
-//		SDL_QueryTexture(this->gBackground, NULL, NULL, &w, &h);
-//		SDL_Rect backgroundQuad = {x, y, w, h};
-//		SDL_RenderCopy(this->gRenderer, this->gBackground, NULL, &backgroundQuad);
-		SDL_RenderCopy(this->gRenderer, this->gBackground, NULL, NULL);
+		SDL_Rect backgroundQuad = getFillSize(iw, ih, this->window_size.x, this->window_size.y);
+		SDL_RenderCopy(this->gRenderer, this->gBackground, NULL, &backgroundQuad);
+//		SDL_RenderCopy(this->gRenderer, this->gBackground, NULL, NULL);
 
 		logo.render();
 
@@ -218,7 +219,10 @@ void FreeCell::update() {
 	SDL_RenderClear(this->gRenderer);
 
 	// Renderiza o background
-	SDL_RenderCopy(this->gRenderer, this->gBackground, NULL, NULL);
+	int iw, ih; // Variáveis para calcular o tamanho e posição da imagem sem distorão
+	SDL_QueryTexture(this->gBackground, NULL, NULL, &iw, &ih); // Get the image size
+	SDL_Rect backgroundQuad = getFillSize(iw, ih, this->window_size.x, this->window_size.y);
+	SDL_RenderCopy(this->gRenderer, this->gBackground, NULL, &backgroundQuad);
 
 	// Renderiza as pilhas
 	for (int i = 0; i < 4; i++) {
