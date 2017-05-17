@@ -11,24 +11,55 @@ Estrutura de Dados do jogo:
 - 4 Espaços de valor único para movimentação extra. Inicialmente vazios. (Acho que esses 4 podem ser simplesmente variáveis ou então Pilhas de valor único que operam simplesmente com Pop() e Push() de uma carta só)
 - 4 Pilhas finais, usadas para ordenar as cartas dos 4 naipes e terminar o jogo. Essas pilhas ao contrário das intermediárias são ordenadas em forma crescente, começando no Ás e terminando no Rei, inicialmente vazias. Sua regra é que todas podem ser inicialmente usadas por qualquer naipe, mas após receberem a primeira carta, só poderão receber cartas do naipe da mesma. Só utilizarão Push(), visto que é o destino final das cartas do baralho.
 
+## Instalação
+Os arquivos já compilados para Windows podem ser encontrados no seguinte link:
+* [Executável Windows](https://github.com/Alynva/FreeCell/releases/latest)
+
+Para os demais sistemas operacionais, o código fonte pode ser facilmente compilado executando o comando make no diretório ./Source/src.
+
 ## Descrição da Implementação
 
+A arquitetura do projeto foi definida da seguinte maneira:
+![Arquitetura](https://dl.dropboxusercontent.com/sh/t21x4vitadfju4f/AAA2lfdd8XpLXPE-4lbL6pcja/Freecell/arquitetura.png?dl=0)
+
 ### Pilha
-Para a implementação do tipo abstrato de dados pilha, ficou decidido a utilização de uma pilha duplamente encadeada com nó header. Tem-se então, que cada elemento é armazenado em um nó com três atributos, sendo eles:
-- Value: armazena o elemento em si;
-- Dir: ponteiro que define o nó do pŕoximo elemento;
-- Esq: ponteiro que define o nó do elemento anterior;
+Para a implementação do tipo abstrato de dados pilha, ficou decidido a utilização de uma pilha duplamente encadeada com nó header.
+
+![Pilha vazia](https://dl.dropboxusercontent.com/sh/t21x4vitadfju4f/AACFp7c9owqJjeheMEUKR8Cga/Freecell/fila2.png?dl=0)
+
+![Pilha com três elementos](https://dl.dropboxusercontent.com/sh/t21x4vitadfju4f/AADT-urACh2Yyr-EMwvzeUQga/Freecell/fila.png?dl=0)
+
+Tem-se então, que cada elemento é armazenado em um nó com três atributos, sendo eles:
+* Value: armazena o elemento em si;
+* Dir: ponteiro que define o nó do pŕoximo elemento;
+* Esq: ponteiro que define o nó do elemento anterior;
+
 Essa pilha tem as funções mais básicas, para a utilização desse TAD temos as funções mais básicas, seguem elas:
-- isEmpty(): retorna um booleano, com valor verdadeiro se a pilha está vazia (isto é o atributo Dir do Header aponta para o Header), e valor falso se a pilha está cheia.
-- push(element, &check): insere element no topo da pilha, e check recebe verdadeiro, se foi possível inserir, ou verdadeiro, se não foi possível.
-- pop(&element): remove o elemento do topo da pilha e passa para element. A função retorna verdadeiro se foi possível remover o elemento no topo (i.e. a pilha não estava vazia), ou falso caso não foi possível.
-- clear(): limpa a pilha, removendo todos os elementos, deixando apenas o nó de header.
-- getSize(): retorna o tamanho atual da pilha.
-- peek(): retorna um ponteiro apontando para o nó no topo da pilha.
-Com eese tipo básico, derivam-se as funções especifícas, responsáveis pelas pilhas do Freecell.
+* isEmpty(): retorna um booleano, com valor verdadeiro se a pilha está vazia (isto é o atributo Dir do Header aponta para o Header), e valor falso se a pilha está cheia.
+* push(element, &check): insere element no topo da pilha, e check recebe verdadeiro, se foi possível inserir, ou verdadeiro, se não foi possível.
+* pop(&element): remove o elemento do topo da pilha e passa para element. A função retorna verdadeiro se foi possível remover o elemento no topo (i.e. a pilha não estava vazia), ou falso caso não foi possível.
+* clear(): limpa a pilha, removendo todos os elementos, deixando apenas o nó de header.
+* getSize(): retorna o tamanho atual da pilha.
+* peek(): retorna um ponteiro apontando para o nó no topo da pilha.
+
+Com esse tipo básico, derivam-se as funções especifícas, responsáveis pelas pilhas do Freecell.
 
 ### Pilha Inteligente
-Essa implementação herda do tipo abstrato pilha definido anteriormente. Sua função é garantir métodos mais complexos para as pilhas do jogo. Tem-se portanto, que os atributos da pilha também serão herdados, e além deles, existem os seguintes:
-- coord: posição dessa pilha na janela criada.
-- backTexture: textura da base dessa pilha.
-- stateHover: define se o mouse se encontra sobre essa pilha.
+Essa implementação herda do tipo abstrato pilha definido anteriormente. Sua função é garantir métodos mais complexos para as pilhas do jogo. Tem-se portanto, que os atributos da pilha também serão herdados, e mais alguns são implementados.
+
+Dentre os atributos e métodos novos, o mais importante é o método canPush(carta1, carta2), que checa se é possível inserir a carta no topo da pilha. Nesse caso, a classe pilha inteligente não tem uma implementação específica de canPush(), já que o mesmo terá comportamentos diferentes entre as pilhas intermediárias, finais e auxiliares.
+
+## Autores
+* Alisson Nunes - [GitHub](https://github.com/Alynva)
+* Gabriel Alves - [GitHub](https://github.com/CptSpookz)
+* Matheus Bortoleto - [GitHub](https://github.com/explodingnuggets)
+* Rafael Sales - [GitHub](https://github.com/rsaless)
+
+## Créditos
+* Alisson Nunes - Interface e parte gráfica.
+* Gabriel Alves - Implementação da estrutura dos dados.
+* Matheus Bortoleto - Interface e parte gráfica.
+* Rafael Sales - Documentação e música.
+
+## Licença
+O código a seguir foi criado para propósitos educacionais e seu reuso é aberto a qualquer um que o queira utilizar, com permissões de cópia, criação, distribuição e remoção de partes ou totalidade dele, desde que se deem os devidos créditos aos autores.
