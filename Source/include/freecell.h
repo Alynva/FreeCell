@@ -116,7 +116,7 @@ void FreeCell::menu() {
 	this->song = Mix_LoadMUS("../musics/Stylo [8 Bit Cover Tribute to Gorillaz] - 8 Bit Universe.wav");
 	Mix_FadeInMusic(this->song, -1, 5000);
 	
-	this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("../textures/backgrounds/0.png"));
+	this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("../textures/backgrounds/4.png"));
 
 	Textura logo("../textures/logo/logo.png", this->gRenderer, this->window_size.x / 2 - 204, this->window_size.y / 4 - 79, 408, 158);
 	this->event.addLogo(&logo);
