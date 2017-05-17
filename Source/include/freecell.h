@@ -14,6 +14,8 @@
 #include "pilha_definitiva.h"
 #include "pilha_intermediaria.h"
 
+#include "../include/get_fill_size.hpp"
+
 bool moveCartasParaPilha(Baralho*, PilhaInteligente*, int);
 
 class FreeCell {
@@ -31,8 +33,6 @@ class FreeCell {
 	PilhaAuxiliar p_a[4];
 	PilhaDefinitiva p_d[4];
 	PilhaIntermediaria p_i[8];
-
-	PilhaInteligente p_r; // Pilha da chuva de cartas
 
 	public:
 		FreeCell();
@@ -182,10 +182,6 @@ void FreeCell::setupItens() {
 	this->p_m.setTexture(this->gRenderer);
 	this->event.addStack(&this->p_m);
 
-	// Inicializa a pilha de cuhva de cartas
-//	this->p_r.setTexture(this->gRenderer);
-//	this->p_r.setPosition({-50, -50});
-
 	// Inicializa e adiciona a pilha auxiliar ao EventManager
 	for (int i = 0; i < 4; i++) {
 		this->p_a[i].clear();
@@ -241,8 +237,6 @@ void FreeCell::update() {
 		this->p_m.organize();
 		this->p_m.render();
 	}
-	if (this->p_r.getSize())
-		this->p_r.render();
 
 	// Atualiza a tela
 	SDL_RenderPresent(this->gRenderer);
@@ -320,8 +314,6 @@ void FreeCell::cardRain() {
 				c.setPosition(pos);
 				c.render();
 				SDL_RenderPresent(this->gRenderer);
-//				p_r.push(c, ok);
-//				this->update();
 				SDL_Delay(30);
 
 				if (this->finish())
@@ -381,7 +373,6 @@ bool moveCartasParaPilha(Baralho* b, PilhaInteligente* p, int qnt) {
 		bool ok = false;
 		if (!b->getCard(c))
 			return false;
-//		SDL_Log("Carta %i%c movida", c.getValue(), c.getSuit());
 		p->push(c, ok);
 	}
 	p->organize();
