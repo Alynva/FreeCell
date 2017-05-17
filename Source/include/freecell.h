@@ -1,8 +1,10 @@
 #ifndef FREECELL
 #define FREECELL
 
-#define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 720
+//#define SCREEN_WIDTH 1280
+//#define SCREEN_HEIGHT 720
+#define SCREEN_WIDTH 900
+#define SCREEN_HEIGHT 600
 
 #include "SDL2/SDL_mixer.h"
 
@@ -70,7 +72,7 @@ FreeCell::~FreeCell() {
 
 bool FreeCell::init() {
 	// Cria a janela
-	this->gWindow = SDL_CreateWindow("FreeCell", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_RESIZABLE);
+	this->gWindow = SDL_CreateWindow("FreeCell", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_RESIZABLE);
 	if (this->gWindow == NULL) {
 		SDL_Log("Window could not be created. SDL Error: %s", SDL_GetError());
 		return false;
