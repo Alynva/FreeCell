@@ -19,6 +19,7 @@
 
 class EventManager {
 	SDL_Event handler;
+	bool* t_fullscreen;
 	bool* quit;
 	bool* play;
 	SDL_Point* window_size;
@@ -37,7 +38,7 @@ class EventManager {
 	Stack<Button*> buttons;
 
 	public:
-		EventManager(bool*, bool*, SDL_Point*);
+		EventManager(bool*, bool*, bool*, SDL_Point*);
 	
 		void update();
 		void mouseMove();
