@@ -113,7 +113,7 @@ bool FreeCell::init() {
 }
 
 void FreeCell::menu() {
-	this->song = Mix_LoadMUS("../musics/Stylo [8 Bit Cover Tribute to Gorillaz] - 8 Bit Universe.wav");
+	this->song = Mix_LoadMUS("../musics/mp3/Stylo.mp3");
 	Mix_FadeInMusic(this->song, -1, 5000);
 	
 	this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("../textures/backgrounds/4.png"));
@@ -165,7 +165,7 @@ void FreeCell::setupItens() {
 	this->quit = false;
 	
 	Mix_FadeOutMusic(400);
-	this->song = Mix_LoadMUS("../musics/Clint Eastwood [8 Bit Cover Tribute to Gorillaz] - 8 Bit Universe.wav");
+	this->song = Mix_LoadMUS("../musics/mp3/ClintEastwood.mp3");
 	Mix_FadeInMusic(this->song, -1, 2000);
 
 	// Inicializa o background
@@ -280,7 +280,7 @@ bool FreeCell::win() {
 
 void FreeCell::cardRain() {
 	Mix_FadeOutMusic(400);
-	this->song = Mix_LoadMUS("../musics/Feel Good Inc. [8 Bit Tribute to Gorillaz] - 8 Bit Universe.wav");
+	this->song = Mix_LoadMUS("../musics/mp3/FeelGoodInc.mp3");
 	Mix_FadeInMusic(this->song, -1, 2000);
 	
 	bool ok;
