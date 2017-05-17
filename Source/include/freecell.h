@@ -4,6 +4,8 @@
 #define SCREEN_WIDTH 1280
 #define SCREEN_HEIGHT 720
 
+#include "SDL2/SDL_mixer.h"
+
 #include "button.h"
 
 #include "baralho.h"
@@ -19,6 +21,7 @@ class FreeCell {
 	SDL_Renderer* gRenderer; // Renderizador principal
 	SDL_Point window_size; // Tamanho da janela
 	SDL_Texture* gBackground; // Plano de fundo
+	Mix_Music* song;
 	bool quit; // Responsavel pelo loop principal
 	bool play; // Responsï¿½vel por comeï¿½ar o jogo
 	EventManager event; // Eventos
@@ -53,6 +56,10 @@ FreeCell::~FreeCell() {
 	SDL_DestroyWindow(this->gWindow);
 	this->gRenderer = NULL;
 	this->gWindow = NULL;
+	
+	Mix_FreeMusic(this->song);
+	this->song = NULL;
+	Mix_Quit();	
 
 	// Sai dos subsistemas
 	IMG_Quit();
@@ -88,6 +95,17 @@ bool FreeCell::init() {
 				SDL_Log("SDL could not initialize image. SDL Error: %s", IMG_GetError());
 				return false;
 			}
+			
+			// Inicializa o áudio
+			Mix_AllocateChannels(16);
+			if(SDL_Init(SDL_INIT_AUDIO) == -1) {
+			    SDL_Log("SDL_Init: %s\n", SDL_GetError());
+			    return false;
+			}
+			if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) == -1) {
+			    SDL_Log("Mix_OpenAudio: %s\n", Mix_GetError());
+			    return false;
+			}
 
 			return true;
 		}
@@ -95,7 +113,9 @@ bool FreeCell::init() {
 }
 
 void FreeCell::menu() {
-	// Inicializa o background
+	this->song = Mix_LoadMUS("../musics/Stylo [8 Bit Cover Tribute to Gorillaz] - 8 Bit Universe.wav");
+	Mix_FadeInMusic(this->song, -1, 5000);
+	
 	this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("../textures/backgrounds/0.png"));
 
 	Textura logo("../textures/logo/logo.png", this->gRenderer, this->window_size.x / 2 - 204, this->window_size.y / 4 - 79, 408, 158);
@@ -143,6 +163,10 @@ void FreeCell::menu() {
 
 void FreeCell::setupItens() {
 	this->quit = false;
+	
+	Mix_FadeOutMusic(400);
+	this->song = Mix_LoadMUS("../musics/Clint Eastwood [8 Bit Cover Tribute to Gorillaz] - 8 Bit Universe.wav");
+	Mix_FadeInMusic(this->song, -1, 2000);
 
 	// Inicializa o background
 	this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("../textures/backgrounds/1.png"));
@@ -255,6 +279,10 @@ bool FreeCell::win() {
 }
 
 void FreeCell::cardRain() {
+	Mix_FadeOutMusic(400);
+	this->song = Mix_LoadMUS("../musics/Feel Good Inc. [8 Bit Tribute to Gorillaz] - 8 Bit Universe.wav");
+	Mix_FadeInMusic(this->song, -1, 2000);
+	
 	bool ok;
 	SDL_Point gravity = {0, 3};
 	for (int i = 0; i < 4; i++) {
@@ -308,6 +336,9 @@ void FreeCell::cardRain() {
 }
 
 void FreeCell::playAgain() {
+	Mix_Music* effect = Mix_LoadMUS("../musics/scratch.wav");
+	Mix_FadeInMusic(effect, 1, 1000);
+	
 	const SDL_MessageBoxButtonData buttons[] = {
         { SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT, 1, "Sair" },
         { SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT, 0, "Jogar novamente" },
