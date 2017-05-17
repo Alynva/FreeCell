@@ -118,9 +118,9 @@ bool FreeCell::init() {
 
 void FreeCell::toggleFullscreen() {
 	this->t_fullscreen = false;
-	if (SDL_GetWindowFlags(this->gWindow) != SDL_WINDOW_FULLSCREEN_DESKTOP)
-//		SDL_SetWindowFullscreen(this->gWindow, 0);
-//	else
+	if (SDL_GetWindowFlags(this->gWindow) & SDL_WINDOW_FULLSCREEN_DESKTOP)
+		SDL_SetWindowFullscreen(this->gWindow, 0);
+	else
 		SDL_SetWindowFullscreen(this->gWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
 }
 
