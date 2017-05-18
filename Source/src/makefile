@@ -19,6 +19,7 @@ CC_LINKERS = -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lSDL2main
 # Arquivo de saída
 ifeq ($(OS),Windows_NT)
 	OUT_FILE = ../bin/freecell.exe
+	CC_LINKERS += -L../lib
 else
 	OUT_FILE = ../bin/freecell.out
 endif
