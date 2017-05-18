@@ -4,7 +4,7 @@
 using namespace std;
 
 bool abc;
-EventManager::EventManager(bool* mQuit, bool* gPlay, SDL_Point* mWinSize):quit(mQuit), play(gPlay), window_size(mWinSize), mouse_pressed(false) {
+EventManager::EventManager(bool* tFullScreen, bool* mQuit, bool* gPlay, SDL_Point* mWinSize):t_fullscreen(tFullScreen), quit(mQuit), play(gPlay), window_size(mWinSize), mouse_pressed(false) {
 	this->logo = NULL;
 
 	this->stacks.clear();
@@ -33,6 +33,10 @@ void EventManager::update() {
 				break;
 			case SDL_MOUSEMOTION:
 				this->mouseMove();
+				break;
+			case SDL_KEYDOWN:
+				if (this->handler.key.keysym.scancode == SDL_SCANCODE_F11)
+					*this->t_fullscreen = true;
 				break;
 			case SDL_WINDOWEVENT:
 		        switch (this->handler.window.event) {

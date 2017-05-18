@@ -1,8 +1,10 @@
 #ifndef FREECELL
 #define FREECELL
 
-#define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 720
+//#define SCREEN_WIDTH 1280
+//#define SCREEN_HEIGHT 720
+#define SCREEN_WIDTH 900
+#define SCREEN_HEIGHT 600
 
 #include "SDL2/SDL_mixer.h"
 
@@ -23,6 +25,7 @@ class FreeCell {
 	SDL_Renderer* gRenderer; // Renderizador principal
 	SDL_Point window_size; // Tamanho da janela
 	SDL_Texture* gBackground; // Plano de fundo
+	bool t_fullscreen;
 	Mix_Music* song;
 	bool quit; // Responsavel pelo loop principal
 	bool play; // Respons�vel por come�ar o jogo
@@ -38,6 +41,7 @@ class FreeCell {
 		FreeCell();
 		~FreeCell();
 		bool init();
+		void toggleFullscreen();
 		void menu();
 		void setupItens();
 		void update();
@@ -48,7 +52,7 @@ class FreeCell {
 		void playAgain();
 };
 
-FreeCell::FreeCell():gWindow(NULL), gRenderer(NULL), quit(false), play(false), event(EventManager(&this->quit, &this->play, &this->window_size)) {}
+FreeCell::FreeCell():gWindow(NULL), gRenderer(NULL), t_fullscreen(false), quit(false), play(false), event(EventManager(&this->t_fullscreen, &this->quit, &this->play, &this->window_size)) {}
 
 FreeCell::~FreeCell() {
 	// Destroi a janela
@@ -68,7 +72,7 @@ FreeCell::~FreeCell() {
 
 bool FreeCell::init() {
 	// Cria a janela
-	this->gWindow = SDL_CreateWindow("FreeCell", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_RESIZABLE);
+	this->gWindow = SDL_CreateWindow("FreeCell", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_RESIZABLE);
 	if (this->gWindow == NULL) {
 		SDL_Log("Window could not be created. SDL Error: %s", SDL_GetError());
 		return false;
@@ -112,6 +116,14 @@ bool FreeCell::init() {
 	}
 }
 
+void FreeCell::toggleFullscreen() {
+	this->t_fullscreen = false;
+	if (SDL_GetWindowFlags(this->gWindow) & SDL_WINDOW_FULLSCREEN_DESKTOP)
+		SDL_SetWindowFullscreen(this->gWindow, 0);
+	else
+		SDL_SetWindowFullscreen(this->gWindow, SDL_WINDOW_FULLSCREEN_DESKTOP);
+}
+
 void FreeCell::menu() {
 	this->song = Mix_LoadMUS("../musics/mp3/Stylo.mp3");
 	Mix_FadeInMusic(this->song, -1, 5000);
@@ -139,6 +151,8 @@ void FreeCell::menu() {
 	while (!this->start() && !this->finish()) {
 		// Responsavel pelos eventos em espera
 		this->event.update();
+		if (this->t_fullscreen)
+			this->toggleFullscreen();
 
 		// Limpa a tela
 		SDL_RenderClear(this->gRenderer);
@@ -214,6 +228,9 @@ void FreeCell::setupItens() {
 void FreeCell::update() {
 	// Responsavel pelos eventos em espera
 	this->event.update();
+	
+	if (this->t_fullscreen)
+		this->toggleFullscreen();
 
 	// Limpa a tela
 	SDL_RenderClear(this->gRenderer);
@@ -285,6 +302,9 @@ void FreeCell::cardRain() {
 	SDL_Point gravity = {0, 3};
 	for (int i = 0; i < 4; i++) {
 		for (int j = this->p_d[i].getSize() - 1; j >= 0 ; j--) {
+			Carta c = this->p_d[i][j]->value;
+			c.render();
+			
 			SDL_Point pos = this->p_d[i][j]->value.getPosition();
 			SDL_Point vel = {0, 0};
 			SDL_Point acc = {0, 0};
@@ -301,7 +321,7 @@ void FreeCell::cardRain() {
 
 			acc.x += force.x; acc.y += force.y;
 			while (pos.x + 69 >= 0 && pos.x <= this->window_size.x) {
-				Carta c = this->p_d[i][j]->value;
+				
 
 				acc.x += gravity.x; acc.y += gravity.y;
 				if (pos.y + 100 >= this->window_size.y && vel.y > 0)
@@ -315,6 +335,9 @@ void FreeCell::cardRain() {
 					pos.y = this->window_size.y - 100;
 
 				this->event.update();
+				if (this->t_fullscreen)
+					this->toggleFullscreen();
+				
 				c.setPosition(pos);
 				c.render();
 				SDL_RenderPresent(this->gRenderer);
