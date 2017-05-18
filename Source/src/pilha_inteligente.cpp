@@ -4,8 +4,7 @@
 #define CARD_HEIGHT 156 // altura final do fundo da pilha
 
 bool cba;
-PilhaInteligente::PilhaInteligente() : Stack<Carta>() {
-	this->coord = {0, 0};
+PilhaInteligente::PilhaInteligente():coord({0, 0}) {
 	this->stateHover = false;
 }
 
