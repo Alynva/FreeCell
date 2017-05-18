@@ -302,6 +302,9 @@ void FreeCell::cardRain() {
 	SDL_Point gravity = {0, 3};
 	for (int i = 0; i < 4; i++) {
 		for (int j = this->p_d[i].getSize() - 1; j >= 0 ; j--) {
+			Carta c = this->p_d[i][j]->value;
+			c.render();
+			
 			SDL_Point pos = this->p_d[i][j]->value.getPosition();
 			SDL_Point vel = {0, 0};
 			SDL_Point acc = {0, 0};
@@ -318,7 +321,7 @@ void FreeCell::cardRain() {
 
 			acc.x += force.x; acc.y += force.y;
 			while (pos.x + 69 >= 0 && pos.x <= this->window_size.x) {
-				Carta c = this->p_d[i][j]->value;
+				
 
 				acc.x += gravity.x; acc.y += gravity.y;
 				if (pos.y + 100 >= this->window_size.y && vel.y > 0)
