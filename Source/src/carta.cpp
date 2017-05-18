@@ -13,7 +13,7 @@
 
 using namespace std;
 
-Carta::Carta():stateHover(false) {}
+Carta::Carta():value(1), stateHover(false) {}
 
 Carta::Carta(const Carta& copyVal):stateHover(false) {
 	this->value = copyVal.getValue();
