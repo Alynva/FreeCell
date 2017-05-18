@@ -25,9 +25,8 @@ SDL_Texture* Textura::loadTexture() {
 	return newTexture;
 }
 
-Textura::Textura(string path, SDL_Renderer* renderer, int x, int y, int w, int h) {
+Textura::Textura(string path, SDL_Renderer* renderer, int x, int y, int w, int h):pPath(path) {
 	this->pRenderer = renderer;
-	this->pPath = path;
 	this->pTexture = this->loadTexture();
 	this->recFormat.x = x;
 	this->recFormat.y = y;
