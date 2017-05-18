@@ -4,7 +4,7 @@
 using namespace std;
 
 bool abc;
-EventManager::EventManager(bool* tFullScreen, bool* mQuit, bool* gPlay, SDL_Point* mWinSize):t_fullscreen(tFullScreen), quit(mQuit), play(gPlay), window_size(mWinSize), mouse_pressed(false) {
+EventManager::EventManager(bool* tFullScreen, bool* mQuit, bool* gPlay, SDL_Point* mWinSize):t_fullscreen(tFullScreen), quit(mQuit), play(gPlay), window_size(mWinSize), mouse_pressed(false), mouse_pos({0, 0}) {
 	this->logo = NULL;
 
 	this->stacks.clear();
