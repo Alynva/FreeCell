@@ -60,10 +60,10 @@ FreeCell::~FreeCell() {
 	SDL_DestroyWindow(this->gWindow);
 	this->gRenderer = NULL;
 	this->gWindow = NULL;
-	
+
 	Mix_FreeMusic(this->song);
 	this->song = NULL;
-	Mix_Quit();	
+	Mix_Quit();
 
 	// Sai dos subsistemas
 	IMG_Quit();
@@ -99,8 +99,8 @@ bool FreeCell::init() {
 				SDL_Log("SDL could not initialize image. SDL Error: %s", IMG_GetError());
 				return false;
 			}
-			
-			// Inicializa o áudio
+
+			// Inicializa o ï¿½udio
 			Mix_AllocateChannels(16);
 			if(SDL_Init(SDL_INIT_AUDIO) == -1) {
 			    SDL_Log("SDL_Init: %s\n", SDL_GetError());
@@ -127,7 +127,7 @@ void FreeCell::toggleFullscreen() {
 void FreeCell::menu() {
 	this->song = Mix_LoadMUS("../musics/mp3/Stylo.mp3");
 	Mix_FadeInMusic(this->song, -1, 5000);
-	
+
 	this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("../textures/backgrounds/4.png"));
 
 	Textura logo("../textures/logo/logo.png", this->gRenderer, this->window_size.x / 2 - 204, this->window_size.y / 4 - 79, 408, 158);
@@ -144,8 +144,8 @@ void FreeCell::menu() {
 	Button quit("quit", this->gRenderer);
 	quit.setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 + 125});
 	this->event.addButton(&quit);
-	
-	int iw, ih; // Variáveis para calcular o tamanho e posição da imagem sem distorão
+
+	int iw, ih; // Variï¿½veis para calcular o tamanho e posiï¿½ï¿½o da imagem sem distorï¿½o
 	SDL_QueryTexture(this->gBackground, NULL, NULL, &iw, &ih); // Get the image size
 
 	while (!this->start() && !this->finish()) {
@@ -178,7 +178,7 @@ void FreeCell::menu() {
 
 void FreeCell::setupItens() {
 	this->quit = false;
-	
+
 	Mix_FadeOutMusic(400);
 	this->song = Mix_LoadMUS("../musics/mp3/ClintEastwood.mp3");
 	Mix_FadeInMusic(this->song, -1, 2000);
@@ -228,7 +228,7 @@ void FreeCell::setupItens() {
 void FreeCell::update() {
 	// Responsavel pelos eventos em espera
 	this->event.update();
-	
+
 	if (this->t_fullscreen)
 		this->toggleFullscreen();
 
@@ -236,7 +236,7 @@ void FreeCell::update() {
 	SDL_RenderClear(this->gRenderer);
 
 	// Renderiza o background
-	int iw, ih; // Variáveis para calcular o tamanho e posição da imagem sem distorão
+	int iw, ih; // Variï¿½veis para calcular o tamanho e posiï¿½ï¿½o da imagem sem distorï¿½o
 	SDL_QueryTexture(this->gBackground, NULL, NULL, &iw, &ih); // Get the image size
 	SDL_Rect backgroundQuad = getFillSize(iw, ih, this->window_size.x, this->window_size.y);
 	SDL_RenderCopy(this->gRenderer, this->gBackground, NULL, &backgroundQuad);
@@ -297,14 +297,13 @@ void FreeCell::cardRain() {
 	Mix_FadeOutMusic(400);
 	this->song = Mix_LoadMUS("../musics/mp3/FeelGoodInc.mp3");
 	Mix_FadeInMusic(this->song, -1, 2000);
-	
-	bool ok;
+
 	SDL_Point gravity = {0, 3};
 	for (int i = 0; i < 4; i++) {
 		for (int j = this->p_d[i].getSize() - 1; j >= 0 ; j--) {
 			Carta c = this->p_d[i][j]->value;
 			c.render();
-			
+
 			SDL_Point pos = this->p_d[i][j]->value.getPosition();
 			SDL_Point vel = {0, 0};
 			SDL_Point acc = {0, 0};
@@ -321,7 +320,7 @@ void FreeCell::cardRain() {
 
 			acc.x += force.x; acc.y += force.y;
 			while (pos.x + 69 >= 0 && pos.x <= this->window_size.x) {
-				
+
 
 				acc.x += gravity.x; acc.y += gravity.y;
 				if (pos.y + 100 >= this->window_size.y && vel.y > 0)
@@ -337,7 +336,7 @@ void FreeCell::cardRain() {
 				this->event.update();
 				if (this->t_fullscreen)
 					this->toggleFullscreen();
-				
+
 				c.setPosition(pos);
 				c.render();
 				SDL_RenderPresent(this->gRenderer);
@@ -357,7 +356,7 @@ void FreeCell::cardRain() {
 void FreeCell::playAgain() {
 	Mix_Music* effect = Mix_LoadMUS("../musics/scratch.wav");
 	Mix_FadeInMusic(effect, 1, 1000);
-	
+
 	const SDL_MessageBoxButtonData buttons[] = {
         { SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT, 1, "Sair" },
         { SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT, 0, "Jogar novamente" },
