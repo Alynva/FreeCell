@@ -332,6 +332,9 @@ void FreeCell::cardRain() {
 					pos.y = this->window_size.y - 100;
 
 				this->event.update();
+				if (this->t_fullscreen)
+					this->toggleFullscreen();
+				
 				c.setPosition(pos);
 				c.render();
 				SDL_RenderPresent(this->gRenderer);
