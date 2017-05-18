@@ -13,7 +13,7 @@ Estrutura de Dados do jogo:
 
 ## Instalação
 Os arquivos já compilados para Windows podem ser encontrados no seguinte link:
-* [Executável Windows](https://github.com/Alynva/FreeCell/releases/latest)
+* [Versão mais recente](https://github.com/Alynva/FreeCell/releases/latest)
 
 Para os demais sistemas operacionais, o código fonte pode ser facilmente compilado executando o comando make no diretório ./Source/src.
 
@@ -60,6 +60,7 @@ Dentre os atributos e métodos novos, o mais importante é o método canPush(car
 * Gabriel Alves - Implementação da estrutura dos dados.
 * Matheus Bortoleto - Interface e parte gráfica.
 * Rafael Sales - Documentação e música.
+* [Músicas Utilizadas](https://www.youtube.com/channel/UCn4HDI02U4f3VEsghRX7dRw)
 
 ## Licença
 O código a seguir foi criado para propósitos educacionais e seu reuso é aberto a qualquer um que o queira utilizar, com permissões de cópia, criação, distribuição e remoção de partes ou totalidade dele, desde que se deem os devidos créditos aos autores.
