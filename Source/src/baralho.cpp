@@ -2,7 +2,7 @@
 
 
 bool cab;
-Baralho::Baralho() {}
+Baralho::Baralho():gRenderer(nullptr) {}
 
 void Baralho::setTexture(SDL_Renderer* renderer) {
 	this->deck.setTexture(renderer);
