@@ -23,16 +23,18 @@ void EventManager::update() {
 			case SDL_QUIT:
 				*this->quit = true;
 				break;
-			case SDL_MOUSEBUTTONDOWN:
-				if (handler.button.button == SDL_BUTTON_LEFT)
-					this->mouseLeftDown();
-				break;
-			case SDL_MOUSEBUTTONUP:
-				if (handler.button.button == SDL_BUTTON_LEFT)
-					this->mouseLeftUp();
-				break;
 			case SDL_MOUSEMOTION:
 				this->mouseMove();
+				break;
+			case SDL_MOUSEBUTTONDOWN:
+//				if (this->handler.button.button == SDL_BUTTON_LEFT)
+//					this->mouseLeftDown();
+				break;
+			case SDL_MOUSEBUTTONUP:
+//				if (this->handler.button.button == SDL_BUTTON_LEFT)
+//					this->mouseLeftUp();
+//				if (this->this->handler.button.clicks == 2)
+//					this->doubleClick();
 				break;
 			case SDL_KEYDOWN:
 				if (this->handler.key.keysym.scancode == SDL_SCANCODE_F11)
@@ -111,94 +113,94 @@ void EventManager::update() {
 }
 
 void EventManager::mouseMove() {
-	SDL_GetMouseState(&mouse_pos.x, &mouse_pos.y);
+//	SDL_GetMouseState(&mouse_pos.x, &mouse_pos.y);
 
-	if (this->stacks.getSize()) {
-		// Move a pilha que persegue o mouse
-		PilhaInteligente* mouse_stack = this->stacks.peek()->value;
-		mouse_stack->setPosition({mouse_pos.x + this->stack_offset.x, mouse_pos.y + this->stack_offset.y});
-
-		bool found = false;
-		bool can_join = false;
-		Node<Carta>* last_node_card;
-		this->stack_hovered = nullptr;
-		// Alynva: Implementa��o do [] continua n�o funcionando
-		Node<PilhaInteligente*>* node_stack = this->stacks.peek()->next;
-		for (int i = 1; i < this->stacks.getSize(); i++) { // Inicia em 1 pois o primeiro � a pilha que persegue o mouse
-			bool is_stack_hover = node_stack->value->isInside(mouse_pos);
-			if (is_stack_hover)
-				this->stack_hovered = node_stack->value;
-			node_stack->value->setStateHover(is_stack_hover);
-
-			if (node_stack->value->getSize()) {
-				Node<Carta>* node_card = node_stack->value->peek();
-				for (int j = 0; j < node_stack->value->getSize(); j++) {
-					if (node_card->value.isInside(mouse_pos)) {
-						if (!this->mouse_pressed || mouse_stack->getSize()) {
-							last_node_card = node_card;
-							found = true;
-						}
-					}
-					node_card->value.setStateHover(false);
-					node_card = node_card->next;
-				}
-			}
-			node_stack = node_stack->next;
-		}
-		if (this->stack_hovered) {
-			if (found && this->stack_hovered->canBeMoved(&last_node_card->value)) {
-				this->card_hovered = &last_node_card->value;
-	//			this->card_hovered->setStateHover(true);
-
-				bool is_after = false;
-				Node<Carta>* node_card = this->stack_hovered->peek();
-				for (int i = 0; i < this->stack_hovered->getSize(); i++) {
-					if (!is_after) {
-						if (&node_card->value == this->card_hovered) {
-							is_after = true;
-
-							if (!mouse_stack->getSize())
-								this->stack_offset = {node_card->value.getPosition().x - mouse_pos.x, node_card->value.getPosition().y - mouse_pos.y};
-							else {
-								can_join = this->stack_hovered->canPush(*this->card_hovered, mouse_stack->peek()->value);
-								this->stack_joining = can_join ? this->stack_hovered : nullptr;
-							}
-						}
-					}
-
-					if (is_after) {
-						if (!mouse_stack->getSize() || can_join) {
-							node_card->value.setStateHover(true);
-						}
-					}
-					node_card = node_card->next;
-				}
-			} else if (!this->stack_hovered->getSize() || (mouse_stack->getSize() && found && this->stack_hovered->canPush(last_node_card->value, mouse_stack->peek()->value))) {
-				this->card_hovered = &last_node_card->value;
-				this->stack_joining = this->stack_hovered;
-			} else {
-				this->card_hovered = nullptr;
-				this->stack_joining = nullptr;
-			}
-		} else {
-			this->card_hovered = nullptr;
-			this->stack_joining = nullptr;
-		}
-
-		if (mouse_stack->getSize()) {
-			Node<Carta>* node_card = mouse_stack->peek();
-			for (int j = 0; j < mouse_stack->getSize(); j++) {
-				node_card->value.setStateHover(can_join);
-				node_card = node_card->next;
-			}
-		}
-	}
+//	if (this->stacks.getSize()) {
+//		// Move a pilha que persegue o mouse
+//		PilhaInteligente* mouse_stack = *this->stacks.peek()->value;
+//		mouse_stack->setPosition({mouse_pos.x + this->stack_offset.x, mouse_pos.y + this->stack_offset.y});
+//
+//		bool found = false;
+//		bool can_join = false;
+//		Node<Carta>* last_node_card;
+//		this->stack_hovered = nullptr;
+//		// Alynva: Implementa��o do [] continua n�o funcionando
+//		Node<PilhaInteligente*>* node_stack = this->stacks.peek()->next;
+//		for (int i = 1; i < this->stacks.getSize(); i++) { // Inicia em 1 pois o primeiro � a pilha que persegue o mouse
+//			bool is_stack_hover = (*node_stack->value)->isInside(mouse_pos);
+//			if (is_stack_hover)
+//				this->stack_hovered = *node_stack->value;
+//			(*node_stack->value)->setStateHover(is_stack_hover);
+//
+//			if ((*node_stack->value)->getSize()) {
+//				Node<Carta>* node_card = (*node_stack->value)->peek();
+//				for (int j = 0; j < (*node_stack->value)->getSize(); j++) {
+//					if (node_card->value->isInside(mouse_pos)) {
+//						if (!this->mouse_pressed || mouse_stack->getSize()) {
+//							last_node_card = node_card;
+//							found = true;
+//						}
+//					}
+//					node_card->value->setStateHover(false);
+//					node_card = node_card->next;
+//				}
+//			}
+//			node_stack = node_stack->next;
+//		}
+//		if (this->stack_hovered) {
+//			if (found && this->stack_hovered->canBeMoved(last_node_card->value)) {
+//				this->card_hovered = last_node_card->value;
+//	//			this->card_hovered->setStateHover(true);
+//
+//				bool is_after = false;
+//				Node<Carta>* node_card = this->stack_hovered->peek();
+//				for (int i = 0; i < this->stack_hovered->getSize(); i++) {
+//					if (!is_after) {
+//						if (node_card->value == this->card_hovered) {
+//							is_after = true;
+//
+//							if (!mouse_stack->getSize())
+//								this->stack_offset = {node_card->value->getPosition().x - mouse_pos.x, node_card->value->getPosition().y - mouse_pos.y};
+//							else {
+//								can_join = this->stack_hovered->canPush(*this->card_hovered, *mouse_stack->peek()->value);
+//								this->stack_joining = can_join ? this->stack_hovered : nullptr;
+//							}
+//						}
+//					}
+//
+//					if (is_after) {
+//						if (!mouse_stack->getSize() || can_join) {
+//							node_card->value->setStateHover(true);
+//						}
+//					}
+//					node_card = node_card->next;
+//				}
+//			} else if (!this->stack_hovered->getSize() || (mouse_stack->getSize() && found && this->stack_hovered->canPush(*last_node_card->value, *mouse_stack->peek()->value))) {
+//				this->card_hovered = last_node_card->value;
+//				this->stack_joining = this->stack_hovered;
+//			} else {
+//				this->card_hovered = nullptr;
+//				this->stack_joining = nullptr;
+//			}
+//		} else {
+//			this->card_hovered = nullptr;
+//			this->stack_joining = nullptr;
+//		}
+//
+//		if (mouse_stack->getSize()) {
+//			Node<Carta>* node_card = mouse_stack->peek();
+//			for (int j = 0; j < mouse_stack->getSize(); j++) {
+//				node_card->value->setStateHover(can_join);
+//				node_card = node_card->next;
+//			}
+//		}
+//	}
 
 	if (this->buttons.getSize()) {
 		Node<Button*>* node_button = this->buttons.peek();
 		for (int i = 0; i < this->buttons.getSize(); i++) {
-			bool is_button_hover = node_button->value->isInside(mouse_pos);
-			node_button->value->setStateHover(is_button_hover);
+//			bool is_button_hover = (*node_button->value)->isInside(mouse_pos);
+//			(*node_button->value)->setStateHover(is_button_hover);
 
 			node_button = node_button->next;
 		}
@@ -209,12 +211,12 @@ void EventManager::mouseLeftDown() {
 	this->mouse_pressed = true;
 
 	if (this->stacks.getSize()) {
-		PilhaInteligente* mouse_stack = this->stacks.peek()->value;
+		PilhaInteligente* mouse_stack = *this->stacks.peek()->value;
 
 		if (this->stack_hovered && this->card_hovered) {
 			bool finded = false;
 			for (int i = 0; i < this->stack_hovered->getSize(); i++) {
-				if (&this->stack_hovered[0][i]->value == this->card_hovered) {
+				if (this->stack_hovered[0][i]->value == this->card_hovered) {
 					finded = true;
 					break;
 				}
@@ -222,17 +224,17 @@ void EventManager::mouseLeftDown() {
 
 			if (finded) {
 				PilhaInteligente stack_temp;
-				Carta card_temp;
+				Carta* card_temp;
 				bool is_after = false;
 
 				Node<Carta>* node_card = this->stack_hovered->peek();
 				for (int i = 0; i < this->stack_hovered->getSize(); !is_after ? i++ : i) { // Se encontrar, n�o incrementa o j pois ele ser� retirado da pilha, portanto o pr�ximo ser� o atual depois de ser retirado
-					if (is_after || &node_card->value == this->card_hovered) {
+					if (is_after || node_card->value == this->card_hovered) {
 						is_after = true;
 
 						this->stack_hovered->pop(card_temp);
 						this->previous_stack = this->stack_hovered;
-						card_temp.setStateHover(false);
+						card_temp->setStateHover(false);
 						stack_temp.push(card_temp, abc);
 					}
 					node_card = node_card->next;
@@ -248,7 +250,7 @@ void EventManager::mouseLeftDown() {
 	if (this->buttons.getSize()) {
 		Node<Button*>* node_button = this->buttons.peek();
 		for (int i = 0; i < this->buttons.getSize(); i++) {
-			node_button->value->setStateHold(node_button->value->getStateHover());
+			(*node_button->value)->setStateHold((*node_button->value)->getStateHover());
 
 			node_button = node_button->next;
 		}
@@ -259,10 +261,10 @@ void EventManager::mouseLeftUp() {
 	this->mouse_pressed = false;
 
 	if (this->stacks.getSize()) {
-		PilhaInteligente* mouse_stack = this->stacks.peek()->value;
+		PilhaInteligente* mouse_stack = *this->stacks.peek()->value;
 
 		PilhaInteligente stack_temp;
-		Carta card_temp;
+		Carta* card_temp;
 		while (!mouse_stack->isEmpty()) {
 			mouse_stack->pop(card_temp);
 			stack_temp.push(card_temp, abc);
@@ -270,7 +272,7 @@ void EventManager::mouseLeftUp() {
 		while (!stack_temp.isEmpty()) {
 			abc = false;
 			stack_temp.pop(card_temp);
-			card_temp.setStateHover(false);
+			card_temp->setStateHover(false);
 			if (this->stack_joining)
 				this->stack_joining->pushChild(card_temp, abc);
 
@@ -283,8 +285,8 @@ void EventManager::mouseLeftUp() {
 	if (this->buttons.getSize()) {
 		Node<Button*>* node_button = this->buttons.peek();
 		for (int i = 0; i < this->buttons.getSize(); i++) {
-			if (node_button->value->getStateHover()) {
-				string type = node_button->value->getType();
+			if ((*node_button->value)->getStateHover()) {
+				string type = (*node_button->value)->getType();
 				if (type == "play")
 					*this->play = true;
 				else if (type == "project"){
@@ -294,9 +296,37 @@ void EventManager::mouseLeftUp() {
 				else if (type == "quit")
 					*this->quit = true;
 			}
-			node_button->value->setStateHold(false);
+			(*node_button->value)->setStateHold(false);
 
 			node_button = node_button->next;
+		}
+	}
+}
+
+void EventManager::doubleClick() {
+	if (this->stacks.getSize()) {
+		if (this->stack_hovered && this->card_hovered) {
+			bool is_first = false;
+			SDL_Log("Double click size: %i; card_hover: %i%c (%p); card_b: %i%c (%p)", this->stack_hovered->getSize(), this->card_hovered->getValue(), this->card_hovered->getSuit(), this->card_hovered, this->stack_hovered[0][this->stack_hovered->getSize() - 1]->value->getValue(), this->stack_hovered[0][this->stack_hovered->getSize() - 1]->value->getSuit(), &this->stack_hovered[0][this->stack_hovered->getSize() - 1]->value);
+			if (this->stack_hovered[0][this->stack_hovered->getSize() - 1]->value == this->card_hovered)
+				is_first = true;
+
+			if (is_first) {
+				bool can_move = false;
+
+				Node<PilhaInteligente*>* node_stack = this->stacks.peek()->next->next->next->next->next;
+				for (int i = 0; i < 4 && !can_move; i++) {
+					if ((*node_stack->value)->canBeMoved(this->card_hovered)) {
+						can_move = true;
+						
+						bool ok;
+						Carta* card_temp;
+						this->stack_hovered->pop(card_temp);
+						(*node_stack->value)->push(card_temp, ok);
+					}
+					node_stack = node_stack->next;
+				}
+			}
 		}
 	}
 }
@@ -309,14 +339,14 @@ void EventManager::clearLogo() {
 }
 
 void EventManager::addStack(PilhaInteligente * stack) {
-	this->stacks.push(stack, abc);
+	this->stacks.push(&stack, abc);
 }
 void EventManager::clearStacks() {
 	this->stacks.clear();
 }
 
-void EventManager::addButton(Button * button) {
-	this->buttons.push(button, abc);
+void EventManager::addButton(Button* button) {
+	this->buttons.push(&button, abc);
 }
 void EventManager::clearButtons() {
 	this->buttons.clear();
@@ -333,11 +363,11 @@ void EventManager::windowResized(int w, int h) {
 		Node<PilhaInteligente*>* node_stack = this->stacks.peek()->next;
 		for (int i = 1; i < this->stacks.getSize(); i++) { // Inicia em 1 pois o primeiro � a pilha que persegue o mouse
 			if (i >= 1 && i <= 4)
-				node_stack->value->setPosition({w/2 - 385 + 90 * (i-1), 50});
+				(*node_stack->value)->setPosition({w/2 - 385 + 90 * (i-1), 50});
 			if (i >= 5 && i <= 8)
-				node_stack->value->setPosition({w/2 + 45 + 90 * (i-5), 50});
+				(*node_stack->value)->setPosition({w/2 + 45 + 90 * (i-5), 50});
 			if (i >= 9 && i <= 16)
-				node_stack->value->setPosition({w/2 - 385 + 100 * (i-9), 200});
+				(*node_stack->value)->setPosition({w/2 - 385 + 100 * (i-9), 200});
 			node_stack = node_stack->next;
 		}
 	}
@@ -345,13 +375,13 @@ void EventManager::windowResized(int w, int h) {
 	if (this->buttons.getSize()) {
 		Node<Button*>* node_button = this->buttons.peek();
 		for (int i = 0; i < this->buttons.getSize(); i++) {
-			string type = node_button->value->getType();
+			string type = (*node_button->value)->getType();
 			if (type == "play")
-				node_button->value->setPosition({this->window_size->x / 2 - 125, this->window_size->y / 2 - 25});
+				(*node_button->value)->setPosition({this->window_size->x / 2 - 125, this->window_size->y / 2 - 25});
 			else if (type == "project")
-				node_button->value->setPosition({this->window_size->x / 2 - 125, this->window_size->y / 2 + 50});
+				(*node_button->value)->setPosition({this->window_size->x / 2 - 125, this->window_size->y / 2 + 50});
 			else if (type == "quit")
-				node_button->value->setPosition({this->window_size->x / 2 - 125, this->window_size->y / 2 + 125});
+				(*node_button->value)->setPosition({this->window_size->x / 2 - 125, this->window_size->y / 2 + 125});
 
 			node_button = node_button->next;
 		}

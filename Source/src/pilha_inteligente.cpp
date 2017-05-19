@@ -40,7 +40,7 @@ void PilhaInteligente::render() {
 	this->backTexture.render();
 
 	for (int i = 0; i < this->getSize(); i++) {
-		this[0][i]->value.render();
+		this[0][i]->value->render();
 	}
 }
 
@@ -55,7 +55,7 @@ void PilhaInteligente::organize() {
 	else
 		offset_height = 15;
 	for (int i = 0; i < this->getSize(); i++) {
-		this[0][i]->value.setPosition({this->coord.x, this->coord.y + y});
+		this[0][i]->value->setPosition({this->coord.x, this->coord.y + y});
 		y += offset_height;
 	}
 }
@@ -76,7 +76,7 @@ bool PilhaInteligente::isInside(SDL_Point point) {
 
 	// Alynva: N�O FUNCIONOU ISSO
 	for (int i = 0; i < this->getSize(); i++) {
-		inside = inside || this[0][i]->value.isInside(point);
+		inside = inside || this[0][i]->value->isInside(point);
 	}
 
 	return inside;

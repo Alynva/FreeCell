@@ -70,13 +70,15 @@ inline SDL_Point Button::getPosition() const {
 }
 
 inline bool Button::isInside(SDL_Point point) const {
-	SDL_Point size = this->tex_normal.getSize();
-	SDL_Point position = this->tex_normal.getPosition();
+//	SDL_Point size = this->tex_normal.getSize();
+//	SDL_Point position = this->tex_normal.getPosition();
+//
+//	bool inside = 	((point.x > position.x && point.x < position.x + size.x) &&
+//					 (point.y > position.y && point.y < position.y + size.y));
+//
+//	return inside;
 
-	bool inside = 	((point.x > position.x && point.x < position.x + size.x) &&
-					 (point.y > position.y && point.y < position.y + size.y));
-
-	return inside;
+return true;
 }
 
 inline void Button::setStateHover(bool state) {

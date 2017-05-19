@@ -6,12 +6,12 @@
 class PilhaAuxiliar : public PilhaInteligente {
 	public:
 		PilhaAuxiliar() {};
-		virtual void pushChild(const Carta, bool&);
+		virtual void pushChild(Carta*, bool&);
 		virtual bool canBeMoved(Carta *) const;
 		virtual bool canPush(Carta, Carta) const;
 };
 
-void PilhaAuxiliar::pushChild(const Carta pushValue, bool& check) {
+void PilhaAuxiliar::pushChild(Carta* pushValue, bool& check) {
 	if (this->isEmpty()) {
 		Node<Carta>* aux = new(Node<Carta>);
 		aux->value = pushValue;

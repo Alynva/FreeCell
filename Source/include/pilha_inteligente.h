@@ -17,7 +17,7 @@ class PilhaInteligente : public Stack<Carta> {
 
 	public:
 		PilhaInteligente();
-		virtual void pushChild(Carta c, bool& check) {
+		virtual void pushChild(Carta* c, bool& check) {
 			this->push(c, check);
 			SDL_Log("Tentativa de pushChild em PilhaInteligente; R: %c", check ? 's' : 'n');
 		};

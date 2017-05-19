@@ -12,7 +12,7 @@ void Baralho::setTexture(SDL_Renderer* renderer) {
 void Baralho::generate() {
 	this->deck.clear();
 	for (int i = 1; i <= MAX_CARD; i++) {
-		this->deck.push(Carta(i, this->gRenderer), cab);
+		this->deck.push(new Carta(i, this->gRenderer), cab);
 	}
 }
 
@@ -33,7 +33,7 @@ void Baralho::randomize() {
 	}
 }
 
-bool Baralho::getCard(Carta& card) {
+bool Baralho::getCard(Carta* card) {
 	if (this->deck.pop(card))
 		return true;
 	return false;

@@ -10,7 +10,7 @@ using namespace std;
 template<class T>
 class Node {
 	public:
-		T value;
+		T* value;
 		Node* next;
 		Node* previous;
 		Node():next(this), previous(this) {};
@@ -28,15 +28,15 @@ class Stack {
 		~Stack() { this->clear(); };
 		bool isEmpty() const { return !size; };
 
-		void push(const T, bool&);
-		bool pop(T&);
+		void push(T*, bool&);
+		bool pop(T*);
 		void clear();
 		int getSize() const;
 		Node<T>* peek() const;
 };
 
 template<class T>
-inline void Stack<T>::push(const T element, bool& check){
+inline void Stack<T>::push(T* element, bool& check){
 	Node<T> *aux = new Node<T>;
 	aux->value = element;
 	aux->next = &header;
@@ -49,7 +49,7 @@ inline void Stack<T>::push(const T element, bool& check){
 }
 
 template<class T>
-inline bool Stack<T>::pop(T& element) {
+inline bool Stack<T>::pop(T* element) {
 	if (!this->isEmpty()){
 		element = header.previous->value;
 		Node<T> *aux = header.previous;
@@ -65,7 +65,7 @@ inline bool Stack<T>::pop(T& element) {
 template<class T>
 inline void Stack<T>::clear() {
 	while (!isEmpty()) {
-		T a;
+		T* a;
 		this->pop(a);
 	}
 }

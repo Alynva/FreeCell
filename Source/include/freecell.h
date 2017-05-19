@@ -130,22 +130,22 @@ void FreeCell::menu() {
 
 	this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("../textures/backgrounds/4.png"));
 
-	Textura logo("../textures/logo/logo.png", this->gRenderer, this->window_size.x / 2 - 204, this->window_size.y / 4 - 79, 408, 158);
-	this->event.addLogo(&logo);
+	Textura* logo = new Textura("../textures/logo/logo.png", this->gRenderer, this->window_size.x / 2 - 204, this->window_size.y / 4 - 79, 408, 158);
+	this->event.addLogo(logo);
 
-	Button play("play", this->gRenderer);
-	play.setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 - 25});
-	this->event.addButton(&play);
+	Button* play = new Button("play", this->gRenderer);
+	play->setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 - 25});
+	this->event.addButton(play);
 
-	Button project("project", this->gRenderer);
-	project.setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 + 50});
-	this->event.addButton(&project);
+	Button* project = new Button("project", this->gRenderer);
+	project->setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 + 50});
+	this->event.addButton(project);
 
-	Button quit("quit", this->gRenderer);
-	quit.setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 + 125});
-	this->event.addButton(&quit);
+	Button* quit = new Button("quit", this->gRenderer);
+	quit->setPosition({this->window_size.x / 2 - 125, this->window_size.y / 2 + 125});
+	this->event.addButton(quit);
 
-	int iw, ih; // Vari�veis para calcular o tamanho e posi��o da imagem sem distor�o
+	int iw, ih; // Variaveis para calcular o tamanho e posicao da imagem sem distorcao
 	SDL_QueryTexture(this->gBackground, NULL, NULL, &iw, &ih); // Get the image size
 
 	while (!this->start() && !this->finish()) {
@@ -162,11 +162,11 @@ void FreeCell::menu() {
 		SDL_RenderCopy(this->gRenderer, this->gBackground, NULL, &backgroundQuad);
 //		SDL_RenderCopy(this->gRenderer, this->gBackground, NULL, NULL);
 
-		logo.render();
+		logo->render();
 
-		play.render();
-		project.render();
-		quit.render();
+		play->render();
+		project->render();
+		quit->render();
 
 		// Atualiza a tela
 		SDL_RenderPresent(this->gRenderer);
@@ -301,10 +301,10 @@ void FreeCell::cardRain() {
 	SDL_Point gravity = {0, 3};
 	for (int i = 0; i < 4; i++) {
 		for (int j = this->p_d[i].getSize() - 1; j >= 0 ; j--) {
-			Carta c = this->p_d[i][j]->value;
-			c.render();
+			Carta* c = this->p_d[i][j]->value;
+			c->render();
 
-			SDL_Point pos = this->p_d[i][j]->value.getPosition();
+			SDL_Point pos = this->p_d[i][j]->value->getPosition();
 			SDL_Point vel = {0, 0};
 			SDL_Point acc = {0, 0};
 
@@ -337,8 +337,8 @@ void FreeCell::cardRain() {
 				if (this->t_fullscreen)
 					this->toggleFullscreen();
 
-				c.setPosition(pos);
-				c.render();
+				c->setPosition(pos);
+				c->render();
 				SDL_RenderPresent(this->gRenderer);
 				SDL_Delay(30);
 
@@ -394,7 +394,7 @@ void FreeCell::playAgain() {
 }
 
 bool moveCartasParaPilha(Baralho* b, PilhaInteligente* p, int qnt) {
-	Carta c;
+	Carta* c;
 	for (int i = 0; i < qnt; i++) {
 		bool ok = false;
 		if (!b->getCard(c))

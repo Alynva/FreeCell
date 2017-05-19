@@ -9,15 +9,15 @@
 class PilhaDefinitiva : public PilhaInteligente {
 	public:
 		PilhaDefinitiva() {};
-		virtual void pushChild(const Carta, bool&);
+		virtual void pushChild(Carta*, bool&);
 		bool setTexture(SDL_Renderer*);
 		void organize();
 		virtual bool canBeMoved(Carta *) const;
 		virtual bool canPush(Carta, Carta) const;
 };
 
-void PilhaDefinitiva::pushChild(const Carta pushValue, bool& check) {
-	if (this->isEmpty() && pushValue.getValue() == 1) {
+void PilhaDefinitiva::pushChild(Carta* pushValue, bool& check) {
+	if (this->isEmpty() && pushValue->getValue() == 1) {
 		Node<Carta>* aux = new(Node<Carta>);
 		aux->value = pushValue;
 		aux->next = &header;
@@ -26,7 +26,7 @@ void PilhaDefinitiva::pushChild(const Carta pushValue, bool& check) {
 		header.previous = aux;
 		this->size++;
 		check = true;
-	} else if (pushValue.getValue() == this->peek()->previous->previous->value.getValue() + 1 && pushValue.getSuit() == this->peek()->previous->previous->value.getSuit()) {
+	} else if (pushValue->getValue() == this->peek()->previous->previous->value->getValue() + 1 && pushValue->getSuit() == this->peek()->previous->previous->value->getSuit()) {
 		Node<Carta>* aux = new(Node<Carta>);
 		aux->value = pushValue;
 		aux->next = &header;
@@ -34,7 +34,7 @@ void PilhaDefinitiva::pushChild(const Carta pushValue, bool& check) {
 		header.previous->next = aux;
 		header.previous = aux;
 		this->size++;
-		this->peek()->next->value.setPosition(this->getCoord());
+		this->peek()->next->value->setPosition(this->getCoord());
 		check = true;
 	} else
 		check = false;
@@ -52,7 +52,7 @@ bool PilhaDefinitiva::setTexture(SDL_Renderer* renderer) {
 
 void PilhaDefinitiva::organize() {
 	for (int i = 0; i < this->getSize(); i++) {
-		this[0][i]->value.setPosition(this->coord);
+		this[0][i]->value->setPosition(this->coord);
 	}
 }
 

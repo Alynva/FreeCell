@@ -31,7 +31,7 @@ class Baralho {
 		void generate();
 		void randomize();
 	
-		bool getCard(Carta&);
+		bool getCard(Carta*);
 };
 
 #endif
