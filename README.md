@@ -1,9 +1,7 @@
 [![GitHub contributors](https://img.shields.io/github/contributors/Alynva/FreeCell.svg)](https://github.com/Alynva/FreeCell/graphs/contributors) [![GitHub tag](https://img.shields.io/github/tag/Alynva/FreeCell.svg)](https://github.com/Alynva/FreeCell/tags) [![Codacy grade](https://img.shields.io/codacy/grade/ad0f531c54c748269e35392ea2f79756.svg)](https://www.codacy.com/app/Alynva/FreeCell?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Alynva/FreeCell&amp;utm_campaign=Badge_Grade) [![Github Downloads All Releases](https://img.shields.io/github/downloads/Alynva/FreeCell/total.svg)](https://github.com/Alynva/FreeCell/releases/latest)
 
 # FreeCell
-
 ## Repositório do Projeto 1 da disciplina Estrutura de Dados
-
 O objetivo deste projeto é demonstrar a aplicação do primeiro tópico de Estruturas de Dados, Pilha. Para tal usaremos como modelo o jogo de cartas individual Freecell, cuja estrutura é composta de 8 pilhas intermediárias de cartas que estão inicialmente desordenadas e 4 pilhas finais, inicialmente vazias, que deverão ser compostas por cartas de um único naipe para acabar o jogo.
 
 Estrutura de Dados do jogo:
@@ -12,14 +10,11 @@ Estrutura de Dados do jogo:
 - 4 Pilhas finais, usadas para ordenar as cartas dos 4 naipes e terminar o jogo. Essas pilhas ao contrário das intermediárias são ordenadas em forma crescente, começando no Ás e terminando no Rei, inicialmente vazias. Sua regra é que todas podem ser inicialmente usadas por qualquer naipe, mas após receberem a primeira carta, só poderão receber cartas do naipe da mesma. Só utilizarão Push(), visto que é o destino final das cartas do baralho.
 
 ## Instalação
-Os arquivos já compilados para Windows podem ser encontrados no seguinte link:
-* [Versão mais recente](https://github.com/Alynva/FreeCell/releases/latest)
-
-Para os demais sistemas operacionais, o código fonte pode ser facilmente compilado executando o comando make no diretório ./Source/src.
+Os arquivos já compilados para Windows e Linux podem ser encontrados [neste link](https://github.com/Alynva/FreeCell/releases/latest). Para os demais sistemas operacionais, o código fonte pode ser facilmente compilado executando o comando make no diretório ./Source/src.
 
 ## Descrição da Implementação
-
 A arquitetura do projeto foi definida da seguinte maneira:
+
 ![Arquitetura](https://dl.dropboxusercontent.com/sh/t21x4vitadfju4f/AAA2lfdd8XpLXPE-4lbL6pcja/Freecell/arquitetura.png?dl=0)
 
 ### Pilha
@@ -31,8 +26,8 @@ Para a implementação do tipo abstrato de dados pilha, ficou decidido a utiliza
 
 Tem-se então, que cada elemento é armazenado em um nó com três atributos, sendo eles:
 * Value: armazena o elemento em si;
-* Dir: ponteiro que define o nó do pŕoximo elemento;
-* Esq: ponteiro que define o nó do elemento anterior;
+* Next: ponteiro que define o nó do pŕoximo elemento;
+* Previous: ponteiro que define o nó do elemento anterior;
 
 Essa pilha tem as funções mais básicas, para a utilização desse TAD temos as funções mais básicas, seguem elas:
 * isEmpty(): retorna um booleano, com valor verdadeiro se a pilha está vazia (isto é o atributo Dir do Header aponta para o Header), e valor falso se a pilha está cheia.
@@ -60,7 +55,7 @@ Dentre os atributos e métodos novos, o mais importante é o método canPush(car
 * Gabriel Alves - Implementação da estrutura dos dados.
 * Matheus Bortoleto - Interface e parte gráfica.
 * Rafael Sales - Documentação e música.
-* [Músicas Utilizadas](https://www.youtube.com/channel/UCn4HDI02U4f3VEsghRX7dRw)
+* [Músicas utilizadas](https://www.youtube.com/channel/UCn4HDI02U4f3VEsghRX7dRw)
 
 ## Licença
 O código a seguir foi criado para propósitos educacionais e seu reuso é aberto a qualquer um que o queira utilizar, com permissões de cópia, criação, distribuição e remoção de partes ou totalidade dele, desde que se deem os devidos créditos aos autores.
