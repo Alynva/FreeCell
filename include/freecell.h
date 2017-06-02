@@ -383,7 +383,7 @@ void FreeCell::playAgain() {
         message.c_str(), /* .message */
         SDL_arraysize(buttons), /* .numbuttons */
         buttons, /* .buttons */
-        &colorScheme /* .colorScheme */
+        NULL /* .colorScheme */
     };
     int buttonid = -1;
     if (SDL_ShowMessageBox(&messageboxdata, &buttonid) < 0) {
