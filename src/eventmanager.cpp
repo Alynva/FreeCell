@@ -25,11 +25,17 @@ void EventManager::update() {
 				break;
 			case SDL_MOUSEBUTTONDOWN:
 				if (handler.button.button == SDL_BUTTON_LEFT)
-					this->mouseLeftDown();
+					if (handler.button.clicks == 1)
+						this->mouseLeftDown();
 				break;
 			case SDL_MOUSEBUTTONUP:
-				if (handler.button.button == SDL_BUTTON_LEFT)
-					this->mouseLeftUp();
+				if (handler.button.button == SDL_BUTTON_LEFT) {
+					if (handler.button.clicks == 2) {
+						this->dClick(this->mouse_pos);
+					} else if (handler.button.clicks == 1) {
+						this->mouseLeftUp();
+					}
+				}
 				break;
 			case SDL_MOUSEMOTION:
 				this->mouseMove();
@@ -354,6 +360,43 @@ void EventManager::windowResized(int w, int h) {
 				node_button->value->setPosition({this->window_size->x / 2 - 125, this->window_size->y / 2 + 125});
 
 			node_button = node_button->next;
+		}
+	}
+}
+
+void EventManager::dClick(SDL_Point point) {
+	this->mouseLeftUp();
+	bool ok = false, stop = false;
+	if (this->stacks.getSize()) {
+		Node<PilhaInteligente*>* node_stack = this->stacks.peek()->next;
+		for (int i = 1; i < this->stacks.getSize(); i++) { // Inicia em 1 pois o primeiro � a pilha que persegue o mouse
+			if (i > 8) {
+				Carta the_card = node_stack->value->peek()->previous->previous->value;
+				
+				SDL_Log("\nbb %d%c", the_card.getValue(), the_card.getSuit());
+				if (the_card.isInside(point)) {
+					Carta card_temp;
+					node_stack->value->pop(card_temp);
+					SDL_Log("\naa %i%c", card_temp.getValue(), card_temp.getSuit());
+
+					Node<PilhaInteligente*>* temp_stack = this->stacks.peek();
+					for (int j = 1; j <= 8; j++) {
+						if (j > 4) {
+							temp_stack->value->pushChild(card_temp, ok);
+							SDL_Log("\n\n%c", ok ? 's' : 'n');
+							if (ok)
+								stop = true;
+						}
+						if (stop)
+							break;
+						if (i == 8)
+							node_stack->value->push(card_temp, ok);
+					}
+				}
+			}
+			if (stop)
+				break;
+			node_stack = node_stack->next;
 		}
 	}
 }

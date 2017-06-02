@@ -51,6 +51,7 @@ class EventManager {
 		void addButton(Button*);
 		void clearButtons();
 		void windowResized(int, int);
+		void dClick(SDL_Point = {-10, -10});
 };
 
 #endif
