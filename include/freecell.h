@@ -103,12 +103,12 @@ bool FreeCell::init() {
 			// Inicializa o �udio
 			Mix_AllocateChannels(16);
 			if(SDL_Init(SDL_INIT_AUDIO) == -1) {
-			    SDL_Log("SDL_Init: %s\n", SDL_GetError());
-			    return false;
+				SDL_Log("SDL_Init: %s\n", SDL_GetError());
+				return false;
 			}
 			if(Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 4096) == -1) {
-			    SDL_Log("Mix_OpenAudio: %s\n", Mix_GetError());
-			    return false;
+				SDL_Log("Mix_OpenAudio: %s\n", Mix_GetError());
+				return false;
 			}
 
 			return true;
@@ -358,37 +358,23 @@ void FreeCell::playAgain() {
 	Mix_FadeInMusic(effect, 1, 1000);
 
 	const SDL_MessageBoxButtonData buttons[] = {
-        { SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT, 1, "Sair" },
-        { SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT, 0, "Jogar novamente" },
-    };
-    const SDL_MessageBoxColorScheme colorScheme = {
-        { /* .colors (.r, .g, .b) */
-            /* [SDL_MESSAGEBOX_COLOR_BACKGROUND] */
-            { 255,   0,   0 },
-            /* [SDL_MESSAGEBOX_COLOR_TEXT] */
-            {   0, 255,   0 },
-            /* [SDL_MESSAGEBOX_COLOR_BUTTON_BORDER] */
-            { 255, 255,   0 },
-            /* [SDL_MESSAGEBOX_COLOR_BUTTON_BACKGROUND] */
-            {   0,   0, 255 },
-            /* [SDL_MESSAGEBOX_COLOR_BUTTON_SELECTED] */
-            { 255,   0, 255 }
-        }
-    };
-    string message = this->win() ? "Parabens, voce venceu!! Deseja jogar novamente?" : "Que pena que voce nao conseguiu. Deseja jogar novamente?";
-    const SDL_MessageBoxData messageboxdata = {
-        SDL_MESSAGEBOX_INFORMATION, /* .flags */
-        this->gWindow, /* .window */
-        "Acabou!", /* .title */
-        message.c_str(), /* .message */
-        SDL_arraysize(buttons), /* .numbuttons */
-        buttons, /* .buttons */
-        NULL /* .colorScheme */
-    };
-    int buttonid = -1;
-    if (SDL_ShowMessageBox(&messageboxdata, &buttonid) < 0) {
-        SDL_Log("Error displaying message box");
-    }
+		{ SDL_MESSAGEBOX_BUTTON_ESCAPEKEY_DEFAULT, 1, "Sair" },
+		{ SDL_MESSAGEBOX_BUTTON_RETURNKEY_DEFAULT, 0, "Jogar novamente" },
+	};
+	string message = this->win() ? "Parabens, voce venceu!! Deseja jogar novamente?" : "Que pena que voce nao conseguiu. Deseja jogar novamente?";
+	const SDL_MessageBoxData messageboxdata = {
+		SDL_MESSAGEBOX_INFORMATION, /* .flags */
+		this->gWindow, /* .window */
+		"Acabou!", /* .title */
+		message.c_str(), /* .message */
+		SDL_arraysize(buttons), /* .numbuttons */
+		buttons, /* .buttons */
+		NULL /* .colorScheme */
+	};
+	int buttonid = -1;
+	if (SDL_ShowMessageBox(&messageboxdata, &buttonid) < 0) {
+		SDL_Log("Error displaying message box");
+	}
 
 	if (buttonid == 0) this->quit = false;
 }
