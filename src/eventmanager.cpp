@@ -34,7 +34,7 @@ void EventManager::update() {
 			case SDL_MOUSEMOTION:
 				this->mouseMove();
 				break;
-			case SDL_KEYDOWN:
+			case SDL_KEYUP:
 				if (this->handler.key.keysym.scancode == SDL_SCANCODE_F11)
 					*this->t_fullscreen = true;
 				break;
@@ -274,7 +274,6 @@ void EventManager::mouseLeftUp() {
 			if (this->stack_joining)
 				this->stack_joining->pushChild(card_temp, abc);
 
-			SDL_Log("%s %s", abc ? "ok" : "!ok", this->stack_joining ? "target" : "!target");
 			if (!this->stack_joining || !abc)
 				this->previous_stack->push(card_temp, abc);
 		}

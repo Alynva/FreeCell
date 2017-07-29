@@ -1,4 +1,5 @@
-#include "../include/freecell.h"
+#include "../include/FreeCell.h"
+
 int main(int argv, char** args) {
 	
 	FreeCell freecell;
