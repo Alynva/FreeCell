@@ -12,6 +12,17 @@ Estrutura de Dados do jogo:
 ## Instalação
 Os arquivos já compilados para Windows e Linux podem ser encontrados [neste link](https://github.com/Alynva/FreeCell/releases/latest). Para os demais sistemas operacionais, o código fonte pode ser facilmente compilado executando o comando make no diretório ./Source/src.
 
+### Recompilação em Linux
+Para refazer a compilação em sistemas Unix, é necessário verificar se as bibliotecas `dev` do SDL2. Você pode verificar isso pelo comando:
+```
+dpkg-query -l "libsdl2*-dev"
+```
+Caso as bibliotecas `libsdl2-dev`, `libsdl2-image-dev`, `libsdl2-mixer-dev` e `libsdl2-ttf-dev` não estejam instalas, rode o seguinte comando:
+```
+sudo apt install libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev -y
+```
+Após a instalação, basta executar o comando `make` dentro da pasta `./src/` e o executável será gerado automaticamente na pasta `./bin/`. Para executá-lo rapidamente, execute _make run_ na pasta `./src/`
+
 ## Descrição da Implementação
 A arquitetura do projeto foi definida da seguinte maneira:
 
