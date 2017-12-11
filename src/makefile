@@ -11,7 +11,7 @@ OBJ_FILE = main.cpp
 AUX_FILES = textura.cpp carta.cpp baralho.cpp eventmanager.cpp pilha_inteligente.cpp
 
 # Flags do compilador
-CC_FLAGS = -g -Wall
+CC_FLAGS = -g -Wall -no-pie
 
 # Linkers do compilador
 CC_LINKERS = 
@@ -22,9 +22,9 @@ CC_LINKERS += -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lSDL2main
 
 # Arquivo de saída
 ifeq ($(OS),Windows_NT)
-	OUT_FILE = ../bin/freecell.exe
+	OUT_FILE = ../bin/Freecell.exe
 else
-	OUT_FILE = ../bin/freecell.out
+	OUT_FILE = ../bin/Freecell
 endif
 
 all:
