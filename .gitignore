@@ -24,6 +24,7 @@
 *.lib
 
 # Executables
+FreeCell
 *.exe
 *.out
 *.app
