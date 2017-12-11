@@ -12,7 +12,7 @@ class PilhaIntermediaria : public PilhaInteligente {
 };
 
 void PilhaIntermediaria::pushChild(const Carta pushValue, bool& check) {
-	SDL_Log("%i%c > %i%c", this->peek()->previous->previous->value.getValue(), this->peek()->previous->previous->value.getSuit(), pushValue.getValue(), pushValue.getSuit());
+	// SDL_Log("%i%c > %i%c", this->peek()->previous->previous->value.getValue(), this->peek()->previous->previous->value.getSuit(), pushValue.getValue(), pushValue.getSuit());
 	if (this->isEmpty()) {
 		Node<Carta>* aux = new(Node<Carta>);
 		aux->value = pushValue;
@@ -34,7 +34,7 @@ void PilhaIntermediaria::pushChild(const Carta pushValue, bool& check) {
 		check = true;
 	} else
 		check = false;
-	SDL_Log("Tentativa de pushChild em PilhaIntermediaria; R: %c", check ? 's' : 'n');
+	// SDL_Log("Tentativa de pushChild em PilhaIntermediaria; R: %c", check ? 's' : 'n');
 }
 
 bool PilhaIntermediaria::canBeMoved(Carta * c) const {

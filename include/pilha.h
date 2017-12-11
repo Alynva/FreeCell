@@ -45,7 +45,7 @@ inline void Stack<T>::push(const T element, bool& check){
 	header.previous = aux;
 	size++;
 	check = true;
-	SDL_Log("Tentativa de push em Stack; R: %c", check ? 's' : 'n');
+	// SDL_Log("Tentativa de push em Stack; R: %c", check ? 's' : 'n');
 }
 
 template<class T>
