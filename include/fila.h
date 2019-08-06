@@ -44,7 +44,7 @@ inline void Queue<T>::push(const T element, bool& check){
 	size++;
 	aux = NULL;
 	check = true;
-	SDL_Log("Tentativa de push em Queue; R: %c", check ? 's' : 'n');
+	// SDL_Log("Tentativa de push em Queue; R: %c", check ? 's' : 'n');
 }
 
 template<class T>

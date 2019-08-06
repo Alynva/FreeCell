@@ -116,6 +116,6 @@ bool PilhaInteligente::canBeMoved(Carta * c) const {
 }
 
 bool PilhaInteligente::canPush(Carta c1, Carta c2) const {
-	SDL_Log("Tentativa de canPush em PilhaInteligente; R: %c", true ? 's' : 'n');
+	// SDL_Log("Tentativa de canPush em PilhaInteligente; R: %c", true ? 's' : 'n');
 	return true;
 }

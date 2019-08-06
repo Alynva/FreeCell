@@ -222,7 +222,7 @@ void FreeCell::setupItens() {
 		this->event.addStack(&this->p_i[i]);
 	}
 
-	SDL_Log("\n\n\tInsercoes do setup finalizadas\n\n");
+	//SDL_Log("\n\n\tInsercoes do setup finalizadas\n\n");
 }
 
 void FreeCell::update() {
