@@ -125,12 +125,12 @@ void FreeCell::toggleFullscreen() {
 }
 
 void FreeCell::menu() {
-	this->song = Mix_LoadMUS("../musics/mp3/Stylo.mp3");
+	this->song = Mix_LoadMUS("musics/mp3/Stylo.mp3");
 	Mix_FadeInMusic(this->song, -1, 5000);
 
-	this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("../textures/backgrounds/4.png"));
+	this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("textures/backgrounds/4.png"));
 
-	Textura logo("../textures/logo/logo.png", this->gRenderer, this->window_size.x / 2 - 204, this->window_size.y / 4 - 79, 408, 158);
+	Textura logo("textures/logo/logo.png", this->gRenderer, this->window_size.x / 2 - 204, this->window_size.y / 4 - 79, 408, 158);
 	this->event.addLogo(&logo);
 
 	Button play("play", this->gRenderer);
@@ -180,11 +180,11 @@ void FreeCell::setupItens() {
 	this->quit = false;
 
 	Mix_FadeOutMusic(400);
-	this->song = Mix_LoadMUS("../musics/mp3/ClintEastwood.mp3");
+	this->song = Mix_LoadMUS("musics/mp3/ClintEastwood.mp3");
 	Mix_FadeInMusic(this->song, -1, 2000);
 
 	// Inicializa o background
-	this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("../textures/backgrounds/1.png"));
+	this->gBackground = SDL_CreateTextureFromSurface(this->gRenderer, IMG_Load("textures/backgrounds/1.png"));
 
 	// Inicializa o baralho
 	this->b.setTexture(this->gRenderer);;
@@ -222,7 +222,6 @@ void FreeCell::setupItens() {
 		this->event.addStack(&this->p_i[i]);
 	}
 
-	SDL_Log("\n\n\tInsercoes do setup finalizadas\n\n");
 }
 
 void FreeCell::update() {
@@ -295,7 +294,7 @@ bool FreeCell::win() {
 
 void FreeCell::cardRain() {
 	Mix_FadeOutMusic(400);
-	this->song = Mix_LoadMUS("../musics/mp3/FeelGoodInc.mp3");
+	this->song = Mix_LoadMUS("musics/mp3/FeelGoodInc.mp3");
 	Mix_FadeInMusic(this->song, -1, 2000);
 
 	SDL_Point gravity = {0, 3};
@@ -354,7 +353,7 @@ void FreeCell::cardRain() {
 }
 
 void FreeCell::playAgain() {
-	Mix_Music* effect = Mix_LoadMUS("../musics/scratch.wav");
+	Mix_Music* effect = Mix_LoadMUS("musics/scratch.wav");
 	Mix_FadeInMusic(effect, 1, 1000);
 
 	const SDL_MessageBoxButtonData buttons[] = {

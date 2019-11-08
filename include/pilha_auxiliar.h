@@ -24,7 +24,6 @@ void PilhaAuxiliar::pushChild(const Carta pushValue, bool& check) {
 		check = true;
 	} else
 		check = false;
-	SDL_Log("Tentativa de pushChild em PilhaAuxiliar; R: %c", check ? 's' : 'n');
 }
 
 bool PilhaAuxiliar::canBeMoved(Carta * c) const {

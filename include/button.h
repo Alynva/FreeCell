@@ -35,7 +35,7 @@ inline Button::Button(string type):type(type), state_hover(false), state_hold(fa
 
 inline Button::Button(string type, SDL_Renderer* renderer):type(type) {
 	string path_normal = "", path_hover = "", path_hold = "";
-	string dir = "../textures/buttons/";
+	string dir = "textures/buttons/";
 	
 	path_normal.append(dir); path_normal.append(this->type); path_normal.append("_normal.png");
 	path_hover.append(dir); path_hover.append(this->type); path_hover.append("_hover.png");

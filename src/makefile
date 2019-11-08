@@ -16,7 +16,7 @@ CC_FLAGS = -g -Wall
 # Linkers do compilador
 CC_LINKERS = 
 ifeq ($(OS),Windows_NT)
-	CC_LINKERS += -lmingw32 -L../bin -L../lib
+	CC_LINKERS += -mwindows -lmingw32 -L../bin -L../lib
 endif
 CC_LINKERS += -lSDL2 -lSDL2_image -lSDL2_mixer -lSDL2_ttf -lSDL2main
 

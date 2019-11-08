@@ -274,7 +274,6 @@ void EventManager::mouseLeftUp() {
 			if (this->stack_joining)
 				this->stack_joining->pushChild(card_temp, abc);
 
-			SDL_Log("%s %s", abc ? "ok" : "!ok", this->stack_joining ? "target" : "!target");
 			if (!this->stack_joining || !abc)
 				this->previous_stack->push(card_temp, abc);
 		}

@@ -19,7 +19,6 @@ class PilhaInteligente : public Stack<Carta> {
 		PilhaInteligente();
 		virtual void pushChild(Carta c, bool& check) {
 			this->push(c, check);
-			SDL_Log("Tentativa de pushChild em PilhaInteligente; R: %c", check ? 's' : 'n');
 		};
 		SDL_Point getCoord() const { return this->coord; };
 		bool setTexture(SDL_Renderer*);

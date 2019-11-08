@@ -38,11 +38,11 @@ void PilhaDefinitiva::pushChild(const Carta pushValue, bool& check) {
 		check = true;
 	} else
 		check = false;
-	SDL_Log("Tentativa de pushChild em PilhaDefinitiva; R: %c", check ? 's' : 'n');
+	
 }
 
 bool PilhaDefinitiva::setTexture(SDL_Renderer* renderer) {
-	this->backTexture = Textura("../textures/pilhaDefinitiva.png", renderer, this->coord.x, this->coord.y, 69, 100);
+	this->backTexture = Textura("textures/pilhaDefinitiva.png", renderer, this->coord.x, this->coord.y, 69, 100);
 	int w = CARD_WIDTH, h = CARD_HEIGHT;
 	if (!SDL_QueryTexture(this->backTexture.getTexture(), NULL, NULL, &w, &h)) {
 		return true;
@@ -61,7 +61,6 @@ bool PilhaDefinitiva::canBeMoved(Carta * c) const {
 }
 
 bool PilhaDefinitiva::canPush(Carta c1, Carta c2) const {
-	SDL_Log("Tentativa de canPush em PilhaDefinitiva; R: %c", (c1.getValue() + 1 == c2.getValue() && c1.getSuit() == c2.getSuit()) ? 's' : 'n');
 	return (c1.getValue() + 1 == c2.getValue() && c1.getSuit() == c2.getSuit());
 }
 

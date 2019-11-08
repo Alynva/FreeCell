@@ -25,7 +25,7 @@ Carta::Carta(const Carta& copyVal):stateHover(false) {
 
 Carta::Carta(int num, SDL_Renderer* renderer):stateHover(false) {
 	string pathCarta = "", pathBlur = "";
-	string dir = "../textures/";
+	string dir = "textures/";
 	string folder = "cards/v2/";
 	string file = "";
 

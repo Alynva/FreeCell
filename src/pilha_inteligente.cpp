@@ -9,7 +9,7 @@ PilhaInteligente::PilhaInteligente():coord({0, 0}) {
 }
 
 bool PilhaInteligente::setTexture(SDL_Renderer* renderer) {
-	this->backTexture = Textura("../textures/pilha.png", renderer, this->coord.x, this->coord.y, 69, 100);
+	this->backTexture = Textura("textures/pilha.png", renderer, this->coord.x, this->coord.y, 69, 100);
 	int w = CARD_WIDTH, h = CARD_HEIGHT;
 	if (!SDL_QueryTexture(this->backTexture.getTexture(), NULL, NULL, &w, &h)) {
 		return true;
