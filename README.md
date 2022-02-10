@@ -1,6 +1,13 @@
-[![GitHub contributors](https://img.shields.io/github/contributors/Alynva/FreeCell.svg)](https://github.com/Alynva/FreeCell/graphs/contributors) [![GitHub tag](https://img.shields.io/github/tag/Alynva/FreeCell.svg)](https://github.com/Alynva/FreeCell/tags) [![Codacy grade](https://img.shields.io/codacy/grade/ad0f531c54c748269e35392ea2f79756.svg)](https://www.codacy.com/app/Alynva/FreeCell?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Alynva/FreeCell&amp;utm_campaign=Badge_Grade) [![Github Downloads All Releases](https://img.shields.io/github/downloads/Alynva/FreeCell/total.svg)](https://github.com/Alynva/FreeCell/releases/latest)
+[![GitHub contributors](https://img.shields.io/github/contributors/Alynva/FreeCell.svg)](https://github.com/Alynva/FreeCell/graphs/contributors) [![GitHub tag](https://img.shields.io/github/tag/Alynva/FreeCell.svg)](https://github.com/Alynva/FreeCell/tags) [![Codacy grade](https://img.shields.io/codacy/grade/695b9ae7c19a49fe9d012e9d25403afa.svg)](https://www.codacy.com/gh/Alynva/FreeCell/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Alynva/FreeCell&amp;utm_campaign=Badge_Grade) [![Github Downloads All Releases](https://img.shields.io/github/downloads/Alynva/FreeCell/total.svg)](https://github.com/Alynva/FreeCell/releases/latest)
 
 # FreeCell
+
+<div align="center">
+
+![image](https://user-images.githubusercontent.com/12958674/153513128-22fea435-aa48-4978-a506-8af29081bd82.png)
+  
+</div>
+
 ## Repositório do Projeto 1 da disciplina Estrutura de Dados
 O objetivo deste projeto é demonstrar a aplicação do primeiro tópico de Estruturas de Dados, Pilha. Para tal usaremos como modelo o jogo de cartas individual Freecell, cuja estrutura é composta de 8 pilhas intermediárias de cartas que estão inicialmente desordenadas e 4 pilhas finais, inicialmente vazias, que deverão ser compostas por cartas de um único naipe para acabar o jogo.
 
